@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="{{ '/assets/css/homepage.css' | relative_url }}">
+
+<div class="home-page">
+  <section class="home-intro" aria-labelledby="home-title">
+    <p class="home-eyebrow">Research · Engineering · Markets</p>
+    <h1 id="home-title">Models are useful.<br>Decisions are the point.</h1>
+    <p class="home-lede">
+      I’m Josh, a quantitative researcher working across financial markets,
+      optimization, machine learning, and AI. This is where I share the systems
+      I build and the ideas behind them.
+    </p>
+    <div class="home-actions">
+      <a class="home-action home-action-primary" href="#featured-work">Explore selected work <span aria-hidden="true">↓</span></a>
+      <a class="home-action home-action-secondary" href="{{ '/about/' | relative_url }}">About me <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="home-work" id="featured-work" aria-labelledby="work-title">
+    <div class="home-section-heading">
+      <div>
+        <p class="home-eyebrow">Selected projects</p>
+        <h2 id="work-title">From research to working systems.</h2>
+      </div>
+      <a class="home-all-work" href="https://github.com/thatquantguy44?tab=repositories">All repositories <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="home-project-grid">
+      {% for project in site.data.featured_work %}
+        <article class="home-project">
+          <div class="home-project-topline">
+            <span class="home-project-index">0{{ forloop.index }}</span>
+            <span class="home-project-domain">{{ project.domain }}</span>
+          </div>
+          <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+          <p>{{ project.description }}</p>
+          <a class="home-project-link" href="{{ project.url }}">View project <span aria-hidden="true">↗</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% assign visible_posts = site.posts | where_exp: 'post', 'post.hidden != true' %}
+  {% if visible_posts.size > 0 %}
+    <section class="home-writing" id="writing" aria-labelledby="writing-title">
+      <div class="home-section-heading">
+        <div>
+          <p class="home-eyebrow">Notes &amp; research</p>
+          <h2 id="writing-title">Latest writing.</h2>
+        </div>
+        <a class="home-all-work" href="{{ '/archives/' | relative_url }}">Browse the archive <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="home-post-list">
+        {% for post in visible_posts limit: 3 %}
+          <article class="home-post">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+            <div>
+              <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+              {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+            </div>
+            <a class="home-post-arrow" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}"><span aria-hidden="true">↗</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</div>
