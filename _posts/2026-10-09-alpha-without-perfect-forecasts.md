@@ -9,6 +9,8 @@ tags:
   - frontier-markets
   - forecasting
   - portfolio-construction
+math: true
+mermaid: true
 ---
 Useful alpha research does not always require a precise forecast of each asset’s future return.
 
@@ -76,10 +78,10 @@ $$
 
 Where:
 
-- $i$ = asset, sector, country, or trade  
-- $s$ = scenario  
-- $p_s$ = probability of scenario $s$  
-- $R_{i,s}$ = return of investment $i$ under scenario $s$  
+- \$$ i $$ = asset, sector, country, or trade
+- \$$ s $$ = scenario
+- \$$ p_s $$ = probability of scenario \$$ s $$
+- \$$ R_{i,s} $$ = return of investment \$$ i $$ under scenario \$$ s $$
 
 Then make it more realistic:
 
@@ -94,10 +96,20 @@ $$
 
 Where:
 
-- $TC_i$ = transaction costs  
-- $HC_i$ = hedging costs  
-- $LC_i$ = liquidity or capacity cost  
-- $G_i$ = geopolitical or policy-risk penalty  
+- \$$ TC_i $$ = transaction costs
+- \$$ HC_i $$ = hedging costs
+- \$$ LC_i $$ = liquidity or capacity cost
+- \$$ G_i $$ = geopolitical or policy-risk penalty
+
+A useful research workflow is a sequence of decisions, not a single point forecast. This conceptual map shows the handoff from information to an implementable choice; it is not historical performance data.
+
+```mermaid
+flowchart LR
+  A["Market information"] --> B["Scenario-weighted outcomes"]
+  B --> C["Relative opportunity"]
+  C --> D["Adjust for FX, costs, liquidity, policy, and tail risk"]
+  D --> E["Rank, size, hedge, or pass"]
+```
 
 That last term is where a lot of real-world investing lives.
 
@@ -179,11 +191,11 @@ $$
 
 Where:
 
-- $RAR_i$ = risk-adjusted return score  
-- $E[R_{i,\text{net}}]$ = expected net return  
-- $\sigma_i$ = volatility  
-- $TailRisk_i$ = scenario downside  
-- $\lambda$ = penalty for tail risk  
+- \$$ RAR_i $$ = risk-adjusted return score
+- \$$ E[R_{i,\text{net}}] $$ = expected net return
+- \$$ \sigma_i $$ = volatility
+- \$$ TailRisk_i $$ = scenario downside
+- \$$ \lambda $$ = penalty for tail risk
 
 This is not perfect.
 
@@ -251,7 +263,7 @@ That is a weird asset.
 
 Useful, risky, deflationary, systemically embedded, and very annoying to model.
 
-Reuters recently reported that China posted a record trade surplus of nearly **$1.2 trillion in 2025**, while European policymakers have been pressuring China over its export surge and trade imbalance. Reuters also reported that some G20 trade ministers signed a U.S.-led statement criticizing structural excess factory capacity, while China rejected the overcapacity argument as protectionist framing. :chatgpt-content-reference{index="0"}
+Reuters recently reported that China posted a record trade surplus of nearly **$1.2 trillion in 2025**, while European policymakers have been pressuring China over its export surge and trade imbalance. Reuters also reported that some G20 trade ministers signed a U.S.-led statement criticizing structural excess factory capacity, while China rejected the overcapacity argument as protectionist framing.
 
 So the question is not simply:
 
@@ -263,22 +275,22 @@ The better question is:
 
 That can be modeled as an exposure:
 
-\[
+$$
 ChinaDeflationBeta_i =
 w_1 ChinaInputDependence_i
 + w_2 ChinaRevenueExposure_i
 - w_3 ChinaCompetitionExposure_i
 - w_4 TariffRisk_i
 - w_5 SupplyChainFragility_i
-\]
+$$
 
 Where:
 
-- \(ChinaInputDependence_i\) = benefit from cheap Chinese inputs  
-- \(ChinaRevenueExposure_i\) = exposure to Chinese end demand  
-- \(ChinaCompetitionExposure_i\) = margin pressure from Chinese competitors  
-- \(TariffRisk_i\) = risk of trade barriers or policy intervention  
-- \(SupplyChainFragility_i\) = risk from overdependence on China-linked production  
+- \$$ ChinaInputDependence_i $$ = benefit from cheap Chinese inputs
+- \$$ ChinaRevenueExposure_i $$ = exposure to Chinese end demand
+- \$$ ChinaCompetitionExposure_i $$ = margin pressure from Chinese competitors
+- \$$ TariffRisk_i $$ = risk of trade barriers or policy intervention
+- \$$ SupplyChainFragility_i $$ = risk from overdependence on China-linked production
 
 This makes the China question more useful.
 
@@ -298,11 +310,11 @@ If the world is hooked on cheap Chinese manufacturing, breaking that dependency 
 
 The result is a tradeoff:
 
-\[
+$$
 StrategicResilience \uparrow
 \quad \Rightarrow \quad
 CostEfficiency \downarrow
-\]
+$$
 
 At least in the short run.
 
@@ -358,7 +370,7 @@ $$
 
 Where:
 
-- $\theta$ = penalty per unit of policy risk  
+- \$$ \theta $$ = penalty per unit of policy risk
 
 Again, not perfect.
 
