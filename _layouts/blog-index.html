@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
+
+<div class="blog-index">
+  <header class="blog-index-header">
+    <p class="blog-index-eyebrow">Research notes / Articles</p>
+    <h1>{{ page.title }}</h1>
+    <p>Ideas and working notes on quantitative research, data, and building systems for better decisions.</p>
+    <div class="blog-subscribe">
+      <a class="blog-subscribe-link" href="{{ '/feed.xml' | relative_url }}">
+        <i class="fas fa-rss" aria-hidden="true"></i>
+        <span>Subscribe via RSS</span>
+      </a>
+      <span>Follow new articles in your RSS reader.</span>
+    </div>
+  </header>
+
+  {% assign visible_posts = site.posts | where_exp: 'post', 'post.hidden != true' %}
+  {% if visible_posts.size > 0 %}
+    <ol class="blog-entry-list">
+      {% for post in visible_posts %}
+        <li class="blog-entry">
+          <article>
+            <div class="blog-entry-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+              {% for category in post.categories %}
+                <span>{{ category | replace: '-', ' ' }}</span>
+              {% endfor %}
+            </div>
+            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 240 }}</p>
+            <a class="blog-entry-link" href="{{ post.url | relative_url }}">Read article <span aria-hidden="true">→</span></a>
+          </article>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="blog-empty">Articles will appear here as they are published.</p>
+  {% endif %}
+</div>
