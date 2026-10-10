@@ -73,33 +73,32 @@ That is underwriting.
 A cleaner way to think about China and Asia research is scenario-weighted expected return:
 
 $$
-E[R_i] = \sum_{s=1}^{S} p_s R_{i,s}
+\mathbb{E}[R_i] = \sum_{s=1}^{S} p_s R_{i,s}
 $$
 
 Where:
 
-- \$$ i $$ = asset, sector, country, or trade
-- \$$ s $$ = scenario
-- \$$ p_s $$ = probability of scenario \$$ s $$
-- \$$ R_{i,s} $$ = return of investment \$$ i $$ under scenario \$$ s $$
+- `i` = asset, sector, country, or trade
+- `s` = scenario
+- `p_s` = probability of scenario `s`
+- `R_{i,s}` = return of investment `i` under scenario `s`
 
 Then make it more realistic:
 
 $$
-E[R_{i,\text{net}}] =
-\sum_{s=1}^{S} p_s R_{i,s}
-- TC_i
-- HC_i
-- LC_i
-- G_i
+\begin{aligned}
+\mathbb{E}[R_i^{\mathrm{net}}] ={}& \sum_{s=1}^{S} p_s R_{i,s} \\
+&- C_i^{\mathrm{trade}} - C_i^{\mathrm{hedge}} \\
+&- C_i^{\mathrm{liquidity}} - C_i^{\mathrm{policy}}
+\end{aligned}
 $$
 
 Where:
 
-- \$$ TC_i $$ = transaction costs
-- \$$ HC_i $$ = hedging costs
-- \$$ LC_i $$ = liquidity or capacity cost
-- \$$ G_i $$ = geopolitical or policy-risk penalty
+- `C_i^{trade}` = transaction costs
+- `C_i^{hedge}` = hedging costs
+- `C_i^{liquidity}` = liquidity or capacity costs
+- `C_i^{policy}` = geopolitical or policy-risk penalty
 
 A useful research workflow is a sequence of decisions, not a single point forecast. This conceptual map shows the handoff from information to an implementable choice; it is not historical performance data.
 
@@ -123,30 +122,22 @@ A cheap asset can be mispriced.
 
 It can also be cheap because the market read the footnotes.
 
-For China-related assets, the question is not just:
-
-$$
-\text{Is it cheap?}
-$$
-
-The better question is:
-
-$$
-\text{Is it cheap after adjusting for policy risk, FX risk, liquidity risk, and tail risk?}
-$$
+For China-related assets, **Is it cheap?** is only the starting question. The better question is: **Is it cheap after adjusting for policy risk, FX risk, liquidity risk, and tail risk?**
 
 A simple scoring framework could look like:
 
 $$
-Score_i =
-z(Valuation_i)
-+ z(EarningsRevision_i)
-+ z(ROIC_i)
-+ z(Momentum_i)
-- z(Leverage_i)
-- z(FXVol_i)
-- z(PolicyRisk_i)
+\mathrm{Score}_i =
+\operatorname{zscore}(V_i)
++ \operatorname{zscore}(E_i)
++ \operatorname{zscore}(Q_i)
++ \operatorname{zscore}(M_i)
+- \operatorname{zscore}(L_i)
+- \operatorname{zscore}(F_i)
+- \operatorname{zscore}(P_i)
 $$
+
+Here, `V` is valuation, `E` earnings revisions, `Q` quality, `M` momentum, `L` leverage, `F` FX volatility, and `P` policy risk.
 
 This does not pretend to forecast the future precisely.
 
@@ -185,17 +176,17 @@ Not:
 A simple relative return framework:
 
 $$
-RAR_i =
-\frac{E[R_{i,\text{net}}]}{\sigma_i + \lambda \cdot TailRisk_i}
+\mathrm{RAR}_i =
+\frac{\mathbb{E}[R_i^{\mathrm{net}}]}{\sigma_i + \lambda T_i}
 $$
 
 Where:
 
-- \$$ RAR_i $$ = risk-adjusted return score
-- \$$ E[R_{i,\text{net}}] $$ = expected net return
-- \$$ \sigma_i $$ = volatility
-- \$$ TailRisk_i $$ = scenario downside
-- \$$ \lambda $$ = penalty for tail risk
+- `RAR_i` = risk-adjusted return score
+- `R_i^{net}` = net return
+- `sigma_i` = volatility
+- `T_i` = scenario downside
+- `lambda` = penalty for tail risk
 
 This is not perfect.
 
@@ -208,13 +199,13 @@ Asia investing also forces investors to respect FX.
 A local-market return and a U.S.-dollar return are not the same thing:
 
 $$
-1 + R_{USD} = (1 + R_{Local})(1 + R_{FX})
+1 + R_{\mathrm{USD}} = (1 + R_{\mathrm{Local}})(1 + R_{\mathrm{FX}})
 $$
 
 Approximation:
 
 $$
-R_{USD} \approx R_{Local} + R_{FX}
+R_{\mathrm{USD}} \approx R_{\mathrm{Local}} + R_{\mathrm{FX}}
 $$
 
 So if a Japan equity trade returns 10% locally but the yen weakens 8% against the dollar, the U.S.-dollar investor did not experience the same trade.
@@ -276,21 +267,19 @@ The better question is:
 That can be modeled as an exposure:
 
 $$
-ChinaDeflationBeta_i =
-w_1 ChinaInputDependence_i
-+ w_2 ChinaRevenueExposure_i
-- w_3 ChinaCompetitionExposure_i
-- w_4 TariffRisk_i
-- w_5 SupplyChainFragility_i
+\begin{aligned}
+D_i ={}& w_1 I_i + w_2 X_i \\
+  &- w_3 C_i - w_4 T_i - w_5 S_i
+\end{aligned}
 $$
 
 Where:
 
-- \$$ ChinaInputDependence_i $$ = benefit from cheap Chinese inputs
-- \$$ ChinaRevenueExposure_i $$ = exposure to Chinese end demand
-- \$$ ChinaCompetitionExposure_i $$ = margin pressure from Chinese competitors
-- \$$ TariffRisk_i $$ = risk of trade barriers or policy intervention
-- \$$ SupplyChainFragility_i $$ = risk from overdependence on China-linked production
+- `I_i` = benefit from cheap Chinese inputs
+- `X_i` = exposure to Chinese end demand
+- `C_i` = margin pressure from Chinese competitors
+- `T_i` = risk of trade barriers or policy intervention
+- `S_i` = fragility from China-linked supply-chain dependence
 
 This makes the China question more useful.
 
@@ -311,9 +300,9 @@ If the world is hooked on cheap Chinese manufacturing, breaking that dependency 
 The result is a tradeoff:
 
 $$
-StrategicResilience \uparrow
-\quad \Rightarrow \quad
-CostEfficiency \downarrow
+\mathrm{Resilience} \uparrow
+\qquad \Rightarrow \qquad
+\mathrm{CostEfficiency} \downarrow
 $$
 
 At least in the short run.
@@ -353,24 +342,27 @@ It should enter the underwriting.
 For example:
 
 $$
-PolicyRisk_i =
-w_1 ExportControl_i
-+ w_2 SanctionsExposure_i
-+ w_3 RegulatoryUncertainty_i
-+ w_4 CapitalControlRisk_i
-+ w_5 SupplyChainSensitivity_i
+\begin{aligned}
+P_i ={}& w_1 E_i + w_2 S_i + w_3 U_i \\
+  &+ w_4 C_i + w_5 X_i
+\end{aligned}
 $$
 
 Then the expected return can be adjusted:
 
 $$
-E[R_{i,\text{policy-adjusted}}] =
-E[R_i] - \theta \cdot PolicyRisk_i
+\mathbb{E}[R_i^{\mathrm{policy\text{-}adj}}]
+= \mathbb{E}[R_i] - \theta P_i
 $$
 
 Where:
 
-- \$$ \theta $$ = penalty per unit of policy risk
+- `E_i` = export-control exposure
+- `S_i` = sanctions exposure
+- `U_i` = regulatory uncertainty
+- `C_i` = capital-control risk
+- `X_i` = supply-chain sensitivity
+- `theta` = penalty per unit of policy risk
 
 Again, not perfect.
 
@@ -391,26 +383,24 @@ Different payoff.
 A conditional alpha model could look like:
 
 $$
-Alpha_{i,t} =
-\beta_1 Value_{i,t}
-+ \beta_2 Momentum_{i,t}
-+ \beta_3 Quality_{i,t}
-+ \beta_4 Liquidity_t
-+ \beta_5 FXRegime_t
-+ \beta_6 PolicyRisk_t
-+ \epsilon_{i,t}
+\begin{aligned}
+\alpha_{i,t} ={}& \beta_V V_{i,t} + \beta_M M_{i,t} \\
+                &+ \beta_Q Q_{i,t} + \beta_L L_t \\
+                &+ \beta_F F_t + \beta_P P_t + \epsilon_{i,t}
+\end{aligned}
 $$
+
+Here, `V`, `M`, and `Q` are value, momentum, and quality; `L`, `F`, and `P` are liquidity regime, FX regime, and policy risk.
 
 But the more useful version includes interactions:
 
 $$
-Alpha_{i,t} =
-\beta_1 Value_{i,t}
-+ \beta_2 Value_{i,t} \times LiquidityRegime_t
-+ \beta_3 Value_{i,t} \times PolicyRisk_t
-+ \beta_4 Momentum_{i,t}
-+ \beta_5 Quality_{i,t}
-+ \epsilon_{i,t}
+\begin{aligned}
+\alpha_{i,t} ={}& \beta_1 V_{i,t} \\
+&+ \beta_2 (V_{i,t} \times L_t) \\
+&+ \beta_3 (V_{i,t} \times P_t) \\
+&+ \beta_4 M_{i,t} + \beta_5 Q_{i,t} + \epsilon_{i,t}
+\end{aligned}
 $$
 
 Because the signal does not live in a vacuum.
@@ -448,14 +438,13 @@ The decision is:
 That can be framed as:
 
 $$
-ThemeScore_i =
-\alpha_1 GrowthExposure_i
-+ \alpha_2 MarginUpside_i
-+ \alpha_3 SupplyChainBenefit_i
-- \alpha_4 FXRisk_i
-- \alpha_5 PolicyRisk_i
-- \alpha_6 ValuationRisk_i
+\begin{aligned}
+H_i ={}& a_1 G_i + a_2 M_i + a_3 S_i \\
+  &- a_4 F_i - a_5 P_i - a_6 V_i
+\end{aligned}
 $$
+
+Here, `G` is growth exposure, `M` margin upside, `S` supply-chain benefit, `F` FX risk, `P` policy risk, and `V` valuation risk.
 
 Now the research is doing something useful.
 
