@@ -6,16 +6,31 @@ layout: default
 
 <div class="home-page">
   <section class="home-intro" aria-labelledby="home-title">
-    <p class="home-eyebrow">Research · Engineering · Markets</p>
-    <h1 id="home-title">Models are useful.<br>Decisions are the point.</h1>
-    <p class="home-lede">
-      I’m Josh, a quantitative researcher with a decade of experience working across financial markets,
-      optimization, machine learning, and AI. This is where I share the systems
-      I build and the ideas behind them.
-    </p>
-    <div class="home-actions">
-      <a class="home-action home-action-primary" href="#featured-work">Explore selected work <span aria-hidden="true">↓</span></a>
-      <a class="home-action home-action-secondary" href="{{ '/about/' | relative_url }}">About me <span aria-hidden="true">↗</span></a>
+    <div class="home-intro-copy">
+      <p class="home-eyebrow">Quantitative research / Data science</p>
+      <h1 id="home-title">Research systems for decisions under uncertainty.</h1>
+      <p class="home-lede">
+        I’m Josh, a quantitative researcher with a decade of experience working across financial markets,
+        optimization, machine learning, and AI. I focus on the path from a
+        useful question to a result that can be checked and acted on.
+      </p>
+      <div class="home-actions">
+        <a class="home-action home-action-primary" href="#featured-work">Explore selected work <span aria-hidden="true">↓</span></a>
+        <a class="home-action home-action-secondary" href="{{ '/about/' | relative_url }}">About me <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="home-method" role="group" aria-label="A traceable research workflow">
+      <div class="home-method-heading">
+        <span>Research workflow</span>
+        <span class="home-method-status">Evidence-led</span>
+      </div>
+      <ol class="home-method-list">
+        <li><span class="home-method-index">01</span><span><strong>Frame</strong><small>Question · assumptions</small></span></li>
+        <li><span class="home-method-index">02</span><span><strong>Specify</strong><small>Data · acceptance criteria</small></span></li>
+        <li><span class="home-method-index">03</span><span><strong>Validate</strong><small>Leakage · robustness · costs</small></span></li>
+        <li><span class="home-method-index">04</span><span><strong>Decide</strong><small>Evidence · limitations · next step</small></span></li>
+      </ol>
+      <p class="home-method-foot">A model is one part of the system.</p>
     </div>
   </section>
 
@@ -35,9 +50,18 @@ layout: default
             <span class="home-project-index">0{{ forloop.index }}</span>
             <span class="home-project-domain">{{ project.domain }}</span>
           </div>
-          <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+          {% if project.case_study %}
+            <h3><a href="{{ project.case_study | relative_url }}">{{ project.name }}</a></h3>
+          {% else %}
+            <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+          {% endif %}
           <p>{{ project.description }}</p>
-          <a class="home-project-link" href="{{ project.url }}">View project <span aria-hidden="true">↗</span></a>
+          <div class="home-project-links">
+            {% if project.case_study %}
+              <a class="home-project-link" href="{{ project.case_study | relative_url }}">Read case study <span aria-hidden="true">→</span></a>
+            {% endif %}
+            <a class="home-project-link" href="{{ project.url }}">Repository <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
       {% endfor %}
     </div>
