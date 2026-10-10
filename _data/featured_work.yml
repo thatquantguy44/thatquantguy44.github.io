@@ -2,6 +2,7 @@
   domain: Quant research · AI
   description: A spec-driven toolkit for quant research and model development, built around reproducibility, quality gates, and traceable decisions.
   url: https://github.com/thatquantguy44/QuantSmith
+  case_study: /projects/quantsmith/
 - name: finassert
   domain: Financial data · Quality
   description: Deterministic checks that catch economically inconsistent financial data and produce diagnostics people and automation can inspect.
@@ -14,3 +15,7 @@
   domain: Portfolio research · Optimization
   description: A quantitative research platform spanning portfolio optimization, alpha signals, risk, transaction costs, and backtesting.
   url: https://github.com/thatquantguy44/QR-Haven
+- name: QuantMeridian-Core
+  domain: Macro data · Market intelligence
+  description: A generated public subset of a macro terminal covering rates, inflation, credit, policy, and market analysis; some private-upstream modules are excluded.
+  url: https://github.com/thatquantguy44/QuantMeridian-Core
