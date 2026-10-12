@@ -1,4 +1,13 @@
-# When Your GPU Vendor Wants to Own the Model
+---
+title: "When Your GPU Vendor Wants to Own the Model"
+description: "Open-weight AI can lower model costs while leaving buyers dependent on concentrated compute and deployment infrastructure."
+categories:
+    - artificial-intelligence
+tags:
+    - open-weight-models
+    - gpu
+    - inference-costs
+---
 
 *Beam may be open-weight. The economics of running it still depend on who controls the compute.*
 
