@@ -9,6 +9,9 @@ tags:
   - forecasting
   - backtesting
   - market-risk
+image:
+  path: /assets/img/posts/vixr/vixr-platform-overview.jpg
+  alt: "The VIXR module in QuantMeridian showing its full-history readout and implied-versus-realized scatter plot."
 math: true
 ---
 
@@ -31,6 +34,8 @@ The short version is delightfully inconvenient for anyone selling a simple marke
 So yes, the VIX knows something about the weather.
 
 It does not know whether the market will walk north or south in the rain.
+
+_The screenshots below come directly from VIXR inside QuantMeridian, using Gold VIX and SPY data through October 6, 2026. The tasteful quantity of black is how you know a terminal means business._
 
 ## What VIXR actually tests
 
@@ -85,6 +90,9 @@ The practical implication is that treating the raw VIX as an exact sizing foreca
 
 That distinction matters. “Biased” does not mean “useless.” A bathroom scale that is always five pounds heavy can still track whether your weight is rising. It just should not be allowed to write the medical report without calibration.
 
+![VIX implied volatility and the volatility realized over the subsequent 30 days from 1993 through 2026. The orange VIX line is usually above the blue realized-volatility line.](/assets/img/posts/vixr/vixr-implied-vs-realized-volatility.jpg){: width="1200" height="486" }
+_The volatility-risk premium in one picture: VIX exceeded the volatility that followed in 83% of non-overlapping windows, with a mean premium of 3.5 vol points._
+
 ## Finding two: the VIX genuinely forecasts volatility
 
 The more interesting result is that VIX is not merely expensive noise.
@@ -114,6 +122,9 @@ Across 378 non-overlapping test windows from 1997 through 2026:
 The recalibrated VIX recorded an RMSE of **7.46 vol points**, compared with **8.60** for trailing volatility. The Diebold–Mariano statistic was **−2.9**, indicating a significantly smaller squared forecast error for the recalibrated VIX under the test used by the module.
 
 Daily sampling delivered a similar result: **51%** skill for the recalibrated VIX versus **31%** for trailing volatility, with RMSE of **7.07** versus **8.37** and a Diebold–Mariano statistic of **−3.2**.
+
+![The VIXR expanding-window out-of-sample panel comparing raw VIX, recalibrated VIX, trailing volatility, and historical-mean forecasts.](/assets/img/posts/vixr/vixr-out-of-sample-test.jpg){: width="2064" height="956" }
+_The module's no-look-ahead test. The large 2008 step is a useful reminder that a volatility forecast can earn much of its keep precisely when a historical average is busy being historically average._
 
 The lesson is refreshingly boring: the VIX contains useful forward information, and a simple historical recalibration makes it better.
 
