@@ -257,6 +257,8 @@ Implementation update: [Trading protocol v0.1.0](trading-experiment-protocol.md)
 
 The package includes an unbound session manifest, prompt, JSON Schema, empty event templates, baseline arithmetic helpers, and a validated append-only local hash chain. Opportunity registration, forecasts, later outcomes, and corrections are separate records. Late/failed forecasts and unknown costs stay visible. Source/price adapters, a permitted dictionary, the actual cohort, exact model/prices, and independent timestamp receipts still need to be bound and audited. Local hash-chain integrity is not independent proof that a forecast existed before its outcome. No real forecasts, prices, trades, or live session have been generated.
 
+Offline continuation, 2026-10-27: the user selected **keep working offline for now**. The [offline setup notes](experiments/trading-study/OFFLINE-SETUP.md) record source-readiness findings and this constraint. A network-disabled synthetic integration now covers scheduling, source packets, model-output validation, all four forecast conditions, price aggregation, later outcomes, and ledger integrity. Local RFC 3161 utilities check request/digest/nonce/signature/pin/cutoff consistency using test material without submitting requests. All real bindings remain unverified; no mock data or locally signed test receipt qualifies as empirical or independent evidence.
+
 ### Priorities and completion criteria
 
 | Priority | Deliverable | Completion criterion |
@@ -284,6 +286,7 @@ Draft the literature-backed article with clear placeholders for original results
 - [ ] Verify complete attempt logging and independent scoring in the actual execution runtime.
 - [ ] Run the setup pilot and use its variability to plan the main experiment.
 - [x] Prepare the trading protocol, signal/baseline definitions, timing/economic assumptions, prediction schema, and offline append-only logger.
+- [x] Implement and test the network-disabled synthetic trading pipeline and local RFC 3161 verification helpers; record the offline-only preference and source-readiness gaps.
 - [ ] Bind/audit the cohort, model, permitted dictionary, source/price adapters, and independent timing receipts; freeze the live trading session and begin the prospective log.
 - [ ] Complete the primary-source evidence matrix for all four topics.
 - [ ] Resolve participant access and scope the coding experiment accordingly.
@@ -306,7 +309,7 @@ Draft the literature-backed article with clear placeholders for original results
 - Selected: original items 1, 2, 3, and 10.
 - Saved: research questions, initial sources, proposed experiments, figures, counterevidence criteria, article outline, prioritized execution plan, completion criteria, progress checklist, [shared experiment protocol](agent-experiment-protocol.md), [agent development package](experiments/agent-study/README.md), [trading protocol](trading-experiment-protocol.md), and [trading ledger package](experiments/trading-study/README.md).
 - Priority 1 status: protocol design and offline preparation are ready for implementation review; model runtime binding and independent review are still required before live collection.
-- Priority 2 status: trading design and offline logging package are prepared; the prospective series remains unstarted pending verified bindings and independently auditable timing.
+- Priority 2 status: trading design, ledger, pure adapters, synthetic end-to-end integration, and local timestamp checks are prepared. User preference is offline-only; the prospective series remains unstarted pending verified bindings and independently auditable timing.
 - Next execution deliverables: instrumented executors, verified source/model bindings, independent reviews/receipts, and frozen live session manifests. Priority 3's evidence matrix remains pending.
 - Pending: detailed evidence extraction, original data collection, live experiments, charts, and article drafting. Software validation is not empirical evidence for the article.
 - Publication: this file is under `docs/`, which the current Jekyll configuration excludes from the generated website. It is a repository research brief, not a published post.

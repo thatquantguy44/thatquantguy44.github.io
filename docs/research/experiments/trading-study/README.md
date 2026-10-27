@@ -2,7 +2,9 @@
 
 Read the [protocol](../../trading-experiment-protocol.md) for the signal, baselines, source timing, execution proxies, cost assumptions, and inference plan. The [parent brief](../../ai-hype-research-brief.md) tracks the article.
 
-This is an offline preparation/logging package, not a data collector, model adapter, trading engine, or trusted timestamp service. Python 3.10+ on macOS/Linux, standard library only. No broker orders, paid calls, real forecasts, or price downloads are made by these utilities.
+This is an offline preparation/logging package, not a live data collector, model API client, trading engine, or trusted timestamp service. Python 3.10+ on macOS/Linux, standard library only. No broker orders, paid calls, real forecasts, or price downloads are made by these utilities.
+
+Current user preference: **offline work only**. The [offline setup and readiness notes](OFFLINE-SETUP.md) describe the new pure adapters, complete synthetic integration, local timestamp checks, and unresolved live bindings. Timestamp tests additionally require a compatible local OpenSSL installation; no service is contacted.
 
 ## Files
 
@@ -16,6 +18,11 @@ This is an offline preparation/logging package, not a data collector, model adap
 | `outcome.template.json` | Empty realized-outcome record; not a fabricated zero return |
 | `ledger.py` | Session freeze, validated append, chain audit, baseline/Brier/paper-return arithmetic helpers |
 | `test_ledger.py` | Synthetic tests with clearly injected clocks and invented observations |
+| `pipeline.py` | Offline scheduling, input/forecast parsing, baseline/price helpers, and synthetic integration |
+| `offline-fixture.json` | Invented release, sessions, price levels, minute bars, toy dictionary, and mock response |
+| `bindings.example.json` | Offline-only provider checklist with all live sources still unbound |
+| `receipts.py` | Local RFC 3161 query creation and cryptographic consistency checks; no submission |
+| `test_pipeline.py`, `test_receipts.py` | Network-disabled integration and local untrusted-CA tests |
 
 Store real sessions, source packets, transcripts, and external receipts under ignored `sessions/` or another approved private location. Website exclusion of `docs/` does not make tracked files private on GitHub. The committed templates contain no predictions or market observations.
 
@@ -86,4 +93,4 @@ Arithmetic helpers implement the protocol's smoothed sentiment mapping, clipped 
 
 ## Next execution work
 
-Bind verified data and model sources, implement collection/input/baseline/price adapters, obtain independent timing receipts, audit synthetic end-to-end behavior, and freeze a real session. The local log starts empty until those inputs exist. Report all opportunities and operational failures; do not equate a valid JSON chain with a profitable or adequately powered experiment.
+The synthetic integration is implemented; the real series remains unstarted. Continue offline per the user's choice. Future live work still requires verified data/model sources, vendor transports, input extraction and as-of/corporate-action adapters, independently trusted receipts, independent review, and a frozen live session. Pure helpers and mock responses are not provider-readiness proof. Report all opportunities and operational failures; do not equate a valid JSON chain with a profitable or adequately powered experiment.
