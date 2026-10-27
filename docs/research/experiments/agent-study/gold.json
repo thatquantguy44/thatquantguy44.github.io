@@ -1,0 +1,253 @@
+{
+  "fixture_version": "0.1.0",
+  "tasks": {
+    "reconcile_parallel": {
+      "answers": {
+        "revenue": {
+          "value": 1250000,
+          "unit": "USD",
+          "absolute_tolerance": 0.01,
+          "required_evidence": [
+            {
+              "source_id": "finance_final",
+              "span": "revenue: 1250000 [USD]"
+            }
+          ]
+        },
+        "headcount": {
+          "value": 42,
+          "unit": "people",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "people_final",
+              "span": "headcount: 42 [people]"
+            }
+          ]
+        }
+      }
+    },
+    "reconcile_sequential": {
+      "answers": {
+        "net_eur": {
+          "value": 900,
+          "unit": "EUR",
+          "absolute_tolerance": 0.01,
+          "required_evidence": [
+            {
+              "source_id": "correction",
+              "span": "net_amount: 900 [EUR]"
+            },
+            {
+              "source_id": "scope",
+              "span": "signed corrections supersede originals"
+            }
+          ]
+        },
+        "net_usd": {
+          "value": 990,
+          "unit": "USD",
+          "absolute_tolerance": 0.01,
+          "required_evidence": [
+            {
+              "source_id": "correction",
+              "span": "net_amount: 900 [EUR]"
+            },
+            {
+              "source_id": "scope",
+              "span": "use net invoice value excluding VAT"
+            },
+            {
+              "source_id": "fx",
+              "span": "1 EUR = 1.10 USD"
+            }
+          ]
+        }
+      }
+    },
+    "calculate_parallel": {
+      "answers": {
+        "gross_margin": {
+          "value": 40,
+          "unit": "percent",
+          "absolute_tolerance": 0.0001,
+          "required_evidence": [
+            {
+              "source_id": "financials",
+              "span": "revenue: 200000 [USD]"
+            },
+            {
+              "source_id": "financials",
+              "span": "cogs: 120000 [USD]"
+            }
+          ]
+        },
+        "conversion": {
+          "value": 8,
+          "unit": "percent",
+          "absolute_tolerance": 0.0001,
+          "required_evidence": [
+            {
+              "source_id": "funnel",
+              "span": "visitors: 500 [people]"
+            },
+            {
+              "source_id": "funnel",
+              "span": "conversions: 40 [people]"
+            }
+          ]
+        }
+      }
+    },
+    "calculate_sequential": {
+      "answers": {
+        "period_1_net": {
+          "value": 9,
+          "unit": "percent",
+          "absolute_tolerance": 0.0001,
+          "required_evidence": [
+            {
+              "source_id": "returns",
+              "span": "Period 1 gross return: 10 [percent]"
+            },
+            {
+              "source_id": "fees",
+              "span": "Deduct 1 [percentage_point]"
+            }
+          ]
+        },
+        "period_2_net": {
+          "value": -6,
+          "unit": "percent",
+          "absolute_tolerance": 0.0001,
+          "required_evidence": [
+            {
+              "source_id": "returns",
+              "span": "Period 2 gross return: -5 [percent]"
+            },
+            {
+              "source_id": "fees",
+              "span": "Deduct 1 [percentage_point]"
+            }
+          ]
+        },
+        "total_net": {
+          "value": 2.46,
+          "unit": "percent",
+          "absolute_tolerance": 0.0001,
+          "required_evidence": [
+            {
+              "source_id": "returns",
+              "span": "Period 1 gross return: 10 [percent]"
+            },
+            {
+              "source_id": "returns",
+              "span": "Period 2 gross return: -5 [percent]"
+            },
+            {
+              "source_id": "fees",
+              "span": "before compounding"
+            }
+          ]
+        }
+      }
+    },
+    "synthesize_parallel": {
+      "answers": {
+        "us_ready": {
+          "value": true,
+          "unit": "boolean",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "api",
+              "span": "API generally available regions: US, EU"
+            },
+            {
+              "source_id": "storage",
+              "span": "Storage generally available regions: US"
+            },
+            {
+              "source_id": "policy",
+              "span": "generally available in the same region"
+            }
+          ]
+        },
+        "eu_ready": {
+          "value": false,
+          "unit": "boolean",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "storage",
+              "span": "EU storage is preview only"
+            },
+            {
+              "source_id": "policy",
+              "span": "Preview does not qualify"
+            }
+          ]
+        },
+        "rollout": {
+          "value": "us_only",
+          "unit": "category",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "api",
+              "span": "API generally available regions: US, EU"
+            },
+            {
+              "source_id": "storage",
+              "span": "EU storage is preview only"
+            },
+            {
+              "source_id": "policy",
+              "span": "No cross-region fallback"
+            }
+          ]
+        }
+      }
+    },
+    "synthesize_sequential": {
+      "answers": {
+        "retention": {
+          "value": 45,
+          "unit": "days",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "override",
+              "span": "active-data retention: 45 [days]"
+            },
+            {
+              "source_id": "override",
+              "span": "Account overrides supersede tier defaults"
+            }
+          ]
+        },
+        "approval_required": {
+          "value": true,
+          "unit": "boolean",
+          "absolute_tolerance": 0,
+          "required_evidence": [
+            {
+              "source_id": "override",
+              "span": "active-data retention: 45 [days]"
+            },
+            {
+              "source_id": "approval",
+              "span": "greater than 30 days requires approval, including account overrides"
+            }
+          ]
+        },
+        "backup_retention": {
+          "value": null,
+          "unit": "unknown",
+          "absolute_tolerance": 0,
+          "required_evidence": []
+        }
+      }
+    }
+  }
+}
