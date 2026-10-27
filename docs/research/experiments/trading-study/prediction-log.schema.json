@@ -1,0 +1,494 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trading study event payload (cross-record rules are in ledger.py)",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "opportunity"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]{1,120}$"
+        },
+        "issuer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fiscal_period": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eligibility": {
+          "type": "string",
+          "enum": [
+            "eligible",
+            "excluded",
+            "unresolved"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "document_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "document_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "packet_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_public_at_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source_first_seen_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "download_completed_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "packet_finalized_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source_timing_verified": {
+          "type": "boolean"
+        },
+        "source_timing_evidence_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "momentum20_excess": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "price_features_asof_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "prediction_cutoff_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "entry_window_start_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "entry_window_end_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "exit_window_start_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "exit_window_end_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "record_type",
+        "record_id",
+        "issuer_id",
+        "fiscal_period",
+        "eligibility",
+        "reason",
+        "document_url",
+        "document_sha256",
+        "packet_sha256",
+        "source_public_at_utc",
+        "source_first_seen_utc",
+        "download_completed_utc",
+        "packet_finalized_utc",
+        "source_timing_verified",
+        "source_timing_evidence_ref",
+        "source_ref",
+        "momentum20_excess",
+        "price_features_asof_utc",
+        "prediction_cutoff_utc",
+        "entry_window_start_utc",
+        "entry_window_end_utc",
+        "exit_window_start_utc",
+        "exit_window_end_utc"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "prediction"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]{1,120}$"
+        },
+        "opportunity_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predictions": {
+          "type": "object",
+          "properties": {
+            "llm": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "completed",
+                    "timeout",
+                    "invalid_output",
+                    "provider_error",
+                    "budget_exhausted",
+                    "missing_inputs"
+                  ]
+                },
+                "p_outperform": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "status",
+                "p_outperform"
+              ],
+              "additionalProperties": false
+            },
+            "dictionary": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "completed",
+                    "timeout",
+                    "invalid_output",
+                    "provider_error",
+                    "budget_exhausted",
+                    "missing_inputs"
+                  ]
+                },
+                "p_outperform": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "status",
+                "p_outperform"
+              ],
+              "additionalProperties": false
+            },
+            "momentum": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "completed",
+                    "timeout",
+                    "invalid_output",
+                    "provider_error",
+                    "budget_exhausted",
+                    "missing_inputs"
+                  ]
+                },
+                "p_outperform": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "status",
+                "p_outperform"
+              ],
+              "additionalProperties": false
+            },
+            "no_signal": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "completed",
+                    "timeout",
+                    "invalid_output",
+                    "provider_error",
+                    "budget_exhausted",
+                    "missing_inputs"
+                  ]
+                },
+                "p_outperform": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "status",
+                "p_outperform"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "llm",
+            "dictionary",
+            "momentum",
+            "no_signal"
+          ],
+          "additionalProperties": false
+        },
+        "model_snapshot": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "model_started_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "model_completed_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "request_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "model_cost_usd": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "model_response_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "model_response_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "record_id",
+        "opportunity_id",
+        "predictions",
+        "model_snapshot",
+        "model_started_utc",
+        "model_completed_utc",
+        "request_count",
+        "model_cost_usd",
+        "model_response_sha256",
+        "model_response_ref",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "outcome"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]{1,120}$"
+        },
+        "prediction_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "unavailable"
+          ]
+        },
+        "stock_total_return": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -1
+        },
+        "benchmark_total_return": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -1
+        },
+        "price_observed_at_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "price_artifact_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "price_artifact_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "record_id",
+        "prediction_id",
+        "status",
+        "stock_total_return",
+        "benchmark_total_return",
+        "price_observed_at_utc",
+        "price_artifact_sha256",
+        "price_artifact_ref",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "annotation"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]{1,120}$"
+        },
+        "target_record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "record_type",
+        "record_id",
+        "target_record_id",
+        "reason",
+        "evidence_ref"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -251,12 +251,18 @@ Before running anything, define:
 
 Start with a small pilot to find problems in the setup. Use its variability to choose the main experiment's size; do not treat pilot results as evidence of broad reliability.
 
+### Priority 2: prospective trading protocol and log
+
+Implementation update: [Trading protocol v0.1.0](trading-experiment-protocol.md) and the [offline ledger package](experiments/trading-study/README.md) are prepared. The design uses a fixed 30-issuer liquid US cohort, one original earnings release per issuer/period, four probability forecasts (LLM, dictionary, momentum, and no-signal), a fixed next-session execution proxy, and a five-session market-relative target. A proposed six-week operational pilot checks the pipeline; it does not establish durable alpha or adequate statistical power.
+
+The package includes an unbound session manifest, prompt, JSON Schema, empty event templates, baseline arithmetic helpers, and a validated append-only local hash chain. Opportunity registration, forecasts, later outcomes, and corrections are separate records. Late/failed forecasts and unknown costs stay visible. Source/price adapters, a permitted dictionary, the actual cohort, exact model/prices, and independent timestamp receipts still need to be bound and audited. Local hash-chain integrity is not independent proof that a forecast existed before its outcome. No real forecasts, prices, trades, or live session have been generated.
+
 ### Priorities and completion criteria
 
 | Priority | Deliverable | Completion criterion |
 | --- | --- | --- |
 | **1. Agent experiment protocol** | [Protocol](agent-experiment-protocol.md), [task fixtures, prompts, and offline utilities](experiments/agent-study/README.md) prepared | Offline setup is reproducible; live execution must satisfy the protocol's runtime-binding and independent-review checklist |
-| **2. Trading protocol and prospective log** | Frozen signal, baselines, timestamps, execution assumptions | Predictions are recorded before outcomes occur |
+| **2. Trading protocol and prospective log** | [Protocol](trading-experiment-protocol.md), [schema, templates, and append-only logger](experiments/trading-study/README.md) prepared | Bind/audit sources and execution adapters, freeze a live session, and record forecasts before their cutoff with independently auditable timing |
 | **3. Evidence matrix** | Primary-source findings for all four topics | Every numerical claim has a study setting, outcome definition, uncertainty, and limitation |
 | **4. Coding experiment decision** | Participant-based study or explicitly narrow personal case study | Scope matches the participants and measurement access available |
 | **5. Main experiments** | Results, failure analysis, costs, and uncertainty | Predefined comparisons are complete, including failed attempts |
@@ -277,7 +283,8 @@ Draft the literature-backed article with clear placeholders for original results
 - [ ] Bind the model/prices/tools, implement and archive the executors, verify participant isolation, obtain independent fixture review, and freeze the live session manifest.
 - [ ] Verify complete attempt logging and independent scoring in the actual execution runtime.
 - [ ] Run the setup pilot and use its variability to plan the main experiment.
-- [ ] Freeze the trading protocol and start the prospective prediction log.
+- [x] Prepare the trading protocol, signal/baseline definitions, timing/economic assumptions, prediction schema, and offline append-only logger.
+- [ ] Bind/audit the cohort, model, permitted dictionary, source/price adapters, and independent timing receipts; freeze the live trading session and begin the prospective log.
 - [ ] Complete the primary-source evidence matrix for all four topics.
 - [ ] Resolve participant access and scope the coding experiment accordingly.
 - [ ] Complete the main experiments, retaining failures and reporting uncertainty.
@@ -297,8 +304,9 @@ Draft the literature-backed article with clear placeholders for original results
 ## Current state
 
 - Selected: original items 1, 2, 3, and 10.
-- Saved: research questions, initial sources, proposed experiments, figures, counterevidence criteria, article outline, prioritized execution plan, completion criteria, progress checklist, [shared experiment protocol](agent-experiment-protocol.md), and [offline development package](experiments/agent-study/README.md).
+- Saved: research questions, initial sources, proposed experiments, figures, counterevidence criteria, article outline, prioritized execution plan, completion criteria, progress checklist, [shared experiment protocol](agent-experiment-protocol.md), [agent development package](experiments/agent-study/README.md), [trading protocol](trading-experiment-protocol.md), and [trading ledger package](experiments/trading-study/README.md).
 - Priority 1 status: protocol design and offline preparation are ready for implementation review; model runtime binding and independent review are still required before live collection.
-- Next execution deliverables: instrumented executors and a frozen session manifest. Priority 2's trading protocol/log and priority 3's evidence matrix remain pending.
+- Priority 2 status: trading design and offline logging package are prepared; the prospective series remains unstarted pending verified bindings and independently auditable timing.
+- Next execution deliverables: instrumented executors, verified source/model bindings, independent reviews/receipts, and frozen live session manifests. Priority 3's evidence matrix remains pending.
 - Pending: detailed evidence extraction, original data collection, live experiments, charts, and article drafting. Software validation is not empirical evidence for the article.
 - Publication: this file is under `docs/`, which the current Jekyll configuration excludes from the generated website. It is a repository research brief, not a published post.

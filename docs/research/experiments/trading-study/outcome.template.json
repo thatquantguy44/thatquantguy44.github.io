@@ -1,0 +1,12 @@
+{
+  "record_type": "outcome",
+  "record_id": "REPLACE_OUTCOME_ID",
+  "prediction_id": "REPLACE_PREDICTION_ID",
+  "status": "unavailable",
+  "stock_total_return": null,
+  "benchmark_total_return": null,
+  "price_observed_at_utc": null,
+  "price_artifact_sha256": null,
+  "price_artifact_ref": null,
+  "reason": "Unfilled template; no observed outcome"
+}
