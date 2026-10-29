@@ -1,0 +1,48 @@
+{
+  "configuration_version": "0.1.0",
+  "execution_policy": "offline_only",
+  "live_requests_enabled": false,
+  "sources": {
+    "documents": {
+      "candidate": "Original SEC earnings release / issuer IR; optional Quartr body route",
+      "status": "unbound",
+      "gap": "No successful authenticated document read or verified collector availability timestamps."
+    },
+    "market_prices": {
+      "candidate": "Provider-normalized consolidated historical minute bars; Alpaca SIP is one possible route",
+      "status": "unbound",
+      "gap": "No credentials/entitlements verified. Single-venue IEX must not silently replace consolidated data."
+    },
+    "corporate_actions": {
+      "candidate": null,
+      "status": "unbound",
+      "gap": "Split/dividend/merger/delisting return convention and coverage need verification."
+    },
+    "universe": {
+      "candidate": null,
+      "status": "unbound",
+      "gap": "No point-in-time eligible universe or 60-session liquidity snapshot bound."
+    },
+    "calendar": {
+      "candidate": "Archived exchange-session calendar",
+      "status": "unbound",
+      "gap": "Only synthetic calendar fixtures are bundled."
+    },
+    "dictionary": {
+      "candidate": "Permitted frozen financial dictionary",
+      "status": "unbound",
+      "gap": "No licensing determination or actual dictionary bound; toy fixtures are not Loughran-McDonald."
+    },
+    "model": {
+      "candidate": null,
+      "status": "unbound",
+      "gap": "No provider key, snapshot availability, parameter compatibility or prices authenticated."
+    },
+    "independent_receipts": {
+      "candidate": "RFC 3161 signed timestamp plus independently reviewed trust anchor",
+      "status": "unbound",
+      "gap": "No trusted receipt or external trust-anchor verification; local test CA signatures are not independent evidence."
+    }
+  },
+  "notes": "User selected offline work on 2026-10-27. Do not probe providers, request tokens, download sources, send timestamp requests or launch paid/model calls from this configuration."
+}

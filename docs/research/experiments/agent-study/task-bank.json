@@ -1,0 +1,243 @@
+{
+  "fixture_version": "0.1.0",
+  "tasks": [
+    {
+      "task_id": "reconcile_parallel",
+      "synthetic": true,
+      "split": "development",
+      "family": "reconciliation",
+      "structure": "parallel",
+      "instructions": "Report FY2025 revenue and year-end employee headcount. Final signed statements override drafts. These are independent figures. Cite the final source for each.",
+      "sources": [
+        {
+          "source_id": "draft",
+          "text": "Draft FY2025 planning note. revenue: 1200000 [USD]. headcount: 40 [people]. This document is not final."
+        },
+        {
+          "source_id": "finance_final",
+          "text": "Final signed FY2025 finance statement. revenue: 1250000 [USD]."
+        },
+        {
+          "source_id": "people_final",
+          "text": "Final signed FY2025 people statement. headcount: 42 [people]."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "revenue",
+          "question": "What is final FY2025 revenue?",
+          "unit": "USD",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "headcount",
+          "question": "What is final year-end headcount?",
+          "unit": "people",
+          "value_type": "number"
+        }
+      ]
+    },
+    {
+      "task_id": "reconcile_sequential",
+      "synthetic": true,
+      "split": "development",
+      "family": "reconciliation",
+      "structure": "sequential",
+      "instructions": "Reconcile invoice A. The correction supersedes the original. Use net invoice value, excluding VAT, then convert EUR to USD at the supplied fixed rate. Cite every input and the scope rule for the converted value.",
+      "sources": [
+        {
+          "source_id": "invoice",
+          "text": "Original invoice A. net_amount: 1000 [EUR]. vat: 200 [EUR]."
+        },
+        {
+          "source_id": "correction",
+          "text": "Signed correction for invoice A. Replaces original net amount. net_amount: 900 [EUR]. vat: 180 [EUR]."
+        },
+        {
+          "source_id": "scope",
+          "text": "Reporting rule: use net invoice value excluding VAT; signed corrections supersede originals."
+        },
+        {
+          "source_id": "fx",
+          "text": "Fixed reporting conversion: 1 EUR = 1.10 USD."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "net_eur",
+          "question": "What net amount applies after correction?",
+          "unit": "EUR",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "net_usd",
+          "question": "What is the corrected net amount in USD?",
+          "unit": "USD",
+          "value_type": "number"
+        }
+      ]
+    },
+    {
+      "task_id": "calculate_parallel",
+      "synthetic": true,
+      "split": "development",
+      "family": "calculation",
+      "structure": "parallel",
+      "instructions": "Reproduce two independent ratios. Gross margin percent = (revenue - cost of goods sold) / revenue * 100. Conversion percent = conversions / visitors * 100. Use percent, not fractions.",
+      "sources": [
+        {
+          "source_id": "financials",
+          "text": "Quarterly ledger. revenue: 200000 [USD]. cogs: 120000 [USD]."
+        },
+        {
+          "source_id": "funnel",
+          "text": "Independent funnel report. visitors: 500 [people]. conversions: 40 [people]."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "gross_margin",
+          "question": "What is gross margin percent?",
+          "unit": "percent",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "conversion",
+          "question": "What is conversion percent?",
+          "unit": "percent",
+          "value_type": "number"
+        }
+      ]
+    },
+    {
+      "task_id": "calculate_sequential",
+      "synthetic": true,
+      "split": "development",
+      "family": "calculation",
+      "structure": "sequential",
+      "instructions": "Deduct the stated fee in percentage points from each period gross return. Then compound the resulting period net returns. Report total net return in percent, not a sum of returns. The fee convention is synthetic and explicit; do not replace it with another convention.",
+      "sources": [
+        {
+          "source_id": "returns",
+          "text": "Period 1 gross return: 10 [percent]. Period 2 gross return: -5 [percent]."
+        },
+        {
+          "source_id": "fees",
+          "text": "Deduct 1 [percentage_point] from each period gross return before compounding."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "period_1_net",
+          "question": "What is period 1 net return?",
+          "unit": "percent",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "period_2_net",
+          "question": "What is period 2 net return?",
+          "unit": "percent",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "total_net",
+          "question": "What is the compounded two-period net return?",
+          "unit": "percent",
+          "value_type": "number"
+        }
+      ]
+    },
+    {
+      "task_id": "synthesize_parallel",
+      "synthetic": true,
+      "split": "development",
+      "family": "synthesis",
+      "structure": "parallel",
+      "instructions": "A region is ready only if both API and storage are generally available in that same region. No cross-region fallback is allowed. Synthesize the independent availability reports. Return rollout as one of us_only, eu_only, both, neither.",
+      "sources": [
+        {
+          "source_id": "api",
+          "text": "API generally available regions: US, EU."
+        },
+        {
+          "source_id": "storage",
+          "text": "Storage generally available regions: US. EU storage is preview only."
+        },
+        {
+          "source_id": "policy",
+          "text": "A launch requires API and storage generally available in the same region. Preview does not qualify. No cross-region fallback."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "us_ready",
+          "question": "Is US ready?",
+          "unit": "boolean",
+          "value_type": "boolean"
+        },
+        {
+          "answer_id": "eu_ready",
+          "question": "Is EU ready?",
+          "unit": "boolean",
+          "value_type": "boolean"
+        },
+        {
+          "answer_id": "rollout",
+          "question": "Which rollout is supported?",
+          "unit": "category",
+          "value_type": "string"
+        }
+      ]
+    },
+    {
+      "task_id": "synthesize_sequential",
+      "synthetic": true,
+      "split": "development",
+      "family": "synthesis",
+      "structure": "sequential",
+      "instructions": "Determine the applicable active-data retention for Meridian as of 2026-09-30. Signed account overrides take precedence over tier defaults, which take precedence over standard defaults. Marketing material is not authoritative. Apply the independent approval rule to the resulting duration. If backup retention is not specified, answer null with unit unknown and no citations.",
+      "sources": [
+        {
+          "source_id": "defaults",
+          "text": "Standard active-data retention: 30 [days]. Enterprise active-data retention: 90 [days]."
+        },
+        {
+          "source_id": "account",
+          "text": "Meridian account tier: Enterprise."
+        },
+        {
+          "source_id": "override",
+          "text": "Signed Meridian account override effective 2026-09-01: active-data retention: 45 [days]. Account overrides supersede tier defaults."
+        },
+        {
+          "source_id": "approval",
+          "text": "Any applicable active-data retention greater than 30 days requires approval, including account overrides."
+        },
+        {
+          "source_id": "marketing",
+          "text": "Marketing draft: all enterprise customers get 120 days. This is not a signed policy."
+        }
+      ],
+      "questions": [
+        {
+          "answer_id": "retention",
+          "question": "What active-data retention applies to Meridian?",
+          "unit": "days",
+          "value_type": "number"
+        },
+        {
+          "answer_id": "approval_required",
+          "question": "Does that applicable retention require approval?",
+          "unit": "boolean",
+          "value_type": "boolean"
+        },
+        {
+          "answer_id": "backup_retention",
+          "question": "What is backup retention?",
+          "unit": "days",
+          "value_type": "number_or_null"
+        }
+      ]
+    }
+  ]
+}

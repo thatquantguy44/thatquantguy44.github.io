@@ -1,0 +1,31 @@
+{
+  "record_type": "prediction",
+  "record_id": "REPLACE_PREDICTION_ID",
+  "opportunity_id": "REPLACE_OPPORTUNITY_ID",
+  "predictions": {
+    "llm": {
+      "status": "missing_inputs",
+      "p_outperform": null
+    },
+    "dictionary": {
+      "status": "missing_inputs",
+      "p_outperform": null
+    },
+    "momentum": {
+      "status": "missing_inputs",
+      "p_outperform": null
+    },
+    "no_signal": {
+      "status": "completed",
+      "p_outperform": 0.5
+    }
+  },
+  "model_snapshot": null,
+  "model_started_utc": null,
+  "model_completed_utc": null,
+  "request_count": 0,
+  "model_cost_usd": null,
+  "model_response_sha256": null,
+  "model_response_ref": null,
+  "error": "Unfilled template; not a forecast"
+}

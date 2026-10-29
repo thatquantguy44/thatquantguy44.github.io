@@ -1,0 +1,556 @@
+{
+  "synthetic": true,
+  "empirical_evidence": false,
+  "note": "All issuer, price, forecast and timing observations are invented software fixtures.",
+  "calendar": {
+    "synthetic": true,
+    "note": "Illustrative session fixtures, not a verified exchange-calendar snapshot.",
+    "sessions": [
+      {
+        "session_date": "2026-10-27",
+        "open_utc": "2026-10-27T13:30:00Z",
+        "close_utc": "2026-10-27T20:00:00Z"
+      },
+      {
+        "session_date": "2026-10-28",
+        "open_utc": "2026-10-28T13:30:00Z",
+        "close_utc": "2026-10-28T20:00:00Z"
+      },
+      {
+        "session_date": "2026-10-29",
+        "open_utc": "2026-10-29T13:30:00Z",
+        "close_utc": "2026-10-29T20:00:00Z"
+      },
+      {
+        "session_date": "2026-10-30",
+        "open_utc": "2026-10-30T13:30:00Z",
+        "close_utc": "2026-10-30T20:00:00Z"
+      },
+      {
+        "session_date": "2026-11-02",
+        "open_utc": "2026-11-02T14:30:00Z",
+        "close_utc": "2026-11-02T21:00:00Z"
+      },
+      {
+        "session_date": "2026-11-03",
+        "open_utc": "2026-11-03T14:30:00Z",
+        "close_utc": "2026-11-03T21:00:00Z"
+      },
+      {
+        "session_date": "2026-11-04",
+        "open_utc": "2026-11-04T14:30:00Z",
+        "close_utc": "2026-11-04T21:00:00Z"
+      },
+      {
+        "session_date": "2026-11-05",
+        "open_utc": "2026-11-05T14:30:00Z",
+        "close_utc": "2026-11-05T21:00:00Z"
+      },
+      {
+        "session_date": "2026-11-06",
+        "open_utc": "2026-11-06T14:30:00Z",
+        "close_utc": "2026-11-06T21:00:00Z"
+      },
+      {
+        "session_date": "2026-11-09",
+        "open_utc": "2026-11-09T14:30:00Z",
+        "close_utc": "2026-11-09T21:00:00Z"
+      }
+    ]
+  },
+  "release": {
+    "synthetic": true,
+    "issuer_id": "SYNTHETIC_NOT_A_SECURITY",
+    "fiscal_period": "SYNTHETIC_PERIOD",
+    "media_type": "text/plain",
+    "url": "https://example.invalid/synthetic-earnings",
+    "first_seen_utc": "2026-10-27T12:01:00Z",
+    "download_completed_utc": "2026-10-27T12:01:05Z",
+    "packet_finalized_utc": "2026-10-27T12:01:10Z"
+  },
+  "release_text": "Synthetic release. Revenue growth supported profit. One segment had a loss.\nThese are invented facts, not a company announcement.",
+  "toy_dictionary": {
+    "synthetic": true,
+    "name": "TOY_WORDS_NOT_A_FINANCIAL_DICTIONARY",
+    "positive": [
+      "GROWTH",
+      "PROFIT"
+    ],
+    "negative": [
+      "DECLINE",
+      "LOSS"
+    ]
+  },
+  "stock_history": [
+    {
+      "session_date": "2026-09-28",
+      "session_close_utc": "2026-09-28T20:00:00Z",
+      "available_at_utc": "2026-09-28T20:30:00Z",
+      "total_return_level": 100.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-09-29",
+      "session_close_utc": "2026-09-29T20:00:00Z",
+      "available_at_utc": "2026-09-29T20:30:00Z",
+      "total_return_level": 100.6,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-09-30",
+      "session_close_utc": "2026-09-30T20:00:00Z",
+      "available_at_utc": "2026-09-30T20:30:00Z",
+      "total_return_level": 101.2,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-01",
+      "session_close_utc": "2026-10-01T20:00:00Z",
+      "available_at_utc": "2026-10-01T20:30:00Z",
+      "total_return_level": 101.8,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-02",
+      "session_close_utc": "2026-10-02T20:00:00Z",
+      "available_at_utc": "2026-10-02T20:30:00Z",
+      "total_return_level": 102.4,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-05",
+      "session_close_utc": "2026-10-05T20:00:00Z",
+      "available_at_utc": "2026-10-05T20:30:00Z",
+      "total_return_level": 103.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-06",
+      "session_close_utc": "2026-10-06T20:00:00Z",
+      "available_at_utc": "2026-10-06T20:30:00Z",
+      "total_return_level": 103.6,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-07",
+      "session_close_utc": "2026-10-07T20:00:00Z",
+      "available_at_utc": "2026-10-07T20:30:00Z",
+      "total_return_level": 104.2,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-08",
+      "session_close_utc": "2026-10-08T20:00:00Z",
+      "available_at_utc": "2026-10-08T20:30:00Z",
+      "total_return_level": 104.8,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-09",
+      "session_close_utc": "2026-10-09T20:00:00Z",
+      "available_at_utc": "2026-10-09T20:30:00Z",
+      "total_return_level": 105.4,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-12",
+      "session_close_utc": "2026-10-12T20:00:00Z",
+      "available_at_utc": "2026-10-12T20:30:00Z",
+      "total_return_level": 106.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-13",
+      "session_close_utc": "2026-10-13T20:00:00Z",
+      "available_at_utc": "2026-10-13T20:30:00Z",
+      "total_return_level": 106.6,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-14",
+      "session_close_utc": "2026-10-14T20:00:00Z",
+      "available_at_utc": "2026-10-14T20:30:00Z",
+      "total_return_level": 107.2,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-15",
+      "session_close_utc": "2026-10-15T20:00:00Z",
+      "available_at_utc": "2026-10-15T20:30:00Z",
+      "total_return_level": 107.8,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-16",
+      "session_close_utc": "2026-10-16T20:00:00Z",
+      "available_at_utc": "2026-10-16T20:30:00Z",
+      "total_return_level": 108.4,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-19",
+      "session_close_utc": "2026-10-19T20:00:00Z",
+      "available_at_utc": "2026-10-19T20:30:00Z",
+      "total_return_level": 109.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-20",
+      "session_close_utc": "2026-10-20T20:00:00Z",
+      "available_at_utc": "2026-10-20T20:30:00Z",
+      "total_return_level": 109.6,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-21",
+      "session_close_utc": "2026-10-21T20:00:00Z",
+      "available_at_utc": "2026-10-21T20:30:00Z",
+      "total_return_level": 110.2,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-22",
+      "session_close_utc": "2026-10-22T20:00:00Z",
+      "available_at_utc": "2026-10-22T20:30:00Z",
+      "total_return_level": 110.8,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-23",
+      "session_close_utc": "2026-10-23T20:00:00Z",
+      "available_at_utc": "2026-10-23T20:30:00Z",
+      "total_return_level": 111.4,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-26",
+      "session_close_utc": "2026-10-26T20:00:00Z",
+      "available_at_utc": "2026-10-26T20:30:00Z",
+      "total_return_level": 112.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    }
+  ],
+  "benchmark_history": [
+    {
+      "session_date": "2026-09-28",
+      "session_close_utc": "2026-09-28T20:00:00Z",
+      "available_at_utc": "2026-09-28T20:30:00Z",
+      "total_return_level": 100.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-09-29",
+      "session_close_utc": "2026-09-29T20:00:00Z",
+      "available_at_utc": "2026-09-29T20:30:00Z",
+      "total_return_level": 100.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-09-30",
+      "session_close_utc": "2026-09-30T20:00:00Z",
+      "available_at_utc": "2026-09-30T20:30:00Z",
+      "total_return_level": 101.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-01",
+      "session_close_utc": "2026-10-01T20:00:00Z",
+      "available_at_utc": "2026-10-01T20:30:00Z",
+      "total_return_level": 101.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-02",
+      "session_close_utc": "2026-10-02T20:00:00Z",
+      "available_at_utc": "2026-10-02T20:30:00Z",
+      "total_return_level": 102.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-05",
+      "session_close_utc": "2026-10-05T20:00:00Z",
+      "available_at_utc": "2026-10-05T20:30:00Z",
+      "total_return_level": 102.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-06",
+      "session_close_utc": "2026-10-06T20:00:00Z",
+      "available_at_utc": "2026-10-06T20:30:00Z",
+      "total_return_level": 103.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-07",
+      "session_close_utc": "2026-10-07T20:00:00Z",
+      "available_at_utc": "2026-10-07T20:30:00Z",
+      "total_return_level": 103.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-08",
+      "session_close_utc": "2026-10-08T20:00:00Z",
+      "available_at_utc": "2026-10-08T20:30:00Z",
+      "total_return_level": 104.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-09",
+      "session_close_utc": "2026-10-09T20:00:00Z",
+      "available_at_utc": "2026-10-09T20:30:00Z",
+      "total_return_level": 104.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-12",
+      "session_close_utc": "2026-10-12T20:00:00Z",
+      "available_at_utc": "2026-10-12T20:30:00Z",
+      "total_return_level": 105.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-13",
+      "session_close_utc": "2026-10-13T20:00:00Z",
+      "available_at_utc": "2026-10-13T20:30:00Z",
+      "total_return_level": 105.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-14",
+      "session_close_utc": "2026-10-14T20:00:00Z",
+      "available_at_utc": "2026-10-14T20:30:00Z",
+      "total_return_level": 106.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-15",
+      "session_close_utc": "2026-10-15T20:00:00Z",
+      "available_at_utc": "2026-10-15T20:30:00Z",
+      "total_return_level": 106.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-16",
+      "session_close_utc": "2026-10-16T20:00:00Z",
+      "available_at_utc": "2026-10-16T20:30:00Z",
+      "total_return_level": 107.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-19",
+      "session_close_utc": "2026-10-19T20:00:00Z",
+      "available_at_utc": "2026-10-19T20:30:00Z",
+      "total_return_level": 107.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-20",
+      "session_close_utc": "2026-10-20T20:00:00Z",
+      "available_at_utc": "2026-10-20T20:30:00Z",
+      "total_return_level": 108.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-21",
+      "session_close_utc": "2026-10-21T20:00:00Z",
+      "available_at_utc": "2026-10-21T20:30:00Z",
+      "total_return_level": 108.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-22",
+      "session_close_utc": "2026-10-22T20:00:00Z",
+      "available_at_utc": "2026-10-22T20:30:00Z",
+      "total_return_level": 109.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-23",
+      "session_close_utc": "2026-10-23T20:00:00Z",
+      "available_at_utc": "2026-10-23T20:30:00Z",
+      "total_return_level": 109.5,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    },
+    {
+      "session_date": "2026-10-26",
+      "session_close_utc": "2026-10-26T20:00:00Z",
+      "available_at_utc": "2026-10-26T20:30:00Z",
+      "total_return_level": 110.0,
+      "asof_adjustments_verified": true,
+      "synthetic": true
+    }
+  ],
+  "mock_model_output": "{\"p_outperform\": 0.7, \"rationale\": \"Synthetic response used only to exercise the parser and ledger.\", \"evidence\": [{\"source_id\": \"earnings_release\", \"quote\": \"Revenue growth supported profit.\"}]}",
+  "bars": {
+    "stock_entry": [
+      {
+        "start_utc": "2026-10-27T13:35:00Z",
+        "vwap": 100,
+        "volume": 100,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:36:00Z",
+        "vwap": 100,
+        "volume": 110,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:37:00Z",
+        "vwap": 100,
+        "volume": 120,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:38:00Z",
+        "vwap": 100,
+        "volume": 130,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:39:00Z",
+        "vwap": 100,
+        "volume": 140,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      }
+    ],
+    "stock_exit": [
+      {
+        "start_utc": "2026-11-03T14:35:00Z",
+        "vwap": 102,
+        "volume": 100,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:36:00Z",
+        "vwap": 102,
+        "volume": 110,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:37:00Z",
+        "vwap": 102,
+        "volume": 120,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:38:00Z",
+        "vwap": 102,
+        "volume": 130,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:39:00Z",
+        "vwap": 102,
+        "volume": 140,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      }
+    ],
+    "benchmark_entry": [
+      {
+        "start_utc": "2026-10-27T13:35:00Z",
+        "vwap": 200,
+        "volume": 100,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:36:00Z",
+        "vwap": 200,
+        "volume": 110,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:37:00Z",
+        "vwap": 200,
+        "volume": 120,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:38:00Z",
+        "vwap": 200,
+        "volume": 130,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-10-27T13:39:00Z",
+        "vwap": 200,
+        "volume": 140,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      }
+    ],
+    "benchmark_exit": [
+      {
+        "start_utc": "2026-11-03T14:35:00Z",
+        "vwap": 202,
+        "volume": 100,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:36:00Z",
+        "vwap": 202,
+        "volume": 110,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:37:00Z",
+        "vwap": 202,
+        "volume": 120,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:38:00Z",
+        "vwap": 202,
+        "volume": 130,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      },
+      {
+        "start_utc": "2026-11-03T14:39:00Z",
+        "vwap": 202,
+        "volume": 140,
+        "feed": "SYNTHETIC_CONSOLIDATED_FIXTURE"
+      }
+    ]
+  },
+  "price_retrieved_at_utc": "2026-11-03T15:00:00Z"
+}
