@@ -1,0 +1,58 @@
+{
+  "kind": "prepared_personal_case_study_not_execution_ready",
+  "protocol_version": "0.1.0",
+  "scope": "one_participant_exploratory",
+  "confirmed_participant_count": 1,
+  "participant_id": "P01",
+  "execution_ready": false,
+  "offline_only": true,
+  "participant_session_slots": null,
+  "repository_commit": "2601cabd74622c832e99457a9a84ddb4a11f073c",
+  "environment_and_tools": null,
+  "documentation_snapshot": null,
+  "ai_tool_and_model_binding": null,
+  "conditions": [
+    "ai_enabled",
+    "no_ai"
+  ],
+  "planned_task_pairs": 4,
+  "task_pool_sha256": "6843e3030176373005a8fc6cfc26ff44c8b84b2f5cdeda230afceb25e42fee3f",
+  "acceptance_checks_sha256": "22124ed0fe8b03b533fb50e7ff6cb9807727babcfc82dcfeb6a40d9e596a5f6a",
+  "randomization_seed": null,
+  "randomization_algorithm": null,
+  "schedule_sha256": null,
+  "active_author_cap_seconds_per_task": null,
+  "wall_cap_seconds_per_task": null,
+  "correction_and_followup_rule": null,
+  "warmup_rule": null,
+  "timing_method": null,
+  "external_reviewer_status": "unconfirmed",
+  "planned_acceptance_basis": "automated_checks_plus_author_assessment",
+  "permitted_assistance": null,
+  "artifact_and_privacy_rules": null,
+  "frozen_at_utc": null,
+  "repository_archive_sha256": "5401537cd79292ae4e677aeeda1ae61f794d7cd5bcdc8c6f820d3619024cd678",
+  "selected_stages": [
+    {
+      "stage": 1,
+      "pairs": [
+        "P1",
+        "P2"
+      ]
+    },
+    {
+      "stage": 2,
+      "pairs": [
+        "P3",
+        "P4"
+      ]
+    }
+  ],
+  "condition_assignments": null,
+  "preflight_environment_observed": {
+    "python": "3.12.0",
+    "pytest": "8.4.2",
+    "numpy": "2.4.6"
+  },
+  "execution_environment_frozen": false
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "approved_prepared_task_definitions_not_study_results",
+  "bank_version": "0.1.0",
+  "participant_count": 1,
+  "source": {
+    "repository": "QuantSmith",
+    "commit": "2601cabd74622c832e99457a9a84ddb4a11f073c",
+    "archive_sha256": "5401537cd79292ae4e677aeeda1ae61f794d7cd5bcdc8c6f820d3619024cd678",
+    "working_changes_included": false
+  },
+  "stages": [
+    {"stage": 1, "pairs": ["P1", "P2"]},
+    {"stage": 2, "pairs": ["P3", "P4"]}
+  ],
+  "execution_order_rule": "Stage 1 before stage 2; randomize pair order within stage and task conditions/order within pairs after session readiness",
+  "scope_rule": "All eight selected before outcomes; stage 2 inclusion is not conditional on stage 1 performance",
+  "condition_assignments": null,
+  "difficulty_matching": "Provisional preflight judgment, not measured equal effort",
+  "baseline_selectors": [
+    "tests/test_test_engineering.py::test_zero_tests_is_never_a_pass",
+    "tests/test_test_engineering.py::test_parse_junit_pytest_and_gtest_forms",
+    "tests/test_test_engineering.py::test_parse_junit_rejects_oversize",
+    "tests/test_data_eng_tooling.py",
+    "tests/test_ingestion_data_contract.py",
+    "tests/test_change_safety.py::test_change_classification_AC_004",
+    "tests/test_change_safety.py::test_mode_enforcement_and_backward_reads_AC_005",
+    "tests/test_change_safety.py::test_drift_detection_AC_006",
+    "tests/test_provenance.py",
+    "tests/test_pipeline_observability.py"
+  ],
+  "tasks": [
+    {"task_id": "P1A", "pair": "P1", "stage": 1, "title": "Slow-test summary", "brief": "tasks/P1A.md", "acceptance": "acceptance/test_p1a.py", "target": "src/quantsmith/test_engineering/report.py"},
+    {"task_id": "P1B", "pair": "P1", "stage": 1, "title": "dbt findings by rule and severity", "brief": "tasks/P1B.md", "acceptance": "acceptance/test_p1b.py", "target": "src/quantsmith/pipelines/dbt_review.py"},
+    {"task_id": "P2A", "pair": "P2", "stage": 1, "title": "Namespace-qualified JUnit input", "brief": "tasks/P2A.md", "acceptance": "acceptance/test_p2a.py", "target": "src/quantsmith/test_engineering/junit.py"},
+    {"task_id": "P2B", "pair": "P2", "stage": 1, "title": "Categorical allowed-values ingestion rule", "brief": "tasks/P2B.md", "acceptance": "acceptance/test_p2b.py", "target": "src/quantsmith/pipelines/ingestion_data_contract.py"},
+    {"task_id": "P3A", "pair": "P3", "stage": 2, "title": "Partition-plan explanation", "brief": "tasks/P3A.md", "acceptance": "acceptance/test_p3a.py", "target": "src/quantsmith/pipelines/distributed_compute.py"},
+    {"task_id": "P3B", "pair": "P3", "stage": 2, "title": "Schema compatibility summary", "brief": "tasks/P3B.md", "acceptance": "acceptance/test_p3b.py", "target": "src/quantsmith/pipelines/schema_evolution.py"},
+    {"task_id": "P4A", "pair": "P4", "stage": 2, "title": "Deterministic lineage-impact export", "brief": "tasks/P4A.md", "acceptance": "acceptance/test_p4a.py", "target": "src/quantsmith/pipelines/provenance.py"},
+    {"task_id": "P4B", "pair": "P4", "stage": 2, "title": "Per-step observability export", "brief": "tasks/P4B.md", "acceptance": "acceptance/test_p4b.py", "target": "src/quantsmith/pipelines/pipeline_observability.py"}
+  ]
+}

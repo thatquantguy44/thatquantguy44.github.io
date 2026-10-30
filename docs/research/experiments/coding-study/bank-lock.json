@@ -1,0 +1,25 @@
+{
+  "kind": "prepared_task_definition_lock_not_execution_session",
+  "bank_version": "0.1.0",
+  "sha256": {
+    "task-bank.json": "9693c9f3cc0ba2a57a04deb96ff0bb5f20f12f568f37004e6b524263ac6c6133",
+    "prepare.py": "a5c81071a318f77082d314ccf23337557c20ab2964bb1bc0eeb8939169356a2f",
+    "../../coding-experiment-protocol.md": "1c1baa09749eec8420e15adf7c4377bea917f46ace7145f3a01b189cb73e200d",
+    "tasks/P1A.md": "564a5e5745e24e23e605bf9eb6dee115ea15fa647fd86fb8a0edbbe5d1ad6404",
+    "tasks/P1B.md": "de61c2f6ba2b7c7e68ee670b608c78ca0ef139a74aff6b08d6ce2ad8afe67765",
+    "tasks/P2A.md": "81135cd694f10570eb7e0684eb5b74503b11a789f376a8c76d3b5ce65adb0725",
+    "tasks/P2B.md": "f6b9e3101d7c17cad2619a86cb70527c287377b4ad2c9a14115424d039127923",
+    "tasks/P3A.md": "d6e121a3da7ac5cc6aeb2506876723813f845e4cb9c3b99233376864e707c7bb",
+    "tasks/P3B.md": "0ed8d12058e49f9c23534c3bfe376e896489beb0baa6d01f7e91d94c945a4037",
+    "tasks/P4A.md": "6a9ea3ffa69f42e8c95e339aa966f53c0ff9da7f244d2f1560c9bdb8ee41586c",
+    "tasks/P4B.md": "3061dc8550daac1a539780c631d7987bea3f79d8e0e4f38c991eaa97368c556e",
+    "acceptance/test_p1a.py": "fa470a45bbec0ecac937f45f85d3bb2e93e0d1919dc156dfe98452138fd1e8c8",
+    "acceptance/test_p1b.py": "ee9dafb117af75200fd846aa4af332173024321facf7756bfa79e3781eea9071",
+    "acceptance/test_p2a.py": "a3c3cc052600116b9333174ed031f94c04c5eae5cfc5fc0f5bef6772a81fc00c",
+    "acceptance/test_p2b.py": "a8ff2c0b432d8e1d40f00e347c34500b4fa9cf3c660a4d4ad02e62c5e4e70aeb",
+    "acceptance/test_p3a.py": "72e788a54d5c1746ba1443a71a78fd9b698595bc8355ba50d1b4de74efdd82e2",
+    "acceptance/test_p3b.py": "6b295c99293f201196450c9c32403d9e51c6696d85dab0871e94d6f0cd743010",
+    "acceptance/test_p4a.py": "342cdb0bc70617ab4489af20da7bc4ff7748f9a4df8a1ddb048faabcdd1d9e5e",
+    "acceptance/test_p4b.py": "af474069fa058baa325b059e3a7411a22d9514dc92dfcde9b846a4b5d87a5603"
+  }
+}
