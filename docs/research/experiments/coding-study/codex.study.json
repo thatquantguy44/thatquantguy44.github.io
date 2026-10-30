@@ -1,0 +1,29 @@
+{
+  "kind": "offline_prepared_codex_binding_for_later_online_use",
+  "tool": "Codex CLI",
+  "tool_version": "0.160.0",
+  "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "model": "gpt-6.1-sol",
+  "model_provider": "openai",
+  "reasoning_effort": "high",
+  "model_reference_type": "locally_configured_name_not_verified_immutable_snapshot",
+  "live_availability_verified": false,
+  "provider_calls_during_preparation": false,
+  "configuration_overrides": {
+    "model": "gpt-6.1-sol",
+    "model_provider": "openai",
+    "model_reasoning_effort": "high",
+    "web_search": "disabled",
+    "features.multi_agent": false,
+    "features.multi_agent_v2": false,
+    "features.plugins": false,
+    "features.remote_plugin": false,
+    "features.plugin_sharing": false,
+    "sandbox_workspace_write.network_access": false
+  },
+  "mcp_policy": "Disable every locally configured server by explicit per-server override",
+  "session_policy": "Fresh standalone context per task; no resume/fork, subagents, external review tools, or cross-attempt memory",
+  "future_cli_options": ["--no-daemon", "--sandbox", "workspace-write", "--ask-for-approval", "on-request"],
+  "usage_cost_policy": "Record exposed usage and charges; unavailable tokens/costs remain null, not zero",
+  "source_basis": "Local CLI version/help/features/MCP inspection and saved model preferences; no fresh documentation retrieval or provider validation"
+}

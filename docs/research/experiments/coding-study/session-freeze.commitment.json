@@ -1,0 +1,29 @@
+{
+  "kind": "conditional_session_commitment_not_results",
+  "version": "0.1.0",
+  "session_sha256": "52f10493b6c0cc3f844ac702de1935d2ecb17c359e1359b80c8bf990abca3014",
+  "schedule_sha256": "d214735dc35d71f113d2939ad6ea5a9281373808e653107ebecd38ec971f7f89",
+  "task_pool_sha256": "6843e3030176373005a8fc6cfc26ff44c8b84b2f5cdeda230afceb25e42fee3f",
+  "session_controls_sha256": "81426e51c112d3103067b1d8fa2697d16c279799f1831544905c68dfe9444c62",
+  "selected_task_count": 8,
+  "stage_order": [
+    "P1/P2",
+    "P3/P4"
+  ],
+  "execution_ready": false,
+  "readiness_blockers": [
+    "prior_implementation_familiarity_unresolved",
+    "later_authorized_online_availability_unverified"
+  ],
+  "assignments_disclosure_permitted": false,
+  "empirical_observations": 0,
+  "private_session_directory": "sessions/frozen-session-v1",
+  "local_editor": {
+    "name": "VS Code",
+    "version": "1.143.1",
+    "installed_study_extensions": [],
+    "gui_effectiveness_verified": false
+  },
+  "availability_probe_plan": "sessions/availability-plan-v1/plan.json",
+  "availability_probe_launched": false
+}

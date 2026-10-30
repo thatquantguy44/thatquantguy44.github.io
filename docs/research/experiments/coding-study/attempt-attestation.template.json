@@ -1,0 +1,20 @@
+{
+  "kind": "blank_unobserved_attempt_preflight",
+  "session_manifest_sha256": null,
+  "task_id": null,
+  "assigned_condition": null,
+  "previous_scheduled_task_terminal_record_ref": null,
+  "schedule_order_checked": null,
+  "source_packet_audit_passed": null,
+  "runtime_versions_match": null,
+  "fresh_editor_profile_match": null,
+  "editor_ai_features_and_extensions_disabled": null,
+  "only_permitted_documentation_and_tests": null,
+  "prior_task_or_solution_exposure_notes": null,
+  "unexpected_assistance_or_open_sessions_notes": null,
+  "ai_condition_fresh_codex_context_and_controls_match": null,
+  "warmup_complete_or_not_required": null,
+  "timer_ready_without_starting_task_work": null,
+  "participant_attested_at_utc": null,
+  "notes": null
+}

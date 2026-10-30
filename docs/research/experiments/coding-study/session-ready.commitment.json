@@ -1,0 +1,41 @@
+{
+  "kind": "ready_session_commitment_not_experiment_results",
+  "version": "0.2.0",
+  "previous_commitment_file": "session-freeze.commitment.json",
+  "session_sha256": "10565340b4dd6d21e9a191a91974d8a67d94cb2a987e2ad79bfa09234cc5c8d5",
+  "schedule_sha256": "d214735dc35d71f113d2939ad6ea5a9281373808e653107ebecd38ec971f7f89",
+  "task_pool_sha256": "6843e3030176373005a8fc6cfc26ff44c8b84b2f5cdeda230afceb25e42fee3f",
+  "session_controls_sha256": "81426e51c112d3103067b1d8fa2697d16c279799f1831544905c68dfe9444c62",
+  "selected_task_count": 8,
+  "stage_order": [
+    "P1/P2",
+    "P3/P4"
+  ],
+  "execution_ready": true,
+  "readiness_blockers": [],
+  "assignments_disclosure_permitted": true,
+  "empirical_coding_observations": 0,
+  "study_tasks_started": 0,
+  "private_session_directory": "sessions/frozen-session-v2",
+  "participant_prior_implementation": "none_reported; planning/brief/source exposure retained",
+  "local_editor": {
+    "name": "VS Code",
+    "version": "1.143.1",
+    "installed_study_extensions": [],
+    "gui_effectiveness_verified": false
+  },
+  "availability": {
+    "passed": true,
+    "scope": "one authorized generic task-free Codex process",
+    "requested_model": "gpt-6.1-sol",
+    "returned_model_ids": [],
+    "cost_usd": null,
+    "receipt_sha256": "e9267dc05ffcb2788960a299a88040a1e5bfc5d0619f9389999a124bf29f30ab"
+  },
+  "limitations": [
+    "Availability is not coding performance or independent quality evidence.",
+    "Model name is not a verified immutable server snapshot.",
+    "Per-attempt operator/editor/source/order checks are still required.",
+    "Permission covered the one readiness check; no task/model session starts automatically."
+  ]
+}

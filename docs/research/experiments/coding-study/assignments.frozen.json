@@ -1,0 +1,64 @@
+{
+  "kind": "frozen_assignment_plan_not_observations",
+  "private_schedule_sha256": "d214735dc35d71f113d2939ad6ea5a9281373808e653107ebecd38ec971f7f89",
+  "session_sha256": "10565340b4dd6d21e9a191a91974d8a67d94cb2a987e2ad79bfa09234cc5c8d5",
+  "slots": [
+    {
+      "condition": "no_ai",
+      "pair_id": "P1",
+      "position": 1,
+      "stage": 1,
+      "task_id": "P1B"
+    },
+    {
+      "condition": "ai_enabled",
+      "pair_id": "P1",
+      "position": 2,
+      "stage": 1,
+      "task_id": "P1A"
+    },
+    {
+      "condition": "ai_enabled",
+      "pair_id": "P2",
+      "position": 3,
+      "stage": 1,
+      "task_id": "P2A"
+    },
+    {
+      "condition": "no_ai",
+      "pair_id": "P2",
+      "position": 4,
+      "stage": 1,
+      "task_id": "P2B"
+    },
+    {
+      "condition": "ai_enabled",
+      "pair_id": "P3",
+      "position": 5,
+      "stage": 2,
+      "task_id": "P3A"
+    },
+    {
+      "condition": "no_ai",
+      "pair_id": "P3",
+      "position": 6,
+      "stage": 2,
+      "task_id": "P3B"
+    },
+    {
+      "condition": "no_ai",
+      "pair_id": "P4",
+      "position": 7,
+      "stage": 2,
+      "task_id": "P4A"
+    },
+    {
+      "condition": "ai_enabled",
+      "pair_id": "P4",
+      "position": 8,
+      "stage": 2,
+      "task_id": "P4B"
+    }
+  ],
+  "empirical_coding_observations": 0
+}
