@@ -49,7 +49,7 @@ def digest(data):
 
 
 def fingerprint():
-    files = [ROOT / name for name in ("study.py", "prompts.json", "task-bank.json", "gold.json", "runtime.example.json")]
+    files = [ROOT / name for name in ("study.py", "prompts.json", "task-bank.json", "gold.json", "runtime.example.json", "runner.py", "fixed.py", "tools.py")]
     return digest({p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in files + [PROTOCOL]})
 
 
@@ -69,7 +69,10 @@ def get_task(task_id):
 
 
 def finite_number(value):
-    return type(value) in (int, float) and math.isfinite(value)
+    try:
+        return type(value) in (int, float) and math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def nonnegative(value):
@@ -175,6 +178,7 @@ def check_run(task, answer, run):
     require(run.get("answer_sha256") == digest(answer), "Answer hash mismatch")
     require(sha(run.get("session_manifest_sha256")), "Missing frozen session manifest hash")
     require(run.get("terminal_status") in STATUSES, "Missing or invalid terminal status")
+    require(run.get("execution_mode") != "offline_synthetic", "Synthetic harness output is not an empirical attempt")
     require(run.get("boundary_verified") is True, "Participant boundary not verified")
     require(isinstance(run.get("operator_id"), str) and bool(run["operator_id"].strip()), "Missing operator identity")
     elapsed = run.get("elapsed_seconds")
