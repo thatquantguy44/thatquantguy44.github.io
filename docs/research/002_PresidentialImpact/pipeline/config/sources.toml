@@ -1,0 +1,47 @@
+[pipeline]
+schema_version = 1
+project_id = "002_PresidentialImpact"
+currency = "USD"
+annual_start_year = 1936
+annual_end_year = 2023
+
+[[source]]
+id = "FF_MKT_001"
+title = "Fama/French 3 Factors, monthly"
+url = "https://mba.tuck.dartmouth.edu/pages/faculty/Ken.french/ftp/F-F_Research_Data_Factors_CSV.zip"
+parser = "fama_french_monthly_zip"
+authority = "academic primary distributor of CRSP-derived research returns"
+role = "public_reconstruction_market_proxy"
+return_basis = "NOMINAL_TOTAL_RETURN_PROXY"
+enabled = true
+
+[[source]]
+id = "FEDFUNDS_001"
+title = "Federal Funds Effective Rate, monthly"
+url = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS"
+parser = "fred_csv"
+authority = "Federal Reserve data distributed by Federal Reserve Bank of St. Louis"
+role = "policy_rate"
+unit = "PERCENT"
+enabled = true
+
+[[source]]
+id = "SHILLER_001"
+title = "Robert J. Shiller U.S. stock market data"
+# The official Yale host did not accept HTTPS on 2026-10-31.  The capture is
+# retained by content hash and the transport exception is documented in
+# SOURCE_DECISIONS.md; do not silently substitute a third-party mirror.
+url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
+parser = "shiller_xls"
+authority = "Robert J. Shiller, Yale University"
+role = "valuation_and_sp_composite_context"
+enabled = true
+
+[[source]]
+id = "HOUSE_GOV_001"
+title = "Party Government Since 1857"
+url = "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/"
+parser = "house_party_government_html"
+authority = "Office of the Historian, U.S. House of Representatives"
+role = "political_control_candidate"
+enabled = true

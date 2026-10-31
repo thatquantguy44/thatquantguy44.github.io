@@ -1,0 +1,8 @@
+# Local research evidence, participant material and execution records
+**/.local/
+**/sessions/
+**/runs/
+**/sources/raw/
+**/__pycache__/
+**/build/
+**/*.egg-info/
