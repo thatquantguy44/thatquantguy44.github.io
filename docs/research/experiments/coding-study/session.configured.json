@@ -1,0 +1,126 @@
+{
+  "kind": "ai_and_timing_bound_personal_session_not_execution_ready",
+  "protocol_version": "0.1.0",
+  "scope": "one_participant_exploratory",
+  "confirmed_participant_count": 1,
+  "participant_id": "P01",
+  "execution_ready": false,
+  "offline_only": true,
+  "participant_session_slots": null,
+  "repository_commit": "2601cabd74622c832e99457a9a84ddb4a11f073c",
+  "environment_and_tools": null,
+  "documentation_snapshot": null,
+  "ai_tool_and_model_binding": {
+    "kind": "offline_prepared_codex_binding_for_later_online_use",
+    "tool": "Codex CLI",
+    "tool_version": "0.160.0",
+    "executable_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "model": "gpt-6.1-sol",
+    "model_provider": "openai",
+    "reasoning_effort": "high",
+    "model_reference_type": "locally_configured_name_not_verified_immutable_snapshot",
+    "live_availability_verified": false,
+    "provider_calls_during_preparation": false,
+    "configuration_overrides": {
+      "model": "gpt-6.1-sol",
+      "model_provider": "openai",
+      "model_reasoning_effort": "high",
+      "web_search": "disabled",
+      "features.multi_agent": false,
+      "features.multi_agent_v2": false,
+      "features.plugins": false,
+      "features.remote_plugin": false,
+      "features.plugin_sharing": false,
+      "sandbox_workspace_write.network_access": false
+    },
+    "mcp_policy": "Disable every locally configured server by explicit per-server override",
+    "session_policy": "Fresh standalone context per task; no resume/fork, subagents, external review tools, or cross-attempt memory",
+    "future_cli_options": [
+      "--no-daemon",
+      "--sandbox",
+      "workspace-write",
+      "--ask-for-approval",
+      "on-request"
+    ],
+    "usage_cost_policy": "Record exposed usage and charges; unavailable tokens/costs remain null, not zero",
+    "source_basis": "Local CLI version/help/features/MCP inspection and saved model preferences; no fresh documentation retrieval or provider validation"
+  },
+  "conditions": [
+    "ai_enabled",
+    "no_ai"
+  ],
+  "planned_task_pairs": 4,
+  "task_pool_sha256": "6843e3030176373005a8fc6cfc26ff44c8b84b2f5cdeda230afceb25e42fee3f",
+  "acceptance_checks_sha256": "22124ed0fe8b03b533fb50e7ff6cb9807727babcfc82dcfeb6a40d9e596a5f6a",
+  "randomization_seed": null,
+  "randomization_algorithm": null,
+  "schedule_sha256": null,
+  "active_author_cap_seconds_per_task": 3600,
+  "wall_cap_seconds_per_task": 5400,
+  "correction_and_followup_rule": {
+    "observation_window_calendar_days": 7,
+    "anchor": "initial_submission",
+    "preserve_initial_status_and_time": true,
+    "append_findings_and_effort_separately": true,
+    "post_submission_repairs_rescue_initial_attempt": false,
+    "missing_is_not_no_defects": true
+  },
+  "warmup_rule": {
+    "per_condition_wall_seconds": 600,
+    "unrelated_unscored_tasks_only": true,
+    "once_before_first_task_of_each_condition": true,
+    "record_separately": true
+  },
+  "timing_method": {
+    "id": "interactive_monotonic_intervals_v1",
+    "clock": "time.monotonic_ns",
+    "utc_labels": true,
+    "clock_anomaly_tolerance_seconds": 5,
+    "watchdog_poll_seconds": 0.25,
+    "classification": "manual_single_primary_category",
+    "external_tool_termination_enforced": false
+  },
+  "external_reviewer_status": "unconfirmed",
+  "planned_acceptance_basis": "automated_checks_plus_author_assessment",
+  "permitted_assistance": null,
+  "artifact_and_privacy_rules": null,
+  "frozen_at_utc": null,
+  "repository_archive_sha256": "5401537cd79292ae4e677aeeda1ae61f794d7cd5bcdc8c6f820d3619024cd678",
+  "selected_stages": [
+    {
+      "stage": 1,
+      "pairs": [
+        "P1",
+        "P2"
+      ]
+    },
+    {
+      "stage": 2,
+      "pairs": [
+        "P3",
+        "P4"
+      ]
+    }
+  ],
+  "condition_assignments": null,
+  "preflight_environment_observed": {
+    "python": "3.12.0",
+    "pytest": "8.4.2",
+    "numpy": "2.4.6"
+  },
+  "execution_environment_frozen": false,
+  "session_id": "coding-personal-controls-v0.1",
+  "session_controls_sha256": "81426e51c112d3103067b1d8fa2697d16c279799f1831544905c68dfe9444c62",
+  "offline_codex_metadata_report_sha256": "640eb2eaf2e10334b1e8cfb5b352470f09fb13094e15a21a0dbb558f7c554055",
+  "timing_logger_sha256": "a4d6225855fe0f51004e295b3fbff86e01adc13aa73b5f665a07ab2606112ddf",
+  "ai_instructions_sha256": "451728809433d1c3eed3a0120c2dd3c8ea442af12c292ed3574fcaca5269cd82",
+  "requested_bindings_complete": true,
+  "preparation_phase": "offline",
+  "remaining_execution_inputs": [
+    "actual participant slots and familiarity inventory",
+    "comparable editor/docs/runtime and hook/network checks",
+    "later online Codex availability without model fallback",
+    "restricted randomization and schedule",
+    "final execution-session freeze"
+  ]
+}

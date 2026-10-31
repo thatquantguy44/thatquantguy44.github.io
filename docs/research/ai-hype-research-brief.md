@@ -4,7 +4,7 @@ Working subtitle: Autonomous Agents, Multi-Agent Swarms, Coding Productivity, an
 
 Created: 2026-10-26 (America/New_York)
 
-Status: Research scope and editorial plan. Literature reconnaissance has begun; the proposed experiments have not been run. No original empirical findings are claimed here.
+Status: Research scope, editorial plan, [offline evidence inventory](evidence-matrix.md), and [first literature-led draft](article-draft.md) prepared. A [paragraph claim map and assistant review record](article-draft-review.md) records bounded checks. Primary-text verification and the proposed experiments remain pending. No original empirical findings are claimed here.
 
 ## Editorial direction
 
@@ -239,7 +239,9 @@ Target: approximately 2,500–3,000 words, plus sources and a concise methods ap
 
 Implementation update: [Protocol v0.1.0](agent-experiment-protocol.md) and the [offline development package](experiments/agent-study/README.md) are prepared. They specify the comparisons and include six synthetic fixtures, separate evaluator keys, condition prompts, a seeded 90-attempt pilot schedule, participant-packet export, answer/run validation, and an unbound runtime template. The two primary contrasts are human checkpoint versus single agent, and multi-agent orchestration versus continuing-context single-agent self-review. The original four conditions are retained, with self-review added as a fifth condition to separate collaboration from extra review.
 
-The synthetic fixtures are for setup validation only. No model pilot has been run. Live collection still requires a bound model/pricing manifest, instrumented fixed and model executors, verified participant isolation, and independent fixture review. The proposed nominal model/tool ceiling is USD 36 for the 72 model attempts in the development pilot, excluding human and infrastructure costs; this is a design limit, not observed spend or a price quote.
+The synthetic fixtures are for setup validation only. No model pilot has been run. Live collection still requires a bound model/pricing manifest, an instrumented live model adapter, verified participant isolation, and independent fixture review. The proposed nominal model/tool ceiling is USD 36 for the 72 model attempts in the development pilot, excluding human and infrastructure costs; this is a design limit, not observed spend or a price quote.
+
+Offline execution update, 2026-10-29: the [agent harness](experiments/agent-study/HARNESS.md) now executes the fixed workflow and all four model-condition policies using data-only scripted responses. It retains requests, independent worker contexts, shared tool calls, checkpoint/retry/error events, budget reservations, simulated deadlines, and post-execution grading. A synthetic smoke schedule is software validation only. Usage/cost/time inputs are marked scripted; boundary attestation and actual human review stay pending, and the scorer refuses to label these records empirical successes.
 
 Before running anything, define:
 
@@ -259,22 +261,42 @@ The package includes an unbound session manifest, prompt, JSON Schema, empty eve
 
 Offline continuation, 2026-10-27: the user selected **keep working offline for now**. The [offline setup notes](experiments/trading-study/OFFLINE-SETUP.md) record source-readiness findings and this constraint. A network-disabled synthetic integration now covers scheduling, source packets, model-output validation, all four forecast conditions, price aggregation, later outcomes, and ledger integrity. Local RFC 3161 utilities check request/digest/nonce/signature/pin/cutoff consistency using test material without submitting requests. All real bindings remain unverified; no mock data or locally signed test receipt qualifies as empirical or independent evidence.
 
+### Priority 3: claim-level evidence matrix
+
+Offline update, 2026-10-28: the [evidence matrix](evidence-matrix.md) now tracks 16 claims across all four topics. Each entry separates the study setting, comparison, outcome, candidate result, uncertainty, limitations, counterevidence, and wording suitable for a scoped first draft. The [source notes](source-notes.md) identify 13 source records, their evidence families and versions, and six open primary-verification gates. The [claim-linked article outline](article-outline.md) turns this inventory into a writing plan.
+
+This is a working inventory from retained source material, not a completed primary-text audit. No papers were newly retrieved, no experiments were run, and no independent review was performed. Numerical headlines remain on hold until their source versions, primary locators, denominators, and uncertainty are verified. Missing details are recorded as not retained. Paper/blog/code companions are not counted as independent replications.
+
+Local QuantSmith research/prior-art/backtest guidance and agent-skills documentation guidance informed the structure; inspected commits and the exact review scope are recorded in the source notes. The user’s offline-only preference remains in force. Priority 3's publication completion criterion is still open; the offline artifact is ready to support drafting and identify the remaining checks.
+
+### Priority 4: coding participant-access decision
+
+Decision, 2026-10-29: the user confirmed only themselves; external recruitment is uncertain. Select a **one-participant exploratory personal case study**, supported by the literature synthesis. Independent reviewer access is unconfirmed, so plan automated checks plus author assessment. The [decision record](coding-study-decision.md), [personal coding protocol](coding-experiment-protocol.md), and [records](experiments/coding-study/README.md) are prepared. Current binding/readiness status follows below. This route supports observations about the selected developer/tasks/tools, not population-wide effects or independent quality equivalence.
+
+Task preparation update: the user accepted the isolated QuantSmith SDK and all four pairs, with P1/P2 before P3/P4. The [prepared task bank](experiments/coding-study/README.md) contains eight exact briefs/checks, pinned source/archive hashes, reproducible clean-copy/export/preflight tools, and a prepared session manifest. All eight definitions are fixed before outcomes; stage 2 inclusion is not based on stage 1 performance. Selected baseline regressions pass and new checks fail on intended missing requirements. These are software setup findings, not participant attempts. This step did not freeze execution controls; the subsequent binding update supplies them.
+
+Historical binding update: the [session addendum](coding-session-settings.md) and [configured manifest](experiments/coding-study/session.configured.json) selected Codex CLI 0.160.0, `gpt-6.1-sol`/high, 60 minutes active and 90 minutes elapsed per initial task, and an offline manual monotonic interval logger. Warm-up is ten minutes per condition; a seven-day defect follow-up preserves initial submission/time. Local metadata and timer smoke checks passed without a model/coding session. The configured manifest records that preparation stage; the readiness promotion below supplies the later evidence.
+
+Historical conditional freeze: the [readiness addendum](coding-session-readiness.md) pinned a common VS Code profile and runtime. All eight staged assignments and a conditional session were saved privately; the [original public commitment](experiments/coding-study/session-freeze.commitment.json) preserves that stage's hashes/status. Familiarity and online availability were unresolved at that freeze.
+
+Readiness promotion: the participant confirmed no prior implementation beyond planning, briefs, and source discussion. The one authorized task-free online Codex check returned `READY`, exited successfully, and recorded no observed tools. Its receipt supports availability only; a returned model ID and monetary cost were not exposed. The private v2 session now verifies as technically ready and preserves the original schedule hash without a redraw. The [current handoff](coding-session-ready.md), [ready commitment](experiments/coding-study/session-ready.commitment.json), and [assignments](experiments/coding-study/ASSIGNMENTS.md) record the promotion. The first task is P1B in the no-AI condition. No study-task editor or task timer has started; warm-up is unrecorded; per-attempt editor/source/order/assistance attestations remain required. Dates are participant-initiated and recorded at execution. Independent review remains unconfirmed and coding observations remain zero. The online exception covered only that generic check; further provider calls are not authorized and remaining preparation stays offline.
+
 ### Priorities and completion criteria
 
 | Priority | Deliverable | Completion criterion |
 | --- | --- | --- |
 | **1. Agent experiment protocol** | [Protocol](agent-experiment-protocol.md), [task fixtures, prompts, and offline utilities](experiments/agent-study/README.md) prepared | Offline setup is reproducible; live execution must satisfy the protocol's runtime-binding and independent-review checklist |
 | **2. Trading protocol and prospective log** | [Protocol](trading-experiment-protocol.md), [schema, templates, and append-only logger](experiments/trading-study/README.md) prepared | Bind/audit sources and execution adapters, freeze a live session, and record forecasts before their cutoff with independently auditable timing |
-| **3. Evidence matrix** | Primary-source findings for all four topics | Every numerical claim has a study setting, outcome definition, uncertainty, and limitation |
-| **4. Coding experiment decision** | Participant-based study or explicitly narrow personal case study | Scope matches the participants and measurement access available |
+| **3. Evidence matrix** | [Working matrix](evidence-matrix.md), [source/version notes](source-notes.md), and [claim-linked outline](article-outline.md) prepared | Primary-text gates G01–G06 remain open; every admitted numerical claim needs a verified setting, outcome/estimator, uncertainty, limitation, and exact source locator |
+| **4. Coding experiment decision** | [Personal case study selected](coding-study-decision.md); task/tool/runtime bindings and the [promoted session](coding-session-ready.md) technically ready | Record actual starts, complete warm-up and per-attempt operator attestations, and retain all observations/deviations; independent review remains unconfirmed |
 | **5. Main experiments** | Results, failure analysis, costs, and uncertainty | Predefined comparisons are complete, including failed attempts |
-| **6. Article and figures** | Draft, reproducibility appendix, source checks | Conclusions follow the evidence and distinguish original results from published findings |
+| **6. Article and figures** | [First qualitative draft](article-draft.md) and [claim map/review record](article-draft-review.md) saved; no empirical result figures | Close source-admission and independent review before publication; conclusions must distinguish proposed methods, published findings and original observations |
 
 **Start the trading log early**, because prospective observations take calendar time. It can continue while the agent experiments run and the literature sections are drafted. A short observation period should remain a pilot rather than support a durable-alpha claim.
 
 For coding, resolve participant access early. Without it, a careful literature synthesis plus a labeled personal experiment is a defensible contribution.
 
-The immediate concrete deliverables are **an experiment specification and evidence matrix**. The experiment specification and offline preparation package are now saved; the evidence matrix remains pending under priority 3. Before live execution, complete the runtime-binding checklist in the protocol. The evidence matrix should record the claim, study period, model/tool version, sample, comparison, outcome, result, uncertainty, and limitations for each source.
+The immediate concrete deliverables are **an experiment specification and evidence matrix**. Both are now saved as offline preparation artifacts. The matrix's primary-source verification remains pending under priority 3. Before live execution, complete the runtime-binding checklist in the protocol. Before numerical article claims, close the relevant source-admission gates in the source notes.
 
 Draft the literature-backed article with clear placeholders for original results. Replace those placeholders only with verified results, build the planned figures, and recheck sources immediately before publication. Publication need not wait for a claim of durable trading alpha.
 
@@ -282,14 +304,23 @@ Draft the literature-backed article with clear placeholders for original results
 
 - [x] Prepare a versioned shared agent and multi-agent protocol with explicit comparisons, budgets, scoring, and failure rules.
 - [x] Prepare six synthetic development fixtures, separate evaluator keys, prompts, scheduling/export utilities, and an offline answer/run validator.
-- [ ] Bind the model/prices/tools, implement and archive the executors, verify participant isolation, obtain independent fixture review, and freeze the live session manifest.
+- [x] Implement the fixed baseline, shared restricted tools, and five-condition offline controller with retained synthetic smoke artifacts and failure-path checks.
+- [ ] Bind the model/prices/tools, implement and archive the live adapter and actual checkpoint/review interfaces, verify participant isolation, obtain independent fixture review, and freeze the live session manifest.
 - [ ] Verify complete attempt logging and independent scoring in the actual execution runtime.
 - [ ] Run the setup pilot and use its variability to plan the main experiment.
 - [x] Prepare the trading protocol, signal/baseline definitions, timing/economic assumptions, prediction schema, and offline append-only logger.
 - [x] Implement and test the network-disabled synthetic trading pipeline and local RFC 3161 verification helpers; record the offline-only preference and source-readiness gaps.
 - [ ] Bind/audit the cohort, model, permitted dictionary, source/price adapters, and independent timing receipts; freeze the live trading session and begin the prospective log.
-- [ ] Complete the primary-source evidence matrix for all four topics.
-- [ ] Resolve participant access and scope the coding experiment accordingly.
+- [x] Build the offline claim-level matrix, source/version registry, and claim-linked article outline for all four topics.
+- [ ] Complete primary-text verification and numerical admission gates G01–G06; obtain an independent final source check.
+- [x] Prepare a participant-access decision guide and explicit personal-case/pilot/main-study claim limits.
+- [x] Resolve participant access: one confirmed author, external recruitment uncertain; select an exploratory personal case study.
+- [x] Prepare the proportionate coding protocol and blank session/observation records, with independent review unconfirmed.
+- [x] Pin the isolated QuantSmith source; prepare all eight task briefs/checks, staged order, clean-copy exports, and offline preflight.
+- [x] Bind Codex/model/effort, active/wall caps, warm-up/follow-up rules, and manual monotonic timing; validate local metadata and synthetic timer behavior offline.
+- [x] Pin the shared editor/runtime, generate the restricted eight-task schedule privately, and save/verify a conditional frozen session without starting a task.
+- [x] Capture the participant's no-prior-implementation self-report, obtain the one authorized task-free online availability receipt, and promote/verify the same schedule without a redraw.
+- [ ] Complete condition warm-up and per-attempt editor/source/order/assistance attestations before recording timed coding attempts; retain actual starts and deviations.
 - [ ] Complete the main experiments, retaining failures and reporting uncertainty.
 - [ ] Finish the article, figures, reproducibility appendix, and source checks.
 
@@ -308,8 +339,12 @@ Draft the literature-backed article with clear placeholders for original results
 
 - Selected: original items 1, 2, 3, and 10.
 - Saved: research questions, initial sources, proposed experiments, figures, counterevidence criteria, article outline, prioritized execution plan, completion criteria, progress checklist, [shared experiment protocol](agent-experiment-protocol.md), [agent development package](experiments/agent-study/README.md), [trading protocol](trading-experiment-protocol.md), and [trading ledger package](experiments/trading-study/README.md).
-- Priority 1 status: protocol design and offline preparation are ready for implementation review; model runtime binding and independent review are still required before live collection.
+- Priority 1 status: protocol, fixed baseline, shared tools, and runnable synthetic controller are prepared. The live model adapter, actual runtime boundary/deadlines/accounting, real checkpoint/review interfaces, and independent fixture review remain required before live collection.
 - Priority 2 status: trading design, ledger, pure adapters, synthetic end-to-end integration, and local timestamp checks are prepared. User preference is offline-only; the prospective series remains unstarted pending verified bindings and independently auditable timing.
-- Next execution deliverables: instrumented executors, verified source/model bindings, independent reviews/receipts, and frozen live session manifests. Priority 3's evidence matrix remains pending.
-- Pending: detailed evidence extraction, original data collection, live experiments, charts, and article drafting. Software validation is not empirical evidence for the article.
+- Priority 3 status: [16-claim working matrix](evidence-matrix.md), [13-source registry and verification queue](source-notes.md), and [article outline](article-outline.md) prepared. Full primary-text admission and independent review remain pending; numerical headlines are held.
+- Priority 4 status: the [personal case study](coding-study-decision.md) and [promoted frozen session](coding-session-ready.md) are technically ready. Familiarity and the single authorized availability check are recorded; all eight assignments preserve the original schedule. The unrelated no-AI warm-up is recorded and participant-confirmed. The later AI-condition warm-up and per-attempt operator attestations remain, independent review is unconfirmed, and no measured coding-task observations exist.
+- Priority 6 status: the [first literature-led draft](article-draft.md) and [claim map/review record](article-draft-review.md) are saved. Assistant inventory/inference/editorial checks are recorded separately from primary-source verification. The draft withholds numerical study effects and presents our experiments as proposed.
+- Next preparation steps: complete the first no-AI attempt's operator attestations before starting task work. Further provider calls require a later authorized workflow. Close G01–G06 and revise the draft against primary texts before numerical publication claims.
+- Next live-execution deliverables: instrumented executors, verified source/model bindings, independent reviews/receipts, and frozen session manifests.
+- Pending: primary-source extraction/verification, source-led draft revision and independent review, original data collection, live experiments, and empirical charts. Software validation is not empirical evidence for the article.
 - Publication: this file is under `docs/`, which the current Jekyll configuration excludes from the generated website. It is a repository research brief, not a published post.

@@ -1,0 +1,40 @@
+{
+  "kind": "bound_session_controls_not_execution_freeze",
+  "controls_version": "0.1.0",
+  "task_definitions_lock_sha256": "6843e3030176373005a8fc6cfc26ff44c8b84b2f5cdeda230afceb25e42fee3f",
+  "settings": {
+    "active_author_cap_seconds_per_task": 3600,
+    "wall_cap_seconds_per_task": 5400,
+    "timing_method": {
+      "id": "interactive_monotonic_intervals_v1",
+      "clock": "time.monotonic_ns",
+      "utc_labels": true,
+      "clock_anomaly_tolerance_seconds": 5,
+      "watchdog_poll_seconds": 0.25,
+      "classification": "manual_single_primary_category",
+      "external_tool_termination_enforced": false
+    },
+    "warmup_rule": {
+      "per_condition_wall_seconds": 600,
+      "unrelated_unscored_tasks_only": true,
+      "once_before_first_task_of_each_condition": true,
+      "record_separately": true
+    },
+    "correction_and_followup_rule": {
+      "observation_window_calendar_days": 7,
+      "anchor": "initial_submission",
+      "preserve_initial_status_and_time": true,
+      "append_findings_and_effort_separately": true,
+      "post_submission_repairs_rescue_initial_attempt": false,
+      "missing_is_not_no_defects": true
+    }
+  },
+  "sha256": {
+    "timer.py": "a4d6225855fe0f51004e295b3fbff86e01adc13aa73b5f665a07ab2606112ddf",
+    "codex_binding.py": "5765e5d5eee01275a946a0f4177d5e1a71be35e750aa2f22129ad2fd6e88e0fa",
+    "codex.study.json": "df1a58b1375919022183198cb5dff1baa583a5913cfd128b4cf92281378cd084",
+    "AI-INSTRUCTIONS.md": "451728809433d1c3eed3a0120c2dd3c8ea442af12c292ed3574fcaca5269cd82",
+    "observation.template.json": "229b50ff977ca3ebdfa3a2bf70f646d2f11379b971bd6c693aa0c582e0f1a6f6",
+    "../../coding-session-settings.md": "3a9becc569971d062e6fc3a97d2f321f3035cf71af581a08022ffd94a173d812"
+  }
+}

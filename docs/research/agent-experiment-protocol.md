@@ -6,7 +6,7 @@ Prepared: 2026-10-26 (America/New_York)
 
 Parent plan: [AI hype research brief](ai-hype-research-brief.md)
 
-Status: Executable offline preparation and grading specification. No model experiment has been run. The supplied fixtures are synthetic development examples, not a held-out benchmark.
+Status: Offline preparation, grading, and a runnable synthetic five-condition execution harness are implemented. No model experiment has been run. The supplied fixtures are synthetic development examples, not a held-out benchmark. See the [harness guide](experiments/agent-study/HARNESS.md) for the actual executor boundary.
 
 ## Questions and comparisons
 
@@ -42,7 +42,7 @@ Use one frozen deterministic implementation across tasks, without access to gold
 5. For synthesis, combine explicitly supported facts according to the public rule. Abstain when the rule cannot be represented by the frozen procedure.
 6. Return the same answer schema with source citations. Unsupported operations return `null` with unit `unknown` and an empty citation list and count as noncompletion unless abstention is the correct answer.
 
-Before model collection, archive and hash the fixed implementation and a separate development smoke test. Baseline implementation is a run-readiness item: the offline utilities supplied here prepare packets and grade outputs, but do not implement this executor or a provider adapter. Do not substitute gold answers as a baseline. Report baseline coverage by task family and avoid presenting unsupported operations as proof that conventional automation fails.
+Before model collection, archive and hash the fixed implementation and a separate development smoke test. The supplied `fixed.py` implements a bounded public-record/authority/formula/conversion grammar with explicit abstention diagnostics; it is included in the package fingerprint. The offline harness executes it alongside scripted model conditions. A live provider adapter remains unimplemented. Do not substitute gold answers as a baseline. Report baseline coverage by task family and avoid presenting unsupported operations as proof that conventional automation fails.
 
 ## Tasks and input boundary
 
@@ -154,12 +154,13 @@ python3 docs/research/experiments/agent-study/study.py schedule --out /tmp/ai-hy
 python3 docs/research/experiments/agent-study/study.py export --task reconcile_parallel --out /tmp/ai-hype-participant
 python3 docs/research/experiments/agent-study/study.py run-template --task reconcile_parallel --condition single --repeat 1 --out /tmp/ai-hype-run.json
 python3 docs/research/experiments/agent-study/study.py score --task reconcile_parallel --answer /tmp/ai-hype-participant/answer-template.json
+python3 docs/research/experiments/agent-study/runner.py smoke --out /tmp/ai-hype-agent-smoke
 python3 -m unittest discover -s docs/research/experiments/agent-study -p 'test_*.py' -v
 ```
 
 An empty answer template should fail scoring. To score collected output, replace `--answer` with the attempt's actual answer path and add `--run` with its completed run metadata. `score` exits 1 for failed/pending verification and 0 only for verified success; without `--run` it can show automated correctness but never verified success. Use the schedule's exact task/condition/repetition IDs, public-packet hash, and package fingerprint. Export refuses a nonempty directory; keep evaluator files outside the participant runtime.
 
-`schedule` creates a plan, not results. `run-template` creates unobserved fields as `null`, not fabricated zeros. Commands do not launch a model, simulate a human reviewer, enforce provider budgets, or run the pilot. A provider adapter or a consistently instrumented manual executor must implement the policy and audit requirements above.
+`schedule` creates a plan, not results. `run-template` creates unobserved fields as `null`, not fabricated zeros. The separate `runner.py smoke` command exercises the controller with synthetic replies/checkpoint feedback, simulated time/usage/costs, and a declared replay reservation. It retains all artifacts and grades only after execution; it supplies no real model calls, actual human review, provider-specific budget enforcement, or pilot observations. The scorer rejects its `offline_synthetic` mode as an empirical attempt. A live provider adapter or consistently instrumented manual executor must implement the remaining policy and audit requirements above.
 
 ## Pilot acceptance and freeze checklist
 
@@ -167,7 +168,8 @@ An empty answer template should fail scoring. To score collected output, replace
 - [x] Provide six synthetic task packets, evaluator keys, prompts, and output/run contracts.
 - [x] Provide seeded scheduling, clean packet export, and an offline scorer with adversarial checks.
 - [ ] Bind and archive an exact model, pricing, token limits, tools, and runtime manifest.
-- [ ] Implement/archive the fixed workflow and instrument the selected model executor.
+- [x] Implement/fingerprint the fixed workflow, shared restricted tools, and five-condition offline controller; exercise a synthetic smoke schedule.
+- [ ] Instrument/archive the selected live model executor with provider-specific reservations, actual billing, and hard deadlines; implement real checkpoint/review handling.
 - [ ] Confirm participant isolation and hidden-key separation in that executor.
 - [ ] Have an independent reviewer validate every fixture and rubric before collection.
 - [ ] Run the 90-attempt development pilot, retaining every attempt and all costs.

@@ -1,0 +1,16 @@
+{
+  "kind": "first_task_prepared_not_started",
+  "task_id": "P1B",
+  "condition": "no_ai",
+  "position": 1,
+  "private_packet_directory": "runs/session-v2/P1B",
+  "private_launch_recipe": "runs/session-v2/P1B/launch.short-profile.json",
+  "session_sha256": "10565340b4dd6d21e9a191a91974d8a67d94cb2a987e2ad79bfa09234cc5c8d5",
+  "timer_started": false,
+  "editor_launched": false,
+  "historical_launch_recipe": "runs/session-v2/P1B/launch.prepared.json",
+  "private_operator_instructions": "sessions/participant-setup-v1/PREPARATION.md",
+  "private_editor_launcher": "sessions/participant-setup-v1/OPEN-P1B-EDITOR.command",
+  "private_timer_launcher": "sessions/participant-setup-v1/START-P1B-TIMER.command",
+  "launcher_execution_status": "not_run_as_study_attempt; visible profile checks and participant warmup/attestation pending"
+}
