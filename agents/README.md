@@ -1,5 +1,7 @@
 # Research agent libraries
 
+Project status and numbered research folders are listed in the [research index](../docs/research/README.md).
+
 These libraries support this website's research and development work. They are
 source guidance, not article evidence, automatically installed plugins, or
 executed research reviewers. Both `agents/` and `docs/` are excluded from the
@@ -13,7 +15,7 @@ website build.
 ## Applying the guidance
 
 Start with agent-skills' [discovery skill](agent-skills/skills/using-agent-skills/SKILL.md)
-and select only the workflows relevant to the work. For this literature draft,
+and select only the workflows relevant to the work. For the paused AI-hype literature draft,
 context and documentation guidance help organize section evidence; engineering
 review patterns can inform bounded assistant checks. Its repository-wide
 `AGENTS.md` governs changes inside that library, not this website as a whole.
@@ -30,8 +32,8 @@ scoped but not implemented at the reviewed revision. Reading its design does
 not execute its proposed source verifier, calculation verifier, writer or other
 reviewers. A governed research catalog is not configured in this website project.
 
-The [research source notes](../docs/research/source-notes.md#library-familiarity-refresh-for-the-literature-draft)
-record inspected versions, scope and limits. The [article review record](../docs/research/article-draft-review.md)
+The [research source notes](../docs/research/001_AIHype/source-notes.md#library-familiarity-refresh-for-the-literature-draft)
+record inspected versions, scope and limits. The [article review record](../docs/research/001_AIHype/article-draft-review.md)
 distinguishes actual assistant passes from primary-source and independent human
 verification. Neither library closes the article's evidence gates by itself.
 
