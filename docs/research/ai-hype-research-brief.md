@@ -4,7 +4,7 @@ Working subtitle: Autonomous Agents, Multi-Agent Swarms, Coding Productivity, an
 
 Created: 2026-10-26 (America/New_York)
 
-Status: Research scope, editorial plan, and [offline evidence inventory](evidence-matrix.md) prepared. Primary-text verification and the proposed experiments remain pending. No original empirical findings are claimed here.
+Status: Research scope, editorial plan, [offline evidence inventory](evidence-matrix.md), and [first literature-led draft](article-draft.md) prepared. A [paragraph claim map and assistant review record](article-draft-review.md) records bounded checks. Primary-text verification and the proposed experiments remain pending. No original empirical findings are claimed here.
 
 ## Editorial direction
 
@@ -290,7 +290,7 @@ Readiness promotion: the participant confirmed no prior implementation beyond pl
 | **3. Evidence matrix** | [Working matrix](evidence-matrix.md), [source/version notes](source-notes.md), and [claim-linked outline](article-outline.md) prepared | Primary-text gates G01–G06 remain open; every admitted numerical claim needs a verified setting, outcome/estimator, uncertainty, limitation, and exact source locator |
 | **4. Coding experiment decision** | [Personal case study selected](coding-study-decision.md); task/tool/runtime bindings and the [promoted session](coding-session-ready.md) technically ready | Record actual starts, complete warm-up and per-attempt operator attestations, and retain all observations/deviations; independent review remains unconfirmed |
 | **5. Main experiments** | Results, failure analysis, costs, and uncertainty | Predefined comparisons are complete, including failed attempts |
-| **6. Article and figures** | Draft, reproducibility appendix, source checks | Conclusions follow the evidence and distinguish original results from published findings |
+| **6. Article and figures** | [First qualitative draft](article-draft.md) and [claim map/review record](article-draft-review.md) saved; no empirical result figures | Close source-admission and independent review before publication; conclusions must distinguish proposed methods, published findings and original observations |
 
 **Start the trading log early**, because prospective observations take calendar time. It can continue while the agent experiments run and the literature sections are drafted. A short observation period should remain a pilot rather than support a durable-alpha claim.
 
@@ -342,8 +342,9 @@ Draft the literature-backed article with clear placeholders for original results
 - Priority 1 status: protocol, fixed baseline, shared tools, and runnable synthetic controller are prepared. The live model adapter, actual runtime boundary/deadlines/accounting, real checkpoint/review interfaces, and independent fixture review remain required before live collection.
 - Priority 2 status: trading design, ledger, pure adapters, synthetic end-to-end integration, and local timestamp checks are prepared. User preference is offline-only; the prospective series remains unstarted pending verified bindings and independently auditable timing.
 - Priority 3 status: [16-claim working matrix](evidence-matrix.md), [13-source registry and verification queue](source-notes.md), and [article outline](article-outline.md) prepared. Full primary-text admission and independent review remain pending; numerical headlines are held.
-- Priority 4 status: the [personal case study](coding-study-decision.md) and [promoted frozen session](coding-session-ready.md) are technically ready. Familiarity and the single authorized availability check are recorded; all eight assignments preserve the original schedule. Warm-up and per-attempt operator attestations remain, independent review is unconfirmed, and no coding observations exist.
-- Next preparation steps: prepare the first assigned no-AI attempt offline, then complete warm-up and operator attestations when the participant starts. Further provider calls require a later authorized workflow. Draft literature sections within the matrix's admitted wording meanwhile; when source access resumes, close G01–G06 before numerical publication claims.
+- Priority 4 status: the [personal case study](coding-study-decision.md) and [promoted frozen session](coding-session-ready.md) are technically ready. Familiarity and the single authorized availability check are recorded; all eight assignments preserve the original schedule. The unrelated no-AI warm-up is recorded and participant-confirmed. The later AI-condition warm-up and per-attempt operator attestations remain, independent review is unconfirmed, and no measured coding-task observations exist.
+- Priority 6 status: the [first literature-led draft](article-draft.md) and [claim map/review record](article-draft-review.md) are saved. Assistant inventory/inference/editorial checks are recorded separately from primary-source verification. The draft withholds numerical study effects and presents our experiments as proposed.
+- Next preparation steps: complete the first no-AI attempt's operator attestations before starting task work. Further provider calls require a later authorized workflow. Close G01–G06 and revise the draft against primary texts before numerical publication claims.
 - Next live-execution deliverables: instrumented executors, verified source/model bindings, independent reviews/receipts, and frozen session manifests.
-- Pending: primary-source extraction/verification, original data collection, live experiments, charts, and article drafting. Software validation is not empirical evidence for the article.
+- Pending: primary-source extraction/verification, source-led draft revision and independent review, original data collection, live experiments, and empirical charts. Software validation is not empirical evidence for the article.
 - Publication: this file is under `docs/`, which the current Jekyll configuration excludes from the generated website. It is a repository research brief, not a published post.

@@ -6,6 +6,8 @@ Working subtitle: Autonomous Agents, Multi-Agent Swarms, Coding Productivity, an
 
 Evidence map: [matrix](evidence-matrix.md). Version identities and admission work: [source notes](source-notes.md). Planning context: [research brief](ai-hype-research-brief.md).
 
+The [first literature-led draft](article-draft.md) and its [paragraph claim map/review record](article-draft-review.md) are saved. The draft uses qualitative wording and proposed methods; source-admission and publication checks below remain open.
+
 ## Editorial contract
 
 Write a literature-led first draft, approximately 2,500–3,000 words. Ask which claims survive clear measurement, realistic costs, and a valid information set. Let the evidence determine whether a promise is overhyped; do not assume a negative verdict.
@@ -50,7 +52,7 @@ The current source set supports narrow qualitative discussion. Numerical candida
 2. Distinguish time per task from output per period, and access assignment from tool adoption. The results cannot be combined by subtracting their headline percentages.
 3. Include METR's follow-up selection/measurement caveats so the early slowdown does not become a permanent verdict.
 4. Separate survey usefulness from randomized measured effects.
-5. Explain the selected one-participant personal case study, separating author verification from independent review. The [promoted session](coding-session-ready.md) is technically ready: task bank, Codex/time/timer, common runtime, no-prior-implementation self-report, and one authorized task-free availability receipt are bound; the original two-stage schedule is unchanged. Warm-up and per-attempt operator attestations remain, independent review is unconfirmed, and no coding observations exist. The generic `READY` response is setup evidence only; it does not measure coding productivity or authorize further provider calls.
+5. Explain the selected one-participant personal case study, separating author verification from independent review. The [promoted session](coding-session-ready.md) is technically ready: task bank, Codex/time/timer, common runtime, no-prior-implementation self-report, and one authorized task-free availability receipt are bound; the original two-stage schedule is unchanged. The unrelated no-AI warm-up is recorded and participant-confirmed. Per-attempt operator attestations and the later AI-condition warm-up remain; independent review is unconfirmed, and no measured coding-task observations exist. The generic `READY` response and warm-up are setup evidence only.
 
 **Evidence anchors:** AIH-C01–C05. Positive enterprise evidence is part of the section, not a footnote to a predetermined negative story.
 

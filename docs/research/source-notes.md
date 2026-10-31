@@ -2,7 +2,7 @@
 
 Prepared: 2026-10-28 (America/New_York)
 
-Companions: [evidence matrix](evidence-matrix.md), [claim-linked article outline](article-outline.md), [research brief](ai-hype-research-brief.md).
+Companions: [evidence matrix](evidence-matrix.md), [claim-linked article outline](article-outline.md), [research brief](ai-hype-research-brief.md), [first draft](article-draft.md), and [draft claim map/review](article-draft-review.md).
 
 ## Evidence boundary
 
@@ -173,7 +173,7 @@ For eventual experiments: follow the already saved protocols, with independent s
 
 ## Production Blockers
 
-Agent and trading live source/model bindings and independently trusted timing receipts remain unresolved. The coding study has one confirmed participant and a [technically ready frozen session](coding-session-ready.md): tool/timing/runtime bindings, a no-prior-implementation self-report, and one authorized task-free Codex availability receipt are recorded, with the original schedule preserved. No study-task editor or task timer has started; warm-up and per-attempt editor/source/order/assistance attestations remain, independent review is unconfirmed, and coding observations remain zero. The availability check supplies no coding-quality, model-snapshot, or production-readiness result. Its single-check authorization permits no further provider calls; remaining preparation stays offline. No production-promotion decision is made here.
+Agent and trading live source/model bindings and independently trusted timing receipts remain unresolved. The coding study has one confirmed participant and a [technically ready frozen session](coding-session-ready.md): tool/timing/runtime bindings, a no-prior-implementation self-report, and one authorized task-free Codex availability receipt are recorded, with the original schedule preserved. The unrelated no-AI warm-up is recorded and participant-confirmed; the later AI-condition warm-up and per-attempt editor/source/order/assistance attestations remain. No signed task attestation or task-timing record is saved at the drafting checkpoint; measured coding-task observations remain zero. Independent review is unconfirmed. The availability check supplies no coding-quality, model-snapshot, or production-readiness result. Its single-check authorization permits no further provider calls; remaining preparation stays offline. No production-promotion decision is made here.
 
 ## Decision Recommendation
 
@@ -186,3 +186,37 @@ Which source artifacts can be supplied or retrieved within a later authorized wo
 ## Handoff
 
 The prior-art inventory feeds QuantSmith's `research_analyst` role and the existing research brief. Financial-performance claims require `backtest_review` before any production-promotion decision. This assistant-authored literature pass is not that independent review.
+
+## Library familiarity refresh for the literature draft
+
+Review date: 2026-10-30 (America/New_York). This is a read-only review of the two local libraries and their applicability to the existing article. It retrieves no papers, closes no source-admission gate, and changes neither library nor the coding study's frozen source or controls.
+
+- **agent-skills:** reviewed revision `f63ec56a3cc936408d792956ae583c3c96a825bd`. The repository-local snapshot under `agents/agent-skills/` matches all 188 committed entries, including its symlink, at that revision. Its reusable assets are Markdown engineering workflows and personas; this does not establish an installed plugin or a literature-retrieval service.
+- **QuantSmith:** reviewed the current local revision `5deea85438f6d46a8a14ddb85e3821a65fa62f4e`. All 61 guidance-file hashes in `agents/quantsmith.reference.json` match both working files and committed bytes. The additional core research/prior-art/backtest instructions and proposed reporter README also match committed bytes. Other working-tree changes remain outside that reference and were left alone. This refresh supplements the earlier `3fdb484...` provenance above; it does not replace the coding study's separately frozen `2601cab...` base.
+
+| Guidance inspected | Use for this article |
+| --- | --- |
+| agent-skills: `skills/context-engineering/SKILL.md`, `skills/documentation-and-adrs/SKILL.md` | Give a writer only the section question, admitted claims, source passages, limitations and counterevidence. Preserve decisions and superseded versions within the existing research documents. |
+| agent-skills: `skills/source-driven-development/SKILL.md` | Adapt version-specific provenance and precise citations. Its framework-documentation hierarchy is not an empirical evidence hierarchy; original papers, research notes, code and dashboards retain the distinct roles defined in this matrix. |
+| agent-skills: `skills/doubt-driven-development/SKILL.md`, `docs/agents.md`, `references/orchestration-patterns.md` | A focused review can challenge an artifact against its evidence contract. Reading this guidance is not a completed doubt cycle, cross-model review, or independent scientific review. No external review CLI was invoked. |
+| QuantSmith: `agents/research_analyst/`, `agents/role_operations/prior_art_scanner/` | Frame testable questions, separate assumptions from observations, retain competing explanations and falsifiers, and identify the handoff from prior-art inventory to the research plan. |
+| QuantSmith: `agents/backtest_review/`, `instructions/model_validation.md`, `agents/venture_intelligence/source_reliability_grader/`, `competing_hypotheses_analyst/`, `confidence_language_reviewer/` | Check denominators, uncertainty, evidence origins, realistic costs and leakage where applicable. Ask whether evidence discriminates between explanations; align any claimed disagreement on population, outcome and horizon. The three latter directories are under `agents/venture_intelligence/`. |
+| QuantSmith: `agents/analytics/data_storytelling/`, `agents/analytics/data_visualization/`, `instructions/data_provenance.md` | Build readable evidence-bounded prose and figures with explicit source, period, units and uncertainty. Every derived figure needs inspectable inputs and a separate calculation check. |
+
+**Implementation and integration limits.** QuantSmith's `agents/research-reporter/README.md` explicitly describes a proposed family that is scoped, not implemented. The proposed `quantsmith.research_reporter` package, CLI and child reviewers are not available executions. Its separation of source support, calculation correctness, thesis merit and editorial quality is useful design guidance; it is not a receipt that those checks occurred. The existing research/prior-art roles request a governed `knowledge://market_research/...` catalog, which is not configured here. Catalog retrieval was not executed, rather than returning an empty result. The committed reference research store contains fictional demonstration material and must not become article evidence.
+
+At orientation, the supplied `agents/README.md` referred to MarketMedallion and to a root `AGENTS.md` and verifier scripts absent from this website repository. Before committing, that discovery guide was adapted for this project and the nonexistent integration commands removed. The vendored agent-skills snapshot and both pin manifests remain unchanged. The external QuantSmith checkout subsequently advanced to `7f3a0b6f13300024b9e5bc2760806c81796d8ed9`; the stored reference still identifies the previously reviewed `5deea85...` committed guidance. Its later working README differs from the pin, so the reference does not certify the current working tree. This does not invalidate the earlier versioned review or justify a silent repin. No installation, hook execution, runtime adoption, repository-wide rule import, or literature/provider network request was performed during orientation or drafting. The later Git push is a separate authorized transport action.
+
+**Drafting workflow.** Reuse the existing matrix, source notes and outline:
+
+1. State the precise proposition being tested and its strongest competing explanation. Keep population, metric and horizon aligned; a caution compatible with the proposition is not automatically a refutation.
+2. Admit the relevant source versions and passages through G01–G06. Retain study setting, denominator, uncertainty, limitations and evidence-origin groups; numerical holds stay in force until checked.
+3. Assemble one section's context: question, admitted claim IDs, supporting passages/locators, counterevidence, and prohibited extrapolations.
+4. Draft from that context. Return new factual claims to the ledger; label interpretation, hypothesis and proposed experiments explicitly.
+5. Check source support, calculations and inference in distinct passes against saved inputs, then review readability and citation placement. Retain findings and their resolution. Additional AI workers are correlated assistant reviews, not human or statistically independent verification.
+
+Two assistant workers reviewed the libraries' applicability during this orientation. They did not perform paper verification, experiments, or independent human review. This workflow requires no additional experimental harness before drafting, and it leaves the offline constraint and all six primary-source gates unchanged.
+
+## First literature-draft checkpoint
+
+The [first article draft](article-draft.md) is now saved with a [paragraph claim map and review record](article-draft-review.md). Three assistant passes checked inventory/source consistency, inference, and editorial clarity; source and inference reviewers then rechecked the affected revised paragraphs. Their input hashes, concrete findings, dispositions and review limits are retained. These passes did not retrieve primary texts, admit numerical literature effects, establish systematic coverage, or constitute independent human review. G01–G06 remain open, and no original performance findings or result figures were added.
