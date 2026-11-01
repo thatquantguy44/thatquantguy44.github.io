@@ -43,7 +43,16 @@ def _source_catalog(config: PipelineConfig, market_source_id: str, controls: lis
     records: list[dict[str, object]] = []
     for source in config.sources:
         if source.id in used:
-            records.append({"id": source.id, "title": source.title, "locator": source.url, "note": f"{source.role}; {source.authority}"})
+            note = f"{source.role}; {source.authority}"
+            if source.captured_locator and source.captured_at and source.captured_sha256:
+                note += f"; captured {source.captured_locator} at {source.captured_at}; SHA-256 {source.captured_sha256}"
+            records.append({
+                "id": source.id,
+                "title": source.title,
+                "locator": source.url,
+                "locators": list(source.locators),
+                "note": note,
+            })
     missing = used - {record["id"] for record in records}
     if missing:
         raise BuildError(f"Controls reference source IDs absent from source config: {', '.join(sorted(missing))}")

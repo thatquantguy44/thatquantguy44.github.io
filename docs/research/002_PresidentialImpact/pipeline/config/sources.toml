@@ -45,3 +45,36 @@ parser = "house_party_government_html"
 authority = "Office of the Historian, U.S. House of Representatives"
 role = "political_control_candidate"
 enabled = true
+
+[[source]]
+id = "WIKI_CONGRESS_001"
+title = "Party divisions of United States Congresses"
+url = "https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses"
+parser = "wikipedia_congress_party_divisions_html"
+authority = "Community-edited secondary source; SHA-256-pinned captured snapshot"
+role = "political_control_cross_check"
+enabled = true
+
+[[source]]
+id = "CTRL_074_A"
+title = "74th Congress authoritative official-source control-evidence bundle"
+# The canonical locator is the captured House Speakers page. `locators` retains
+# every authoritative component of the manual review bundle.
+url = "https://history.house.gov/People/Office/Speakers-List/"
+locators = [
+  "https://www.archives.gov/research/census/presidents",
+  "https://www.senate.gov/history/partydiv.htm",
+  "https://history.house.gov/Congressional-Overview/Profiles/74th/",
+  "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/",
+  "https://history.house.gov/People/Office/Speakers-List/",
+]
+parser = "manual_reviewed_control_evidence"
+authority = "Authoritative institutional historical records: National Archives; U.S. Senate Historical Office; U.S. House Office of the Historian"
+role = "manual_reviewed_political_control_evidence"
+captured_locator = "https://history.house.gov/People/Office/Speakers-List/"
+captured_at = "2026-10-31T17:54:33Z"
+captured_sha256 = "dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42dce3"
+# Manual evidence bundles never participate in fetch/parse/validate source loops.
+# They become part of an annual output's source catalog only when a reviewed
+# controls.csv row explicitly cites this ID.
+enabled = false

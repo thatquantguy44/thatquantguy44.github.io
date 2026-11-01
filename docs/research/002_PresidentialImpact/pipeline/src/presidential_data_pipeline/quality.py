@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import date
 import math
 from pathlib import Path
+import re
 
 
 PARTIES = {"D", "R", "OTHER", "TIED", "UNKNOWN"}
@@ -116,6 +117,51 @@ def check_political_candidates(rows: list[dict[str, str]]) -> list[Issue]:
             issues.append(Issue("candidates.review", "ERROR", "Candidate history must retain its review status", congress))
     if not rows:
         issues.append(Issue("candidates.present", "ERROR", "No political-control candidates were parsed"))
+    return issues
+
+
+_WIKI_COUNT = re.compile(r"^(?:\d+(?:[\/–-]\d+)*|—)$")
+
+
+def check_wikipedia_congress_crosscheck(
+    rows: list[dict[str, str]], first_decision_year: int | None = None, last_decision_year: int | None = None
+) -> list[Issue]:
+    """Validate a secondary Congress-level count cross-check, not controls."""
+    issues: list[Issue] = []
+    seen: set[str] = set()
+    intervals: list[tuple[int, int]] = []
+    count_fields = (
+        "senate_total", "senate_democrat_count", "senate_republican_count", "senate_other_count", "senate_vacancies",
+        "house_total", "house_democrat_count", "house_republican_count", "house_other_count", "house_vacancies",
+    )
+    for row in rows:
+        congress = row.get("congress", "")
+        try:
+            start_year, end_year = int(row.get("start_year", "")), int(row.get("end_year", ""))
+        except ValueError:
+            issues.append(Issue("wiki_crosscheck.valid", "ERROR", "Cross-check row has an invalid Congress year", congress))
+            continue
+        if not congress or start_year >= end_year:
+            issues.append(Issue("wiki_crosscheck.valid", "ERROR", "Cross-check row has an invalid Congress interval", congress))
+        if congress in seen:
+            issues.append(Issue("wiki_crosscheck.unique", "ERROR", "Duplicate Congress cross-check", congress))
+        seen.add(congress)
+        intervals.append((start_year, end_year))
+        for field in count_fields:
+            if not _WIKI_COUNT.fullmatch(row.get(field, "")):
+                issues.append(Issue("wiki_crosscheck.count", "ERROR", f"Invalid published count form in {field}", congress))
+        if row.get("source_id") != "WIKI_CONGRESS_001":
+            issues.append(Issue("wiki_crosscheck.source", "ERROR", "Unexpected source ID", congress))
+        if row.get("review_status") != "SECONDARY_CROSSCHECK_ONLY":
+            issues.append(Issue("wiki_crosscheck.review", "ERROR", "Cross-check must retain secondary-only status", congress))
+        if row.get("within_congress_variation_hint") not in {"TRUE", "FALSE"}:
+            issues.append(Issue("wiki_crosscheck.variation", "ERROR", "Variation hint must be TRUE or FALSE", congress))
+    if first_decision_year is not None and last_decision_year is not None:
+        for year in range(first_decision_year, last_decision_year + 1):
+            if not any(start <= year < end for start, end in intervals):
+                issues.append(Issue("wiki_crosscheck.coverage", "ERROR", "No Congress cross-check covers annual decision year", str(year)))
+    if not rows:
+        issues.append(Issue("wiki_crosscheck.present", "ERROR", "No Wikipedia Congress cross-check rows were parsed"))
     return issues
 
 

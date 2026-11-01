@@ -48,7 +48,11 @@ conditions analysis.
 
 The House party-government chart is Congress-level; its own methodology does not
 replace dated Senate changes, ties or vacancy policy. The pipeline emits it as a
-review candidate and requires a researcher-approved combined-control file.
+review candidate and requires a researcher-approved combined-control file. The
+Wikipedia party-divisions table is now separately archived as a hash-pinned
+secondary cross-check for published Senate/House counts, vacancies, trifecta
+labels and within-Congress variation hints. It is not an approved control source
+and cannot generate the combined-control file.
 
 ## Next source work
 

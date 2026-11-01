@@ -120,6 +120,8 @@ class _Tables(HTMLParser):
 
 
 _CONGRESS = re.compile(r"^(\d+)(?:st|nd|rd|th)\s*\((\d{4})[–-](\d{4})\)")
+_WIKI_CONGRESS = re.compile(r"^(\d+)(?:st|nd|rd|th)$")
+_WIKI_YEARS = re.compile(r"^(\d{4})[–-](\d{4})$")
 
 
 def _party(text: str) -> str:
@@ -161,6 +163,83 @@ def parse_house_party_government_html(payload: bytes, source_id: str) -> list[di
         })
     if not rows:
         raise ParseError("House party-government table contained no Congress rows")
+    return rows
+
+
+def _wiki_text(value: str) -> str:
+    """Remove rendered citation markers while preserving published counts."""
+    return re.sub(r"\[\d+\]", "", value).strip()
+
+
+def parse_wikipedia_congress_party_divisions_html(payload: bytes, source_id: str) -> list[dict[str, str]]:
+    """Extract 1930s-present Congress count cross-checks from a raw snapshot.
+
+    This adapter intentionally preserves count strings such as ``50/49`` and
+    ``56–58`` instead of deciding which party controlled a chamber on a date.
+    It is a secondary-source cross-check, never a controls.csv generator.
+    """
+    parser = _Tables()
+    parser.feed(payload.decode("utf-8", errors="replace"))
+    table = next(
+        (
+            candidate
+            for candidate in parser.tables
+            if candidate
+            and candidate[0]
+            and candidate[0][0] == "Congress"
+            and any(row and _WIKI_CONGRESS.fullmatch(row[0]) for row in candidate)
+        ),
+        None,
+    )
+    if table is None:
+        raise ParseError("Wikipedia Congress party-divisions table was not found")
+    rows: list[dict[str, str]] = []
+    for row in table:
+        # President and trifecta cells use HTML row-spans. In the flattened
+        # snapshot they are absent on repeated rows, whereas the twelve party
+        # count cells remain present.
+        if len(row) < 12:
+            continue
+        congress = _WIKI_CONGRESS.fullmatch(row[0])
+        years = _WIKI_YEARS.fullmatch(row[1])
+        if congress is None or years is None:
+            continue
+        # The modern Democratic/Republican layout begins with the 73rd
+        # Congress. The annual study begins with the 74th; retain all modern
+        # rows so the normalized source remains useful for boundary review.
+        if int(congress.group(1)) < 73:
+            continue
+        values = [_wiki_text(value) for value in row]
+        values.extend([""] * (14 - len(values)))
+        variation_hint = any("/" in value or "–" in value for value in values[2:12])
+        president_label, trifecta_label = values[12], values[13]
+        # A row that shares its President cell with its predecessor can still
+        # have a distinct Trifecta cell.  Do not shift that label into the
+        # president field after HTML row-span flattening.
+        if len(row) == 13 and president_label.startswith(("Yes", "No")):
+            president_label, trifecta_label = "", president_label
+        rows.append({
+            "congress": congress.group(1),
+            "start_year": years.group(1),
+            "end_year": years.group(2),
+            "senate_total": values[2],
+            "senate_democrat_count": values[3],
+            "senate_republican_count": values[4],
+            "senate_other_count": values[5],
+            "senate_vacancies": values[6],
+            "house_total": values[7],
+            "house_democrat_count": values[8],
+            "house_republican_count": values[9],
+            "house_other_count": values[10],
+            "house_vacancies": values[11],
+            "president_label": president_label,
+            "trifecta_label": trifecta_label,
+            "within_congress_variation_hint": "TRUE" if variation_hint else "FALSE",
+            "source_id": source_id,
+            "review_status": "SECONDARY_CROSSCHECK_ONLY",
+        })
+    if not rows:
+        raise ParseError("Wikipedia table contained no modern Congress count rows")
     return rows
 
 
@@ -231,6 +310,7 @@ PARSERS = {
     "fama_french_monthly_zip": parse_fama_french_monthly_zip,
     "fred_csv": parse_fred_csv,
     "house_party_government_html": parse_house_party_government_html,
+    "wikipedia_congress_party_divisions_html": parse_wikipedia_congress_party_divisions_html,
     "shiller_xls": parse_shiller_xls,
 }
 
@@ -248,6 +328,7 @@ def output_name(parser_name: str) -> str:
         "fama_french_monthly_zip": "market_returns_monthly.csv",
         "fred_csv": "policy_rates_monthly.csv",
         "house_party_government_html": "political_candidates.csv",
+        "wikipedia_congress_party_divisions_html": "wikipedia_congress_crosscheck.csv",
         "shiller_xls": "shiller_monthly.csv",
     }[parser_name]
 
