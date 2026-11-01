@@ -9,7 +9,9 @@ from .fetch import FetchError, fetch_sources, latest_artifact
 from .parsers import ParseError, output_name, parse_payload, write_rows
 from .provenance import read_json, sha256_file, write_json
 from .quality import (
+    Issue,
     check_annual_coverage,
+    check_controls,
     check_monthly_returns,
     check_political_candidates,
     check_policy_rates,
@@ -224,6 +226,40 @@ def validate_workspace(workspace: Path, config: PipelineConfig) -> dict[str, obj
         "issues": issues,
     }
     write_json(workspace / "quality" / "report.json", report)
+    return report
+
+
+def validate_controls_file(config: PipelineConfig, controls_path: Path) -> dict[str, object]:
+    """Validate reviewed control rows without requiring full annual coverage.
+
+    This is the promotion gate for one or more independently reviewed intervals.
+    Full decision-date coverage remains a separate requirement of `build-annual`.
+    """
+    controls = read_csv(controls_path)
+    issues = check_controls(controls)
+    known_source_ids = {source.id for source in config.sources}
+    for index, control in enumerate(controls, 2):
+        source_id = control.get("sourceId", "").strip()
+        if source_id and source_id not in known_source_ids:
+            issues.append(Issue(
+                "controls.source_catalog",
+                "ERROR",
+                f"sourceId is absent from config: {source_id}",
+                f"row {index}",
+            ))
+        elif source_id and source_id not in config.manual_control_source_ids:
+            issues.append(Issue(
+                "controls.source_role",
+                "ERROR",
+                "sourceId is not registered as manual reviewed political-control evidence",
+                f"row {index}",
+            ))
+    report = {
+        "schema_version": 1,
+        "errors": sum(issue.severity == "ERROR" for issue in issues),
+        "warnings": sum(issue.severity == "WARNING" for issue in issues),
+        "issues": [issue.as_dict() for issue in issues],
+    }
     return report
 
 

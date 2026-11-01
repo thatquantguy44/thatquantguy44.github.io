@@ -9,6 +9,18 @@ class ConfigError(ValueError):
     """Raised when a source catalog cannot describe a reproducible run."""
 
 
+MANUAL_CONTROL_EVIDENCE_ROLE = "manual_reviewed_political_control_evidence"
+
+
+@dataclass(frozen=True)
+class EvidenceCapture:
+    """A content-pinned copy of one component in a manual evidence bundle."""
+
+    locator: str
+    captured_at: str
+    sha256: str
+
+
 @dataclass(frozen=True)
 class SourceSpec:
     id: str
@@ -24,6 +36,7 @@ class SourceSpec:
     captured_locator: str | None = None
     captured_at: str | None = None
     captured_sha256: str | None = None
+    captures: tuple[EvidenceCapture, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -40,6 +53,11 @@ class PipelineConfig:
             if source.id == source_id:
                 return source
         raise ConfigError(f"Unknown source ID: {source_id}")
+
+    @property
+    def manual_control_source_ids(self) -> set[str]:
+        """IDs that are eligible to support a reviewed political-control row."""
+        return {source.id for source in self.sources if source.role == MANUAL_CONTROL_EVIDENCE_ROLE}
 
 
 def _required_text(value: object, name: str) -> str:
@@ -60,6 +78,23 @@ def _optional_text_list(value: object, name: str) -> tuple[str, ...]:
     if not isinstance(value, list):
         raise ConfigError(f"{name} must be a list of non-empty strings")
     return tuple(_required_text(item, f"{name}[{index}]") for index, item in enumerate(value))
+
+
+def _captures(value: object, name: str) -> tuple[EvidenceCapture, ...]:
+    if value is None:
+        return ()
+    if not isinstance(value, list):
+        raise ConfigError(f"{name} must be an array of tables")
+    captures: list[EvidenceCapture] = []
+    for index, item in enumerate(value):
+        if not isinstance(item, dict):
+            raise ConfigError(f"{name}[{index}] must be a table")
+        captures.append(EvidenceCapture(
+            locator=_required_text(item.get("locator"), f"{name}[{index}].locator"),
+            captured_at=_required_text(item.get("captured_at"), f"{name}[{index}].captured_at"),
+            sha256=_required_text(item.get("sha256"), f"{name}[{index}].sha256"),
+        ))
+    return tuple(captures)
 
 
 def load_config(path: str | Path) -> PipelineConfig:
@@ -88,7 +123,8 @@ def load_config(path: str | Path) -> PipelineConfig:
         enabled = raw.get("enabled", True)
         if not isinstance(enabled, bool):
             raise ConfigError(f"source[{index}].enabled must be true or false")
-        sources.append(SourceSpec(
+        captures = _captures(raw.get("capture"), f"source[{index}].capture")
+        source = SourceSpec(
             id=source_id,
             title=_required_text(raw.get("title"), f"source[{index}].title"),
             url=_required_text(raw.get("url"), f"source[{index}].url"),
@@ -102,7 +138,17 @@ def load_config(path: str | Path) -> PipelineConfig:
             captured_locator=_optional_text(raw.get("captured_locator"), f"source[{index}].captured_locator"),
             captured_at=_optional_text(raw.get("captured_at"), f"source[{index}].captured_at"),
             captured_sha256=_optional_text(raw.get("captured_sha256"), f"source[{index}].captured_sha256"),
-        ))
+            captures=captures,
+        )
+        if source.role == MANUAL_CONTROL_EVIDENCE_ROLE:
+            pinned_locators = {capture.locator for capture in source.captures}
+            unpinned = sorted(set(source.locators) - pinned_locators)
+            if unpinned:
+                raise ConfigError(
+                    f"manual control-evidence source {source.id} has locator(s) without a content-pinned capture: "
+                    + ", ".join(unpinned)
+                )
+        sources.append(source)
     return PipelineConfig(
         path=config_path.resolve(),
         project_id=_required_text(pipeline.get("project_id"), "pipeline.project_id"),

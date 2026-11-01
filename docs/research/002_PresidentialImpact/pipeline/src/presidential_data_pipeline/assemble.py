@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Literal
 
 from .config import PipelineConfig
-from .provenance import canonical_json, sha256_file, write_json
+from .provenance import canonical_json, read_json, sha256_file, write_json
 from .quality import Issue, check_annual_coverage, check_controls, check_monthly_returns, read_csv
 
 
@@ -46,11 +46,16 @@ def _source_catalog(config: PipelineConfig, market_source_id: str, controls: lis
             note = f"{source.role}; {source.authority}"
             if source.captured_locator and source.captured_at and source.captured_sha256:
                 note += f"; captured {source.captured_locator} at {source.captured_at}; SHA-256 {source.captured_sha256}"
+            captures = [
+                {"locator": capture.locator, "capturedAt": capture.captured_at, "sha256": capture.sha256}
+                for capture in source.captures
+            ]
             records.append({
                 "id": source.id,
                 "title": source.title,
                 "locator": source.url,
                 "locators": list(source.locators),
+                "captures": captures,
                 "note": note,
             })
     missing = used - {record["id"] for record in records}
@@ -72,6 +77,15 @@ def build_annual_dataset(
     market = read_csv(market_path)
     controls = read_csv(controls_path)
     issues = check_monthly_returns(market) + check_annual_coverage(market, config.annual_start_year - 1, config.annual_end_year) + check_controls(controls)
+    for index, control in enumerate(controls, 2):
+        source_id = control.get("sourceId", "")
+        if source_id not in config.manual_control_source_ids:
+            issues.append(Issue(
+                "controls.source_role",
+                "ERROR",
+                "sourceId is not registered as manual reviewed political-control evidence",
+                f"row {index}",
+            ))
     errors = _errors(issues)
     if errors:
         message = "; ".join(f"{item.check_id}: {item.message}" for item in errors[:5])
@@ -91,10 +105,28 @@ def build_annual_dataset(
     missing_controls = [decision for decision in required_decisions if _control_at(controls, decision) is None]
     if missing_controls:
         raise BuildError(f"No reviewed political control interval covers decision date(s): {', '.join(missing_controls[:10])}")
-    inputs = {"market_sha256": sha256_file(market_path), "controls_sha256": sha256_file(controls_path), "config_sha256": sha256_file(config.path)}
     market_source_ids = {str(row["source_id"]) for row in market}
     if len(market_source_ids) != 1:
         raise BuildError("Monthly market table must contain one declared source ID")
+    inputs: dict[str, object] = {
+        "market_sha256": sha256_file(market_path),
+        "controls_sha256": sha256_file(controls_path),
+        "config_sha256": sha256_file(config.path),
+    }
+    parse_status_path = market_path.parent / "parse_status.json"
+    raw_manifest_path = market_path.parent.parent / "raw" / "manifest.json"
+    if parse_status_path.exists():
+        inputs["market_parse_status_sha256"] = sha256_file(parse_status_path)
+    if raw_manifest_path.exists():
+        inputs["raw_fetch_manifest_sha256"] = sha256_file(raw_manifest_path)
+    controls_manifest_path = controls_path.with_suffix(".manifest.json")
+    if controls_manifest_path.exists():
+        controls_manifest = read_json(controls_manifest_path, {})
+        inputs["controls_promotion_manifest_sha256"] = sha256_file(controls_manifest_path)
+        if isinstance(controls_manifest, dict):
+            for key in ("review_workbook", "review_workbook_sha256"):
+                if controls_manifest.get(key):
+                    inputs[key] = controls_manifest[key]
     dataset = {
         "schemaVersion": 1,
         "id": f"annual-crsp-market-proxy-{config.annual_start_year}-{config.annual_end_year}",

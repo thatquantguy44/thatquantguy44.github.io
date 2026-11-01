@@ -6,7 +6,16 @@ from pathlib import Path
 from .assemble import BuildError, build_annual_dataset, write_dataset
 from .config import ConfigError, load_config
 from .fetch import FetchError
-from .pipeline import ReviewError, fetch_then_record, initialize_workspace, parse_sources, prepare_control_review, validate_workspace
+from .pipeline import (
+    ReviewError,
+    fetch_then_record,
+    initialize_workspace,
+    parse_sources,
+    prepare_control_review,
+    validate_controls_file,
+    validate_workspace,
+)
+from .review_workbook import ReviewWorkbookError, export_approved_controls
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -30,6 +39,13 @@ def _parser() -> argparse.ArgumentParser:
     review.add_argument("--config", required=True, type=Path)
     review.add_argument("--workspace", required=True, type=Path)
     review.add_argument("--output", type=Path)
+    validate_controls = subcommands.add_parser("validate-controls")
+    validate_controls.add_argument("--config", required=True, type=Path)
+    validate_controls.add_argument("--controls", required=True, type=Path)
+    export_controls = subcommands.add_parser("export-approved-controls")
+    export_controls.add_argument("--config", required=True, type=Path)
+    export_controls.add_argument("--workbook", required=True, type=Path)
+    export_controls.add_argument("--controls", required=True, type=Path)
     return parser
 
 
@@ -67,7 +83,17 @@ def main(argv: list[str] | None = None) -> int:
             result = prepare_control_review(config, candidates, wikipedia_crosscheck, output)
             print(f"Wrote {result['candidates']} review-only political candidates to {result['output']}.")
             return 0
-    except (ConfigError, BuildError, FetchError, ReviewError, OSError, ValueError) as exc:
+        if arguments.command == "validate-controls":
+            report = validate_controls_file(config, arguments.controls)
+            for issue in report["issues"]:
+                print(f"{issue['severity']}: {issue['check_id']} ({issue['location']}): {issue['message']}")
+            print(f"Control validation found {report['errors']} error(s) and {report['warnings']} warning(s).")
+            return 1 if report["errors"] else 0
+        if arguments.command == "export-approved-controls":
+            result = export_approved_controls(config, arguments.workbook, arguments.controls)
+            print(f"Exported {result['controls']} APPROVED control interval(s) to {result['output']}.")
+            return 0
+    except (ConfigError, BuildError, FetchError, ReviewError, ReviewWorkbookError, OSError, ValueError) as exc:
         print(f"ERROR: {exc}")
         return 2
     raise AssertionError(f"Unhandled command {arguments.command}")

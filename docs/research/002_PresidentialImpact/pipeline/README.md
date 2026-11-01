@@ -28,6 +28,7 @@ portable and versioned.
 | `HOUSE_GOV_001` | Congressional-party baseline | [U.S. House Party Government Since 1857](https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/) | Candidate table only; reviewed controls required |
 | `WIKI_CONGRESS_001` | Congress-level party-count cross-check | [Party divisions of United States Congresses](https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses) | SHA-256-pinned secondary snapshot; review-only |
 | `CTRL_074_A` | Manual political-control evidence | Authoritative official-source bundle for the 74th Congress | Disabled from fetch/parse; available only when an approved control cites it |
+| `CTRL_GOV_001` | Manual political-control evidence | Authoritative official-source bundle for the 1935–2025 control review | Disabled from fetch/parse; cited by reviewed control intervals |
 | `S001` | Original seed article | [Fiduciary Trust article](https://www.fiduciarytrust.com/insights/article-detail/should-the-balance-of-power-in-washington-matter-to-investors) | Original page located; its cited proprietary annual return inputs are not acquired |
 
 The article says its annual S&P 500 analysis uses BofA Global Research, Bloomberg
@@ -62,6 +63,17 @@ presidential-data validate --config config/sources.toml --workspace .local
 # controls.csv input and cannot be used to build the research dataset.
 presidential-data prepare-control-review --config config/sources.toml --workspace .local
 
+# Checks schema, intervals, allowed labels, and source IDs for any reviewed
+# subset. It does not require the full 1935–2023 history yet.
+presidential-data validate-controls --config config/sources.toml \
+  --controls .local/inputs/controls.csv
+
+# Reads only workbook rows marked APPROVED and writes a canonical controls.csv
+# plus a replay manifest with the workbook and config hashes.
+presidential-data export-approved-controls --config config/sources.toml \
+  --workbook ../../../../outputs/002-presidential-impact/political_control_review_workbook.xlsx \
+  --controls .local/inputs/controls.csv
+
 # Requires researcher-reviewed controls before producing the JSON accepted by PRES.
 presidential-data build-annual --workspace .local \
   --controls .local/inputs/controls.csv \
@@ -95,6 +107,22 @@ sample, then adds the Wikipedia snapshot's published party-count strings and
 within-Congress variation hint for the same Congress. It is intentionally not
 schema-compatible with `controls.csv`: verify dated intervals, presidential
 identity, House/Senate changes, ties and vacancies before creating controls.
+
+`validate-controls` is the promotion gate for approved rows: it validates their
+schema, overlap rules, party labels, and source IDs. A control must cite a
+catalog entry whose role is `manual_reviewed_political_control_evidence`; a
+candidate or secondary cross-check cannot be promoted. It does not claim that a
+partial file supplies every annual decision date;
+`build-annual` performs that full-coverage check.
+
+`export-approved-controls` makes the review workbook the source of truth for the
+local controls file. It rejects unapproved rows, missing primary-source
+locators/evidence notes/reviewer fields/timestamps, malformed values,
+overlapping intervals, and ineligible source IDs. The generated
+`controls.manifest.json` records the workbook and config hashes, controls hash,
+and row-level review evidence used in the promotion. The annual replay manifest
+then links that promotion manifest, review workbook, parsed-market status, and
+raw fetch manifest when those artifacts are available.
 
 `output/presidential-annual.json` follows the local JSON contract consumed by the
 QuantMeridian PRES module. It contains no source data acquired by the module and
