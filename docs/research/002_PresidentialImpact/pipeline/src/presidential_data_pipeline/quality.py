@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import calendar
 from dataclasses import dataclass
 from datetime import date
 import math
@@ -29,7 +30,7 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 def check_monthly_returns(rows: list[dict[str, str]]) -> list[Issue]:
     issues: list[Issue] = []
-    seen: set[str] = set()
+    seen_months: set[str] = set()
     for row in rows:
         observed = row.get("date", "")
         try:
@@ -38,11 +39,12 @@ def check_monthly_returns(rows: list[dict[str, str]]) -> list[Issue]:
         except ValueError:
             issues.append(Issue("market.valid", "ERROR", "Market row has an invalid date or return", observed))
             continue
-        if parsed.day < 28 or not math.isfinite(value):
+        month_key = parsed.strftime("%Y-%m")
+        if parsed.day != calendar.monthrange(parsed.year, parsed.month)[1] or not math.isfinite(value):
             issues.append(Issue("market.valid", "ERROR", "Market row must use a finite month-end return", observed))
-        if observed in seen:
+        if month_key in seen_months:
             issues.append(Issue("market.unique", "ERROR", "Duplicate market month", observed))
-        seen.add(observed)
+        seen_months.add(month_key)
     if not rows:
         issues.append(Issue("market.present", "ERROR", "No monthly market returns were parsed"))
     return issues

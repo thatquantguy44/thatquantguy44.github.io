@@ -63,7 +63,7 @@ title = "74th Congress authoritative official-source control-evidence bundle"
 url = "https://history.house.gov/People/Office/Speakers-List/"
 locators = [
   "https://www.archives.gov/research/census/presidents",
-  "https://www.senate.gov/history/partydiv.htm",
+  "https://www.senate.gov/about/parties-leadership/party-division.htm",
   "https://history.house.gov/Congressional-Overview/Profiles/74th/",
   "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/",
   "https://history.house.gov/People/Office/Speakers-List/",
@@ -78,3 +78,54 @@ captured_sha256 = "dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42d
 # They become part of an annual output's source catalog only when a reviewed
 # controls.csv row explicitly cites this ID.
 enabled = false
+[[source.capture]]
+locator = "https://history.house.gov/People/Office/Speakers-List/"
+captured_at = "2026-10-31T17:54:33Z"
+sha256 = "dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42dce3"
+[[source.capture]]
+locator = "https://www.archives.gov/research/census/presidents"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "7712424eb2ac8a7ca83a02e494d14a795253bccc0c6f9275c73e31822d692b55"
+[[source.capture]]
+locator = "https://www.senate.gov/about/parties-leadership/party-division.htm"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "2be84a8b5cc5c71ba08ee3bf499712e6b5131a9ef8a215ac83c9c3b5625cf9f0"
+[[source.capture]]
+locator = "https://history.house.gov/Congressional-Overview/Profiles/74th/"
+captured_at = "2026-11-01T16:58:41Z"
+sha256 = "d716bed3e2d8bff37dc3585307d7e0990eae094ca5c521d9a7e50502351a1b4d"
+[[source.capture]]
+locator = "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "65400bbe9f162a2b1b7d05df39b928f3ba4c4b6a0af1d7bbe71496232edfe17f"
+
+[[source]]
+id = "CTRL_GOV_001"
+title = "Authoritative official-source bundle for dated federal political controls"
+url = "https://www.senate.gov/about/parties-leadership/party-division.htm"
+locators = [
+  "https://www.archives.gov/research/census/presidents",
+  "https://www.senate.gov/about/parties-leadership/party-division.htm",
+  "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/",
+]
+parser = "manual_reviewed_control_evidence"
+authority = "Authoritative institutional historical records: National Archives; U.S. Senate Historical Office; U.S. House Office of the Historian"
+role = "manual_reviewed_political_control_evidence"
+captured_locator = "https://www.senate.gov/about/parties-leadership/party-division.htm"
+captured_at = "2026-11-01T16:35:45Z"
+captured_sha256 = "2be84a8b5cc5c71ba08ee3bf499712e6b5131a9ef8a215ac83c9c3b5625cf9f0"
+# Dated political-control evidence is manually reviewed. It must not enter
+# automated fetch/parse/validate loops.
+enabled = false
+[[source.capture]]
+locator = "https://www.archives.gov/research/census/presidents"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "7712424eb2ac8a7ca83a02e494d14a795253bccc0c6f9275c73e31822d692b55"
+[[source.capture]]
+locator = "https://www.senate.gov/about/parties-leadership/party-division.htm"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "2be84a8b5cc5c71ba08ee3bf499712e6b5131a9ef8a215ac83c9c3b5625cf9f0"
+[[source.capture]]
+locator = "https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/"
+captured_at = "2026-11-01T16:35:45Z"
+sha256 = "65400bbe9f162a2b1b7d05df39b928f3ba4c4b6a0af1d7bbe71496232edfe17f"

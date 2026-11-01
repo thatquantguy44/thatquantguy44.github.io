@@ -68,13 +68,35 @@ party-division history, the House 74th Congress profile, the House
 party-government table, and the House Speakers list. The House Speakers page
 was captured at `2026-10-31T17:54:33Z`; its payload SHA-256 is
 `dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42dce3`.
-The snapshot supports the documented same-day 1936-06-04 transition from
-Speaker Byrns to Speaker Bankhead. It does not turn the House profile's
-election-day party count into a daily membership series.
+Every locator in this manual bundle has its own content-pinned capture in
+`config/sources.toml`; the source loader rejects a manual bundle with an
+unpinned locator. The snapshot supports the documented same-day 1936-06-04
+transition from Speaker Byrns to Speaker Bankhead. It does not turn the House
+profile's election-day party count into a daily membership series.
 
 The bundle remains `enabled = false`: it has no parser, is not fetched or
 validated as a market/policy source, and enters an annual research artifact only
 when an approved `controls.csv` interval explicitly uses `CTRL_074_A`.
+
+### General dated-control bundle
+
+`CTRL_GOV_001` generalizes the same evidence approach across the remaining
+Congress intervals. It combines official historical compilations from the
+National Archives (presidential terms), the Senate Historical Office (dated
+party division), and the House Office of the Historian (party government). The
+three retained source captures are individually content-pinned in
+`config/sources.toml`; their local filenames are not relied on as provenance.
+
+The control definition is the party holding institutional majority or
+organization, rather than a simple party-count label. In the 107th Congress,
+this gives three Senate-control intervals: Democratic until 2001-01-20,
+Republican until 2001-06-06, then Democratic to the end of the Congress. The
+Senate's 2002-11-12 entry records a 49/49/2 balance and explicitly says that
+Democrats maintained control; it is retained in the evidence note as a
+composition event, not emitted as a Republican-control interval. Presidential
+successions and inaugurations are split at the dates in the National Archives
+record. As with `CTRL_074_A`, the bundle is disabled from automated source loops
+and is only emitted when a reviewed control record cites it.
 
 ## Data permissions and change control
 
