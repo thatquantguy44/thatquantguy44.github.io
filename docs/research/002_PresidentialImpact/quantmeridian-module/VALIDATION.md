@@ -102,8 +102,10 @@ historical source verification or human scientific peer review.
 - User-supplied input is unverified. The fictional template is explicitly labeled
   DEMO and uses invented executive names, observations and control intervals.
 - Nominal total-return and price-return datasets are separate. Real returns,
-  conditional models, causal identification, confidence intervals and forecasts
-  are not implemented.
+  conditional models, causal identification and forecasts are not implemented.
+  Version 0.2.0 adds a deterministic, 2,000-resample administration-cluster
+  range for grouped arithmetic means. It is explicitly descriptive, not a
+  causal confidence interval or hypothesis test.
 - Availability uses supplied date-only metadata, not authenticated intraday
   publication times. Unknown availability is omitted from inherited joins.
 - Run identity covers canonical normalized data/config/method, not original file
@@ -111,3 +113,17 @@ historical source verification or human scientific peer review.
   raw-upload hash remain explicitly null; preserve module source for replay.
 - Browser state is temporary. Notes and inputs persist only through explicit
   export. Deployment, commits and pushes are outside this implementation step.
+
+## Version 0.2.0 extension
+
+Date: November 1, 2026. The module now offers five selectable descriptive
+breakdowns: president × Congress, president party, House control, Senate control,
+and unified/divided government. It retains non-D/R labels rather than coercing
+them into a split-control category. The political-control chart and summary table
+show the descriptive administration-cluster range only when two or more supplied
+administrations support it; one-administration groups are explicitly unavailable.
+
+Focused verification: TypeScript typecheck passed and 68 focused presidential
+engine, export and chart tests passed. Those checks validate deterministic
+arithmetic and rendering contracts, not the historical accuracy of a user-loaded
+dataset or any causal claim.

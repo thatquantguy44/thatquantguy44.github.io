@@ -93,9 +93,10 @@ class BuildTests(unittest.TestCase):
             self.write_controls(controls, source_id="CTRL_074_A")
             dataset, _ = build_annual_dataset(self.config, market, controls, "window_start")
         bundle = next(record for record in dataset["sources"] if record["id"] == "CTRL_074_A")
-        self.assertIn("https://www.senate.gov/about/parties-leadership/party-division.htm", bundle["locators"])
+        self.assertEqual(set(bundle), {"id", "title", "locator", "note"})
+        self.assertIn("https://www.senate.gov/about/parties-leadership/party-division.htm", bundle["note"])
         self.assertIn("SHA-256 dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42dce3", bundle["note"])
-        self.assertEqual(bundle["captures"][0]["sha256"], "dd79cf46562091e216dccc7dfbf1ffb4fecf6561a94e8c930bd4d04c0b42dce3")
+        self.assertIn("evidence captures:", bundle["note"])
 
     def test_validates_registered_control_before_full_history_is_complete(self) -> None:
         with TemporaryDirectory() as temporary:

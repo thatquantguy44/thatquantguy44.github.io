@@ -46,16 +46,17 @@ def _source_catalog(config: PipelineConfig, market_source_id: str, controls: lis
             note = f"{source.role}; {source.authority}"
             if source.captured_locator and source.captured_at and source.captured_sha256:
                 note += f"; captured {source.captured_locator} at {source.captured_at}; SHA-256 {source.captured_sha256}"
-            captures = [
-                {"locator": capture.locator, "capturedAt": capture.captured_at, "sha256": capture.sha256}
-                for capture in source.captures
-            ]
+            if source.locators:
+                note += "; evidence locators: " + ", ".join(source.locators)
+            if source.captures:
+                note += "; evidence captures: " + "; ".join(
+                    f"{capture.locator} @ {capture.captured_at} SHA-256 {capture.sha256}"
+                    for capture in source.captures
+                )
             records.append({
                 "id": source.id,
                 "title": source.title,
                 "locator": source.url,
-                "locators": list(source.locators),
-                "captures": captures,
                 "note": note,
             })
     missing = used - {record["id"] for record in records}

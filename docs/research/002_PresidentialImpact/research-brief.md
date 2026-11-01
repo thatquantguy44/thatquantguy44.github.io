@@ -145,10 +145,13 @@ defines the local dataset contract, scientific rules, figures, exports and
 acceptance criteria. See [run instructions](quantmeridian-module/HANDOFF.md) and
 the [validation record](quantmeridian-module/VALIDATION.md).
 
-This first version enables independent descriptive reconstruction and
-inherited-condition inspection. Source admission, exact replication, conditional
-models, uncertainty estimation and chronological prediction remain explicit
-research tasks. Tool delivery does not complete any empirical comparison below.
+This first version enables independent descriptive reconstruction,
+inherited-condition inspection and a labeled administration-cluster resampling
+range for grouped means. That range is descriptive—not a causal confidence
+interval or a predictive result. Source admission, exact replication, conditional
+models, formal uncertainty estimation and chronological prediction remain
+explicit research tasks. Tool delivery does not complete any empirical comparison
+below.
 
 ### Source pipeline
 

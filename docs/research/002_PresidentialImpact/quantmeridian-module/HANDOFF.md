@@ -39,7 +39,9 @@ terminal-wide services may display unavailable statuses when unconfigured; the
 PRES calculation engine uses only the dataset you explicitly load.
 
 The module does not yet acquire historical data, reproduce the seed article,
-fit conditional models, estimate uncertainty or test forecasts. Those remain
+fit conditional models, estimate causal uncertainty or test forecasts. It does
+show a deterministic descriptive administration-cluster resampling range for
+group means, which is not causal inference. Those remain
 research work, described in `docs/research/002_PresidentialImpact/research-brief.md`
 in the research repository. The original article's missing exhibit and conventions remain the
 next source-admission dependency.
