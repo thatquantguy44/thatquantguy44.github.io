@@ -64,10 +64,15 @@ mix different valuation definitions or use later rate changes as inherited input
 ## Outputs
 
 Each window result retains requested/actual dates, endpoint levels, cumulative
-and annualized returns, selected metric, category/administration, mixed/partial
-flags, selected fundamental metadata, inclusion status and reasons. Wrong-kind
-windows remain labeled in the audit ledger, rather than being pooled with the
-chosen analytical unit. Category summaries use only included rows.
+and annualized returns, selected metric, at-origin political labels,
+configuration/government-structure category, mixed/partial flags, selected
+fundamental metadata, inclusion status and reasons. Wrong-kind windows remain
+labeled in the audit ledger, rather than being pooled with the chosen analytical
+unit. The selected comparison can group included windows by configuration,
+president, House, Senate or unified/divided government. A group with at least two
+distinct supplied administrations receives a deterministic 2,000-resample,
+95% administration-cluster range for its arithmetic mean. It is descriptive
+only—not a causal confidence interval, hypothesis test or forecast result.
 
 The on-screen ledger shows 100 rows per page; downloads retain all rows.
 Scatters above 2,000 eligible observations and timelines above 2,000 intervals

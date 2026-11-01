@@ -50,7 +50,7 @@ the initial version exports CSV. No automatic simulated-data fallback is allowed
 | PRES-05 | Keep calendar-year and presidential-period comparisons separate. Expose cumulative versus annualized return, partial-period inclusion and an explicit previous-observation endpoint tolerance. |
 | PRES-06 | Calculate only from observed supplied endpoints. Show requested/actual dates, levels, basis and exclusions. No interpolation, null-to-zero behavior or total/price-return substitution. |
 | PRES-07 | Classify at the supplied decision date using half-open control intervals. Preserve mixed-control diagnostics and unclassified states; missing/tied/other control is not split Congress. |
-| PRES-08 | Display category means, medians, ranges, window counts and distinct supplied administration IDs. Show unavailable/empty groups without inventing values or intervals. |
+| PRES-08 | Display selectable political-configuration, president-party, House-control, Senate-control and unified/divided-government means, medians, ranges, window counts and distinct supplied administration IDs. Show unavailable/empty groups without inventing values. When at least two administrations are represented, show a clearly labeled descriptive administration-cluster resampling range for the mean; never present it as causal inference. |
 | PRES-09 | Provide a signed, zero-axis return comparison; valuation-return and policy-rate-return scatterplots; and a dated political timeline. Preserve readable labels, units and source provenance. |
 | PRES-10 | Use only supplied fundamentals observed and available no later than the decision date. Unknown availability produces missing chart values. Make the day-level availability limitation explicit. |
 | PRES-11 | Keep the full sample primary. Compare separate 2008/custom-year sensitivities consistently across categories; preserve excluded observations and reasons. A term overlapping an excluded year is removed as a whole, not recalculated as an invented crisis-free term. |
@@ -102,12 +102,15 @@ Never silently mix P/E with CAPE or other valuation definitions.
 
 ### Scope of the additional angle
 
-The first version supplies inspectable inherited-condition scatterplots and
-matched window inputs for further work. It does **not** yet fit conditional
-models, construct confidence intervals, estimate a causal presidential effect,
-or run chronological forecasts. Those capabilities require a separate approved
-method and adequate effective sample. They must not appear as working controls
-or be approximated by an unlabeled regression line.
+The first version supplies inspectable inherited-condition scatterplots,
+matched-window inputs and a deterministic descriptive administration-cluster
+resampling range for grouped arithmetic means. The range preserves repeated
+windows within a supplied administration, but is not a causal confidence
+interval, hypothesis test or forecast evaluation. The module does **not** fit
+conditional models, estimate a causal presidential effect, or run chronological
+forecasts. Those capabilities require a separate approved method and adequate
+effective sample. They must not appear as working controls or be approximated by
+an unlabeled regression line.
 
 ## Visual and export contract
 
