@@ -20,6 +20,10 @@ class SourceSpec:
     enabled: bool
     return_basis: str | None = None
     unit: str | None = None
+    locators: tuple[str, ...] = ()
+    captured_locator: str | None = None
+    captured_at: str | None = None
+    captured_sha256: str | None = None
 
 
 @dataclass(frozen=True)
@@ -42,6 +46,20 @@ def _required_text(value: object, name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ConfigError(f"{name} must be a non-empty string")
     return value
+
+
+def _optional_text(value: object, name: str) -> str | None:
+    if value is None:
+        return None
+    return _required_text(value, name)
+
+
+def _optional_text_list(value: object, name: str) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    if not isinstance(value, list):
+        raise ConfigError(f"{name} must be a list of non-empty strings")
+    return tuple(_required_text(item, f"{name}[{index}]") for index, item in enumerate(value))
 
 
 def load_config(path: str | Path) -> PipelineConfig:
@@ -80,6 +98,10 @@ def load_config(path: str | Path) -> PipelineConfig:
             enabled=enabled,
             return_basis=raw.get("return_basis") if isinstance(raw.get("return_basis"), str) else None,
             unit=raw.get("unit") if isinstance(raw.get("unit"), str) else None,
+            locators=_optional_text_list(raw.get("locators"), f"source[{index}].locators"),
+            captured_locator=_optional_text(raw.get("captured_locator"), f"source[{index}].captured_locator"),
+            captured_at=_optional_text(raw.get("captured_at"), f"source[{index}].captured_at"),
+            captured_sha256=_optional_text(raw.get("captured_sha256"), f"source[{index}].captured_sha256"),
         ))
     return PipelineConfig(
         path=config_path.resolve(),

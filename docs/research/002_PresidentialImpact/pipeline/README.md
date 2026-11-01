@@ -26,6 +26,8 @@ portable and versioned.
 | `FEDFUNDS_001` | Federal-funds-rate input | [Federal Reserve H.15](https://www.federalreserve.gov/datadownload/choose.aspx?rel=h15) via [FRED](https://fred.stlouisfed.org/series/FEDFUNDS) | Implemented adapter |
 | `SHILLER_001` | Monthly valuation and S&P Composite context | [Robert J. Shiller online data](https://www.econ.yale.edu/~shiller/data.htm) | Download/archive adapter; parser is an optional `xlrd` extra |
 | `HOUSE_GOV_001` | Congressional-party baseline | [U.S. House Party Government Since 1857](https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/) | Candidate table only; reviewed controls required |
+| `WIKI_CONGRESS_001` | Congress-level party-count cross-check | [Party divisions of United States Congresses](https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses) | SHA-256-pinned secondary snapshot; review-only |
+| `CTRL_074_A` | Manual political-control evidence | Authoritative official-source bundle for the 74th Congress | Disabled from fetch/parse; available only when an approved control cites it |
 | `S001` | Original seed article | [Fiduciary Trust article](https://www.fiduciarytrust.com/insights/article-detail/should-the-balance-of-power-in-washington-matter-to-investors) | Original page located; its cited proprietary annual return inputs are not acquired |
 
 The article says its annual S&P 500 analysis uses BofA Global Research, Bloomberg
@@ -54,7 +56,11 @@ presidential-data init --workspace .local
 # Explicit network action; no credentials are required for the initial public sources.
 presidential-data fetch --config config/sources.toml --workspace .local
 presidential-data parse --config config/sources.toml --workspace .local
-presidential-data validate --workspace .local
+presidential-data validate --config config/sources.toml --workspace .local
+
+# Produces a review-only candidate handoff. It is deliberately not valid
+# controls.csv input and cannot be used to build the research dataset.
+presidential-data prepare-control-review --config config/sources.toml --workspace .local
 
 # Requires researcher-reviewed controls before producing the JSON accepted by PRES.
 presidential-data build-annual --workspace .local \
@@ -71,8 +77,8 @@ The fetcher always verifies TLS certificates. On systems where Python lacks a
 configured certificate store, it uses a standard system CA bundle when present;
 set `PRESIDENTIAL_PIPELINE_CA_FILE` to a trusted bundle in another environment.
 
-The initial four-source public capture ran on 2026-10-31 and is retained only in
-the ignored `.local/raw/` workspace, with its manifest. The project had
+The initial public capture ran on 2026-10-31 and is retained only in the ignored
+`.local/raw/` workspace, with its manifest. The project had
 previously been offline-only; future captures still require an explicit fetch
 action, and every result must be tied to the raw manifest before interpretation.
 
@@ -82,6 +88,13 @@ action, and every result must be tied to the raw manifest before interpretation.
 president, House or Senate label changes. `inputs/terms.csv` is reserved for the
 separate January-month-end presidential-period reconstruction; it remains empty
 until the original chart's date and calculation rules are recovered.
+
+`prepare-control-review` creates `inputs/control_review_candidates.csv` plus a
+sidecar manifest. It narrows the House's Congress-year candidates to the annual
+sample, then adds the Wikipedia snapshot's published party-count strings and
+within-Congress variation hint for the same Congress. It is intentionally not
+schema-compatible with `controls.csv`: verify dated intervals, presidential
+identity, House/Senate changes, ties and vacancies before creating controls.
 
 `output/presidential-annual.json` follows the local JSON contract consumed by the
 QuantMeridian PRES module. It contains no source data acquired by the module and

@@ -12,7 +12,10 @@ The `pipeline/` directory is intentionally self-contained. To move it:
    manifest beside them.
 4. Change `config/sources.toml` or provide another config file to substitute a
    licensed market vendor. Keep the role and return-basis fields truthful.
-5. Point the final `build-annual --output` path at the receiving application's
+5. Run `prepare-control-review` after parsing political candidates. Its output
+   is a review handoff only; create independently reviewed dated intervals in
+   `controls.csv` before any build.
+6. Point the final `build-annual --output` path at the receiving application's
    import location. The produced JSON uses the documented PRES data contract and
    does not import QuantMeridian Python or TypeScript code.
 

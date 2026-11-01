@@ -7,6 +7,8 @@ The pipeline checks the properties that could silently change the research resul
 | Monthly market returns | month | unique valid month; finite factor values; no missing month within an annual return | affected annual window is not built |
 | Federal-funds rate | month | unique valid month; finite percent; no future value | term input is unavailable |
 | Political controls | dated half-open interval | unique ID; valid dates; no overlap; allowed party values; source ID present | analysis JSON is rejected |
+| Political review candidates | Congress-year candidate | source candidate validity; analysis-window overlap; manifested lineage; explicit reviewer actions | cannot be passed to the annual builder |
+| Wikipedia Congress cross-check | Congress-level party counts | unique Congress/year interval; valid published count forms; annual-window coverage; retained secondary-only status | not eligible for `controls.csv` |
 | Source manifest | raw file version | SHA-256, URL, timestamp, parser name, output lineage | output is not marked reproducible |
 
 The annual return builder compounds month returns within each calendar year and

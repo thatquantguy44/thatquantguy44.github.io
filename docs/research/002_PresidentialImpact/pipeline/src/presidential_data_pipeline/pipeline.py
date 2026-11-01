@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 from pathlib import Path
 from typing import Iterable
 
@@ -13,8 +14,13 @@ from .quality import (
     check_political_candidates,
     check_policy_rates,
     check_shiller_context,
+    check_wikipedia_congress_crosscheck,
     read_csv,
 )
+
+
+class ReviewError(ValueError):
+    """Raised when the review-only political candidate handoff is unusable."""
 
 
 def initialize_workspace(workspace: Path) -> None:
@@ -29,6 +35,117 @@ def initialize_workspace(workspace: Path) -> None:
     terms = workspace / "inputs" / "terms.csv"
     if not terms.exists():
         terms.write_text("id,label,startDate,endDate,decisionDate,complete,sourceId\n", encoding="utf-8")
+
+
+def prepare_control_review(
+    config: PipelineConfig, candidates_path: Path, wikipedia_crosscheck_path: Path, output_path: Path
+) -> dict[str, object]:
+    """Write a review-only Congress-candidate handoff for the annual sample.
+
+    The House Historian source reports Congress-year ranges, not the dated
+    presidential/House/Senate intervals required by ``build-annual``. This
+    function intentionally produces a differently shaped artifact so it cannot
+    be copied into ``controls.csv`` and accidentally treated as reviewed data.
+    """
+    candidates = read_csv(candidates_path)
+    issues = check_political_candidates(candidates)
+    errors = [issue for issue in issues if issue.severity == "ERROR"]
+    if errors:
+        message = "; ".join(f"{issue.check_id}: {issue.message}" for issue in errors[:5])
+        raise ReviewError(f"Cannot prepare political-control review: {message}")
+    wikipedia_rows = read_csv(wikipedia_crosscheck_path)
+    wikipedia_issues = check_wikipedia_congress_crosscheck(wikipedia_rows)
+    wikipedia_errors = [issue for issue in wikipedia_issues if issue.severity == "ERROR"]
+    if wikipedia_errors:
+        message = "; ".join(f"{issue.check_id}: {issue.message}" for issue in wikipedia_errors[:5])
+        raise ReviewError(f"Cannot prepare political-control review: {message}")
+    wikipedia_by_congress = {row["congress"]: row for row in wikipedia_rows}
+
+    first_decision_year = config.annual_start_year - 1
+    selected = [
+        candidate
+        for candidate in candidates
+        if int(candidate["start_year"]) <= config.annual_end_year and int(candidate["end_year"]) > first_decision_year
+    ]
+    if not selected:
+        raise ReviewError("No Congress candidates overlap the annual decision-date window")
+    missing_crosscheck = [candidate["congress"] for candidate in selected if candidate["congress"] not in wikipedia_by_congress]
+    if missing_crosscheck:
+        raise ReviewError(f"Wikipedia cross-check lacks Congress candidate(s): {', '.join(missing_crosscheck[:10])}")
+    fields = [
+        "candidateId",
+        "congress",
+        "startYear",
+        "endYear",
+        "presidentLabelCandidate",
+        "presidentPartyCandidate",
+        "houseControlCandidate",
+        "senateControlCandidate",
+        "sourceId",
+        "sourceReviewStatus",
+        "wikipediaSenateCounts",
+        "wikipediaHouseCounts",
+        "wikipediaVariationHint",
+        "wikipediaTrifectaLabel",
+        "wikipediaSourceId",
+        "wikipediaReviewStatus",
+        "reviewRequired",
+    ]
+    review_required = "Verify dated president/House/Senate intervals, identity, ties, vacancies, and mid-Congress changes before creating controls.csv"
+    output_rows = []
+    for candidate in selected:
+        wikipedia = wikipedia_by_congress[candidate["congress"]]
+        output_rows.append({
+            "candidateId": f"house-congress-{candidate['congress']}",
+            "congress": candidate["congress"],
+            "startYear": candidate["start_year"],
+            "endYear": candidate["end_year"],
+            "presidentLabelCandidate": candidate["president_label"],
+            "presidentPartyCandidate": candidate["president_party"],
+            "houseControlCandidate": candidate["house_party"],
+            "senateControlCandidate": candidate["senate_party"],
+            "sourceId": candidate["source_id"],
+            "sourceReviewStatus": candidate["review_status"],
+            "wikipediaSenateCounts": f"D={wikipedia['senate_democrat_count']}; R={wikipedia['senate_republican_count']}; Other={wikipedia['senate_other_count']}; Vacancies={wikipedia['senate_vacancies']}",
+            "wikipediaHouseCounts": f"D={wikipedia['house_democrat_count']}; R={wikipedia['house_republican_count']}; Other={wikipedia['house_other_count']}; Vacancies={wikipedia['house_vacancies']}",
+            "wikipediaVariationHint": wikipedia["within_congress_variation_hint"],
+            "wikipediaTrifectaLabel": wikipedia["trifecta_label"],
+            "wikipediaSourceId": wikipedia["source_id"],
+            "wikipediaReviewStatus": wikipedia["review_status"],
+            "reviewRequired": review_required,
+        })
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(output_rows)
+    manifest_path = output_path.with_suffix(".manifest.json")
+    manifest = {
+        "schema_version": 1,
+        "artifact_kind": "POLITICAL_CONTROL_REVIEW_CANDIDATES",
+        "controls_file_eligible": False,
+        "reason": "Congress-year candidates are not dated, reviewed political-control intervals.",
+        "candidate_count": len(output_rows),
+        "decision_window": {
+            "first_decision_date": f"{first_decision_year}-12-31",
+            "last_decision_date": f"{config.annual_end_year}-12-31",
+        },
+        "inputs": {
+            "candidates_path": str(candidates_path),
+            "candidates_sha256": sha256_file(candidates_path),
+            "wikipedia_crosscheck_path": str(wikipedia_crosscheck_path),
+            "wikipedia_crosscheck_sha256": sha256_file(wikipedia_crosscheck_path),
+            "config_sha256": sha256_file(config.path),
+        },
+        "required_reviewer_actions": [
+            "Create dated half-open intervals in controls.csv; do not rename or copy this candidate artifact.",
+            "Verify the president's full identity and party for each interval.",
+            "Verify actual House and Senate control, including ties, vacancies, and mid-Congress changes.",
+            "Record controlling primary source IDs for every approved interval.",
+        ],
+    }
+    write_json(manifest_path, manifest)
+    return {"candidates": len(output_rows), "output": output_path, "manifest": manifest_path}
 
 
 def parse_sources(workspace: Path, config: PipelineConfig, source_ids: Iterable[str] | None = None) -> list[dict[str, object]]:
@@ -82,6 +199,9 @@ def validate_workspace(workspace: Path, config: PipelineConfig) -> dict[str, obj
         "fred_csv": check_policy_rates,
         "shiller_xls": check_shiller_context,
         "house_party_government_html": check_political_candidates,
+        "wikipedia_congress_party_divisions_html": lambda rows: check_wikipedia_congress_crosscheck(
+            rows, config.annual_start_year - 1, config.annual_end_year
+        ),
     }
     for source in config.sources:
         if not source.enabled:

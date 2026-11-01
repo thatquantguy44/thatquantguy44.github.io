@@ -14,9 +14,15 @@ from presidential_data_pipeline.parsers import (
     parse_fred_csv,
     parse_house_party_government_html,
     parse_shiller_xls,
+    parse_wikipedia_congress_party_divisions_html,
 )
 from presidential_data_pipeline.fetch import certificate_context
-from presidential_data_pipeline.quality import check_political_candidates, check_policy_rates, check_shiller_context
+from presidential_data_pipeline.quality import (
+    check_political_candidates,
+    check_policy_rates,
+    check_shiller_context,
+    check_wikipedia_congress_crosscheck,
+)
 
 
 def factor_zip(text: str) -> bytes:
@@ -61,6 +67,17 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rows[0]["president_party"], "D")
         self.assertEqual(rows[1]["senate_party"], "TIED")
         self.assertTrue(all(row["review_status"] == "CANDIDATE_REQUIRES_DATED_REVIEW" for row in rows))
+
+    def test_wikipedia_parser_keeps_published_count_variation_without_control_inference(self) -> None:
+        html = b"""<table><tr><th>Congress</th><th>Years</th><th>Total</th><th>Democrats</th><th>Republicans</th><th>Others</th><th>Vacancies</th><th>Total</th><th>Democrats</th><th>Republicans</th><th>Others</th><th>Vacancies</th><th>President</th><th>Trifecta</th></tr>
+        <tr><td>73rd</td><td>1933-1935</td><td>96</td><td>59</td><td>36</td><td>1</td><td>&mdash;</td><td>435</td><td>313</td><td>117</td><td>5</td><td>&mdash;</td><td>Franklin D. Roosevelt</td><td>Yes</td></tr>
+        <tr><td>74th</td><td>1935-1937</td><td>96</td><td>69/68</td><td>25</td><td>2</td><td>&mdash;</td><td>435</td><td>322</td><td>103</td><td>10</td><td>&mdash;</td><td>Yes[3]</td></tr></table>"""
+        rows = parse_wikipedia_congress_party_divisions_html(html, "WIKI_CONGRESS_001")
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[1]["president_label"], "")
+        self.assertEqual(rows[1]["trifecta_label"], "Yes")
+        self.assertEqual(rows[1]["within_congress_variation_hint"], "TRUE")
+        self.assertEqual(check_wikipedia_congress_crosscheck(rows, 1933, 1936), [])
 
     def test_shiller_parser_keeps_na_cape_missing_and_normalizes_october(self) -> None:
         class Sheet:

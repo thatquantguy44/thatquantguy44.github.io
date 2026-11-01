@@ -6,7 +6,7 @@ from pathlib import Path
 from .assemble import BuildError, build_annual_dataset, write_dataset
 from .config import ConfigError, load_config
 from .fetch import FetchError
-from .pipeline import fetch_then_record, initialize_workspace, parse_sources, validate_workspace
+from .pipeline import ReviewError, fetch_then_record, initialize_workspace, parse_sources, prepare_control_review, validate_workspace
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -26,6 +26,10 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--controls", required=True, type=Path)
     build.add_argument("--output", required=True, type=Path)
     build.add_argument("--decision-policy", required=True, choices=("window_start", "calendar_year_start"))
+    review = subcommands.add_parser("prepare-control-review")
+    review.add_argument("--config", required=True, type=Path)
+    review.add_argument("--workspace", required=True, type=Path)
+    review.add_argument("--output", type=Path)
     return parser
 
 
@@ -56,7 +60,14 @@ def main(argv: list[str] | None = None) -> int:
             write_dataset(arguments.output, dataset, manifest)
             print(f"Wrote {arguments.output} and its replay manifest.")
             return 0
-    except (ConfigError, BuildError, FetchError, OSError, ValueError) as exc:
+        if arguments.command == "prepare-control-review":
+            candidates = arguments.workspace / "normalized" / "political_candidates.csv"
+            wikipedia_crosscheck = arguments.workspace / "normalized" / "wikipedia_congress_crosscheck.csv"
+            output = arguments.output or arguments.workspace / "inputs" / "control_review_candidates.csv"
+            result = prepare_control_review(config, candidates, wikipedia_crosscheck, output)
+            print(f"Wrote {result['candidates']} review-only political candidates to {result['output']}.")
+            return 0
+    except (ConfigError, BuildError, FetchError, ReviewError, OSError, ValueError) as exc:
         print(f"ERROR: {exc}")
         return 2
     raise AssertionError(f"Unhandled command {arguments.command}")
