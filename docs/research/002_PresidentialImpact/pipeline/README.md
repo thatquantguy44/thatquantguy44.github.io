@@ -127,6 +127,9 @@ raw fetch manifest when those artifacts are available.
 `output/presidential-annual.json` follows the local JSON contract consumed by the
 QuantMeridian PRES module. It contains no source data acquired by the module and
 is always marked `USER_SUPPLIED` until an analyst independently verifies it.
+Its `sources` records use the strict PRES shape (`id`, `title`, `locator`,
+`note`); manual-bundle locators and content hashes remain inspectable inside the
+source note and the replay manifest rather than adding incompatible JSON fields.
 
 See [source decisions](SOURCE_DECISIONS.md), [quality rules](QUALITY.md), and
 [the transfer guide](TRANSFER.md).
