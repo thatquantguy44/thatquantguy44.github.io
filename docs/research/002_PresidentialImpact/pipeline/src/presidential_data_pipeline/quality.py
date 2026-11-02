@@ -73,7 +73,7 @@ def check_policy_rates(rows: list[dict[str, str]]) -> list[Issue]:
 
 
 def check_shiller_context(rows: list[dict[str, str]]) -> list[Issue]:
-    """Check monthly price context while allowing source-marked missing CAPE."""
+    """Check monthly price/dividend context while allowing source-marked missing CAPE."""
     issues: list[Issue] = []
     seen: set[str] = set()
     for row in rows:
@@ -81,13 +81,31 @@ def check_shiller_context(rows: list[dict[str, str]]) -> list[Issue]:
         try:
             parsed = date.fromisoformat(observed)
             price = float(row.get("price", ""))
+            dividend_text = row.get("dividend", "").strip()
+            dividend = None if not dividend_text else float(dividend_text)
             cape_text = row.get("cape", "").strip()
             cape = None if not cape_text else float(cape_text)
         except ValueError:
-            issues.append(Issue("shiller.valid", "ERROR", "Shiller row has an invalid date, price, or CAPE", observed))
+            issues.append(Issue("shiller.valid", "ERROR", "Shiller row has an invalid date, price, dividend, or CAPE", observed))
             continue
-        if parsed.day < 28 or not math.isfinite(price) or (cape is not None and not math.isfinite(cape)):
-            issues.append(Issue("shiller.valid", "ERROR", "Shiller row must use a finite month-end price and finite or missing CAPE", observed))
+        if (
+            parsed.day < 28
+            or not math.isfinite(price)
+            or price <= 0
+            or (dividend is not None and (not math.isfinite(dividend) or dividend < 0))
+            or (cape is not None and not math.isfinite(cape))
+        ):
+            issues.append(Issue(
+                "shiller.valid", "ERROR",
+                "Shiller row must use a positive month-end price, non-negative dividend, and finite or missing CAPE",
+                observed,
+            ))
+        elif dividend is None:
+            issues.append(Issue(
+                "shiller.dividend_missing", "WARNING",
+                "Shiller trailing dividend is unavailable; this month cannot enter the dividend-return reconstruction",
+                observed,
+            ))
         if observed in seen:
             issues.append(Issue("shiller.unique", "ERROR", "Duplicate Shiller month", observed))
         seen.add(observed)

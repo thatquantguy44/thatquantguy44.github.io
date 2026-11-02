@@ -82,13 +82,14 @@ class ParserTests(unittest.TestCase):
     def test_shiller_parser_keeps_na_cape_missing_and_normalizes_october(self) -> None:
         class Sheet:
             values = [
-                ["Notice", "", ""],
-                ["Date", "P", "CAPE"],
-                ["1871.01", 4.44, "NA"],
-                ["1871.1", 4.59, 12.3],
+                ["Notice", "", "", ""],
+                ["Date", "P", "D", "CAPE"],
+                ["1871.01", 4.44, 0.26, "NA"],
+                ["1871.1", 4.59, 0.27, 12.3],
+                ["1871.11", 4.64, "", 12.4],
             ]
             nrows = len(values)
-            ncols = 3
+            ncols = 4
 
             def cell_value(self, row: int, column: int) -> object:
                 return self.values[row][column]
@@ -104,14 +105,18 @@ class ParserTests(unittest.TestCase):
         with patch.dict(sys.modules, {"xlrd": fake_xlrd}):
             rows = parse_shiller_xls(b"fixture", "SHILLER_001")
         self.assertEqual(rows, [
-            {"date": "1871-01-31", "price": "4.44", "cape": "", "source_id": "SHILLER_001"},
-            {"date": "1871-10-31", "price": "4.59", "cape": "12.3", "source_id": "SHILLER_001"},
+            {"date": "1871-01-31", "price": "4.44", "dividend": "0.26", "cape": "", "source_id": "SHILLER_001"},
+            {"date": "1871-10-31", "price": "4.59", "dividend": "0.27", "cape": "12.3", "source_id": "SHILLER_001"},
+            {"date": "1871-11-30", "price": "4.64", "dividend": "", "cape": "12.4", "source_id": "SHILLER_001"},
         ])
 
     def test_context_quality_rules_preserve_missingness_and_candidate_status(self) -> None:
         self.assertEqual(check_shiller_context([
-            {"date": "1871-01-31", "price": "4.44", "cape": ""},
+            {"date": "1871-01-31", "price": "4.44", "dividend": "0.26", "cape": ""},
         ]), [])
+        self.assertTrue(any(issue.check_id == "shiller.dividend_missing" for issue in check_shiller_context([
+            {"date": "1871-02-28", "price": "4.5", "dividend": "", "cape": ""},
+        ])))
         self.assertTrue(any(issue.check_id == "policy.unique" for issue in check_policy_rates([
             {"date": "1970-01-01", "policy_rate_percent": "8.98"},
             {"date": "1970-01-01", "policy_rate_percent": "8.98"},

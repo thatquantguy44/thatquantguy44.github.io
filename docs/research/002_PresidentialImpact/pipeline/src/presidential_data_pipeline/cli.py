@@ -3,7 +3,13 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .assemble import BuildError, build_annual_dataset, write_dataset
+from .assemble import (
+    BuildError,
+    build_annual_dataset,
+    build_public_series_comparison,
+    write_dataset,
+    write_public_series_comparison,
+)
 from .config import ConfigError, load_config
 from .fetch import FetchError
 from .pipeline import (
@@ -35,6 +41,12 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--controls", required=True, type=Path)
     build.add_argument("--output", required=True, type=Path)
     build.add_argument("--decision-policy", required=True, choices=("window_start", "calendar_year_start"))
+    comparison = subcommands.add_parser("build-public-series-comparison")
+    comparison.add_argument("--config", required=True, type=Path)
+    comparison.add_argument("--workspace", required=True, type=Path)
+    comparison.add_argument("--controls", required=True, type=Path)
+    comparison.add_argument("--output-dir", required=True, type=Path)
+    comparison.add_argument("--decision-policy", required=True, choices=("window_start", "calendar_year_start"))
     review = subcommands.add_parser("prepare-control-review")
     review.add_argument("--config", required=True, type=Path)
     review.add_argument("--workspace", required=True, type=Path)
@@ -75,6 +87,23 @@ def main(argv: list[str] | None = None) -> int:
             dataset, manifest = build_annual_dataset(config, market, arguments.controls, arguments.decision_policy)
             write_dataset(arguments.output, dataset, manifest)
             print(f"Wrote {arguments.output} and its replay manifest.")
+            return 0
+        if arguments.command == "build-public-series-comparison":
+            normalized = arguments.workspace / "normalized"
+            primary, primary_manifest, robustness, robustness_manifest, _, comparison = build_public_series_comparison(
+                config,
+                normalized / "market_returns_monthly.csv",
+                normalized / "shiller_monthly.csv",
+                arguments.controls,
+                arguments.decision_policy,
+            )
+            write_dataset(arguments.output_dir / "crsp-market-proxy-annual.json", primary, primary_manifest)
+            write_dataset(arguments.output_dir / "shiller-sp-composite-annual.json", robustness, robustness_manifest)
+            write_public_series_comparison(arguments.output_dir, comparison)
+            print(
+                "Wrote both public reconstructions, the derived Shiller monthly table, "
+                f"and aligned comparison outputs to {arguments.output_dir}."
+            )
             return 0
         if arguments.command == "prepare-control-review":
             candidates = arguments.workspace / "normalized" / "political_candidates.csv"

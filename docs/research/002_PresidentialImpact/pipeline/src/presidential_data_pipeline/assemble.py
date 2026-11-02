@@ -1,19 +1,66 @@
 from __future__ import annotations
 
-from datetime import date
-import csv
 import calendar
+import csv
 import math
+from dataclasses import dataclass, replace
+from datetime import date
+from itertools import pairwise
 from pathlib import Path
+from statistics import median
 from typing import Literal
 
 from .config import PipelineConfig
 from .provenance import canonical_json, read_json, sha256_file, write_json
-from .quality import Issue, check_annual_coverage, check_controls, check_monthly_returns, read_csv
+from .quality import (
+    Issue,
+    check_annual_coverage,
+    check_controls,
+    check_monthly_returns,
+    read_csv,
+)
 
 
 class BuildError(ValueError):
     pass
+
+
+@dataclass(frozen=True)
+class ReconstructionDefinition:
+    """A source-locked public reconstruction, rather than an index claim."""
+
+    key: str
+    expected_source_id: str
+    dataset_id_prefix: str
+    title_prefix: str
+    return_basis: str
+    dataset_kind: str
+    construction: str
+
+
+RECONSTRUCTIONS = {
+    "crsp_market_proxy": ReconstructionDefinition(
+        key="crsp_market_proxy",
+        expected_source_id="FF_MKT_001",
+        dataset_id_prefix="annual-crsp-market-proxy",
+        title_prefix="Public CRSP-market-proxy annual reconstruction",
+        return_basis="TOTAL_RETURN",
+        dataset_kind="PUBLIC_CRSP_MARKET_PROXY_RECONSTRUCTION",
+        construction="Compounded monthly Kenneth French Mkt-RF plus RF returns.",
+    ),
+    "shiller_sp_composite_approximation": ReconstructionDefinition(
+        key="shiller_sp_composite_approximation",
+        expected_source_id="SHILLER_001",
+        dataset_id_prefix="annual-shiller-sp-composite-approximation",
+        title_prefix="Shiller S&P Composite dividend-reinvestment-style annual reconstruction",
+        return_basis="TOTAL_RETURN",
+        dataset_kind="PUBLIC_SHILLER_SP_COMPOSITE_APPROXIMATION",
+        construction=(
+            "Compounded monthly nominal returns reconstructed as "
+            "(P_t + D_t / 12) / P_(t-1) - 1 from the Shiller workbook."
+        ),
+    ),
+}
 
 
 def _month_end(year: int, month: int) -> date:
@@ -69,12 +116,97 @@ def _errors(issues: list[Issue]) -> list[Issue]:
     return [issue for issue in issues if issue.severity == "ERROR"]
 
 
+def derive_shiller_monthly_total_return(
+    rows: list[dict[str, str]],
+    first_required_date: date | None = None,
+) -> list[dict[str, str]]:
+    """Create an explicitly approximate monthly total-return-style series.
+
+    Shiller's ``D`` column is a trailing annual dividend measure, not a
+    published monthly total-return index.  Dividing it by twelve makes the
+    convention inspectable and avoids relabeling the source as an official S&P
+    500 total-return series.
+    """
+    parsed: list[tuple[date, float, float | None, str]] = []
+    months: set[str] = set()
+    for row in rows:
+        observed = row.get("date", "")
+        try:
+            observed_date = date.fromisoformat(observed)
+            price = float(row.get("price", ""))
+            dividend_text = row.get("dividend", "").strip()
+            dividend = None if not dividend_text else float(dividend_text)
+        except ValueError as exc:
+            raise BuildError(f"Shiller row has an invalid date, price, or dividend at {observed}") from exc
+        if (
+            observed_date != _month_end(observed_date.year, observed_date.month)
+            or not math.isfinite(price)
+            or price <= 0
+            or (dividend is not None and (not math.isfinite(dividend) or dividend < 0))
+        ):
+            raise BuildError(f"Shiller row must contain a positive month-end price and non-negative dividend when present at {observed}")
+        month = observed_date.strftime("%Y-%m")
+        if month in months:
+            raise BuildError(f"Duplicate Shiller month {month}")
+        months.add(month)
+        parsed.append((observed_date, price, dividend, row.get("source_id", "")))
+    if len(parsed) < 2:
+        raise BuildError("At least two Shiller monthly observations are required")
+    parsed.sort(key=lambda item: item[0])
+    source_ids = {source_id for _, _, _, source_id in parsed}
+    if source_ids != {"SHILLER_001"}:
+        raise BuildError("Shiller return reconstruction must contain only source ID SHILLER_001")
+    last_complete_december = max(
+        (observed_date for observed_date, _, dividend, _ in parsed if observed_date.month == 12 and dividend is not None),
+        default=None,
+    )
+    if last_complete_december is None and first_required_date is not None:
+        raise BuildError("Shiller source has no December observation with a published dividend")
+    last_usable_date = last_complete_december or parsed[-1][0]
+    usable = [
+        item for item in parsed
+        if item[0] <= last_usable_date and (first_required_date is None or item[0] >= first_required_date)
+    ]
+    if len(usable) < 2:
+        raise BuildError("Shiller source has too few complete monthly observations for the requested window")
+    missing_dividend = [observed_date.isoformat() for observed_date, _, dividend, _ in usable if dividend is None]
+    if missing_dividend:
+        raise BuildError(
+            "Shiller source is missing a dividend within the requested reconstruction window: "
+            + ", ".join(missing_dividend[:5])
+        )
+    output: list[dict[str, str]] = []
+    for prior, current in pairwise(usable):
+        previous_date, previous_price, _, _ = prior
+        observed_date, price, dividend, source_id = current
+        if (observed_date.year, observed_date.month) != (
+            previous_date.year + (previous_date.month // 12), (previous_date.month % 12) + 1
+        ):
+            raise BuildError(f"Missing Shiller month between {previous_date.isoformat()} and {observed_date.isoformat()}")
+        if dividend is None:  # Covered above; narrows the type for static readers.
+            raise BuildError(f"Shiller dividend unavailable at {observed_date.isoformat()}")
+        monthly_return = (price + dividend / 12.0) / previous_price - 1.0
+        if not math.isfinite(monthly_return) or monthly_return <= -1.0:
+            raise BuildError(f"Invalid reconstructed Shiller return at {observed_date.isoformat()}")
+        output.append({
+            "date": observed_date.isoformat(),
+            "market_return_decimal": format(monthly_return, ".12g"),
+            "source_id": source_id,
+        })
+    return output
+
+
 def build_annual_dataset(
     config: PipelineConfig,
     market_path: Path,
     controls_path: Path,
     decision_policy: Literal["window_start", "calendar_year_start"],
+    reconstruction: str = "crsp_market_proxy",
 ) -> tuple[dict[str, object], dict[str, object]]:
+    try:
+        definition = RECONSTRUCTIONS[reconstruction]
+    except KeyError as exc:
+        raise BuildError(f"Unknown reconstruction {reconstruction!r}") from exc
     market = read_csv(market_path)
     controls = read_csv(controls_path)
     issues = check_monthly_returns(market) + check_annual_coverage(market, config.annual_start_year - 1, config.annual_end_year) + check_controls(controls)
@@ -91,6 +223,15 @@ def build_annual_dataset(
     if errors:
         message = "; ".join(f"{item.check_id}: {item.message}" for item in errors[:5])
         raise BuildError(f"Cannot build research dataset: {message}")
+    market_source_ids = {str(row.get("source_id", "")) for row in market}
+    if len(market_source_ids) != 1:
+        raise BuildError("Monthly market table must contain one declared source ID")
+    market_source_id = next(iter(market_source_ids))
+    if market_source_id != definition.expected_source_id:
+        raise BuildError(
+            f"Reconstruction {definition.key} requires market source {definition.expected_source_id}, "
+            f"not {market_source_id or 'a blank source ID'}"
+        )
     levels = _monthly_levels(market)
     level_dates = {row["date"] for row in levels}
     windows: list[dict[str, object]] = []
@@ -106,9 +247,6 @@ def build_annual_dataset(
     missing_controls = [decision for decision in required_decisions if _control_at(controls, decision) is None]
     if missing_controls:
         raise BuildError(f"No reviewed political control interval covers decision date(s): {', '.join(missing_controls[:10])}")
-    market_source_ids = {str(row["source_id"]) for row in market}
-    if len(market_source_ids) != 1:
-        raise BuildError("Monthly market table must contain one declared source ID")
     inputs: dict[str, object] = {
         "market_sha256": sha256_file(market_path),
         "controls_sha256": sha256_file(controls_path),
@@ -130,13 +268,13 @@ def build_annual_dataset(
                     inputs[key] = controls_manifest[key]
     dataset = {
         "schemaVersion": 1,
-        "id": f"annual-crsp-market-proxy-{config.annual_start_year}-{config.annual_end_year}",
-        "title": f"Public CRSP-market-proxy annual reconstruction, {config.annual_start_year}–{config.annual_end_year}",
+        "id": f"{definition.dataset_id_prefix}-{config.annual_start_year}-{config.annual_end_year}",
+        "title": f"{definition.title_prefix}, {config.annual_start_year}–{config.annual_end_year}",
         "kind": "USER_SUPPLIED",
         "currency": config.currency,
         "nominalReal": "NOMINAL",
-        "returnBasis": "TOTAL_RETURN",
-        "sources": _source_catalog(config, next(iter(market_source_ids)), controls),
+        "returnBasis": definition.return_basis,
+        "sources": _source_catalog(config, market_source_id, controls),
         "levels": levels,
         "controls": controls,
         "windows": windows,
@@ -144,7 +282,10 @@ def build_annual_dataset(
     }
     manifest = {
         "schema_version": 1,
-        "dataset_kind": "PUBLIC_CRSP_MARKET_PROXY_RECONSTRUCTION",
+        "dataset_kind": definition.dataset_kind,
+        "reconstruction": definition.key,
+        "market_source_id": market_source_id,
+        "construction": definition.construction,
         "exact_replication": False,
         "reason": "The seed article's annual S&P 500 inputs and political assignment convention are unavailable.",
         "decision_policy": decision_policy,
@@ -155,9 +296,160 @@ def build_annual_dataset(
     return dataset, manifest
 
 
+def _annual_return(levels: dict[str, float], window: dict[str, object]) -> float:
+    start = str(window["startDate"])
+    end = str(window["endDate"])
+    try:
+        return levels[end] / levels[start] - 1.0
+    except KeyError as exc:
+        raise BuildError(f"Dataset has no level for comparison endpoint {exc.args[0]}") from exc
+
+
+def _pearson(first: list[float], second: list[float]) -> float | None:
+    if len(first) < 2 or len(first) != len(second):
+        return None
+    first_mean = sum(first) / len(first)
+    second_mean = sum(second) / len(second)
+    numerator = sum((left - first_mean) * (right - second_mean) for left, right in zip(first, second))
+    left_scale = math.sqrt(sum((left - first_mean) ** 2 for left in first))
+    right_scale = math.sqrt(sum((right - second_mean) ** 2 for right in second))
+    if not left_scale or not right_scale:
+        return None
+    return numerator / (left_scale * right_scale)
+
+
+def _comparison_summary(rows: list[dict[str, object]]) -> dict[str, float | int | None]:
+    primary = [float(row["crspMarketProxyReturnDecimal"]) for row in rows]
+    robustness = [float(row["shillerSpCompositeApproximationReturnDecimal"]) for row in rows]
+    difference = [float(row["differenceDecimal"]) for row in rows]
+    if not primary:
+        return {"observations": 0, "crsp_market_proxy_mean": None, "shiller_approximation_mean": None,
+                "mean_difference": None, "median_difference": None, "pearson_correlation": None}
+    return {
+        "observations": len(rows),
+        "crsp_market_proxy_mean": sum(primary) / len(primary),
+        "shiller_approximation_mean": sum(robustness) / len(robustness),
+        "mean_difference": sum(difference) / len(difference),
+        "median_difference": median(difference),
+        "pearson_correlation": _pearson(primary, robustness),
+    }
+
+
+def build_public_series_comparison(
+    config: PipelineConfig,
+    crsp_market_path: Path,
+    shiller_context_path: Path,
+    controls_path: Path,
+    decision_policy: Literal["window_start", "calendar_year_start"],
+) -> tuple[dict[str, object], dict[str, object], dict[str, object], dict[str, object], list[dict[str, str]], dict[str, object]]:
+    """Build both public series and an aligned, descriptive comparison."""
+    first_context_date = date(config.annual_start_year - 2, 12, 1)
+    shiller_context = read_csv(shiller_context_path)
+    shiller_returns = derive_shiller_monthly_total_return(
+        shiller_context, first_required_date=first_context_date
+    )
+    available_end = date.fromisoformat(shiller_returns[-1]["date"])
+    if available_end.month != 12:
+        raise BuildError("Shiller reconstruction must end at a complete December observation")
+    robustness_config = replace(config, annual_end_year=available_end.year)
+    shiller_return_path = shiller_context_path.with_name("shiller_total_return_monthly.csv")
+    write_monthly_returns(shiller_return_path, shiller_returns)
+    primary, primary_manifest = build_annual_dataset(
+        config, crsp_market_path, controls_path, decision_policy, reconstruction="crsp_market_proxy"
+    )
+    robustness, robustness_manifest = build_annual_dataset(
+        robustness_config, shiller_return_path, controls_path,
+        decision_policy, reconstruction="shiller_sp_composite_approximation"
+    )
+    primary_levels = {str(row["date"]): float(row["value"]) for row in primary["levels"]}  # type: ignore[index]
+    robustness_levels = {str(row["date"]): float(row["value"]) for row in robustness["levels"]}  # type: ignore[index]
+    controls = [dict(row) for row in primary["controls"]]  # type: ignore[index]
+    rows: list[dict[str, object]] = []
+    primary_windows = primary["windows"]  # type: ignore[index]
+    robustness_windows = robustness["windows"]  # type: ignore[index]
+    if list(primary_windows[:len(robustness_windows)]) != list(robustness_windows):
+        raise BuildError("Public-series reconstructions produced incompatible annual windows")
+    for primary_window, robustness_window in zip(primary_windows, robustness_windows):
+        if primary_window["id"] != robustness_window["id"]:  # type: ignore[index]
+            raise BuildError("Public-series reconstructions produced different annual windows")
+        primary_return = _annual_return(primary_levels, primary_window)  # type: ignore[arg-type]
+        robustness_return = _annual_return(robustness_levels, robustness_window)  # type: ignore[arg-type]
+        control = _control_at(controls, str(primary_window["decisionDate"]))  # type: ignore[arg-type]
+        if control is None:
+            raise BuildError(f"No control for comparison window {primary_window['id']}")
+        rows.append({
+            "year": int(str(primary_window["label"])),
+            "decisionDate": primary_window["decisionDate"],
+            "crspMarketProxyReturnDecimal": primary_return,
+            "shillerSpCompositeApproximationReturnDecimal": robustness_return,
+            "differenceDecimal": robustness_return - primary_return,
+            "presidentParty": control["presidentParty"],
+            "houseControl": control["houseControl"],
+            "senateControl": control["senateControl"],
+            "controlSourceId": control["sourceId"],
+        })
+    grouped: dict[str, list[dict[str, object]]] = {}
+    for row in rows:
+        key = f"{row['presidentParty']} president / {row['houseControl']} House / {row['senateControl']} Senate"
+        grouped.setdefault(key, []).append(row)
+    context_dates = [row.get("date", "") for row in shiller_context]
+    missing_dividend_dates = [
+        row.get("date", "") for row in shiller_context
+        if not row.get("dividend", "").strip() and row.get("date", "") > available_end.isoformat()
+    ]
+    comparison = {
+        "schema_version": 1,
+        "kind": "PUBLIC_SERIES_ROBUSTNESS_COMPARISON",
+        "methodology_id": "PID-SERIES-001",
+        "exact_replication": False,
+        "decision_policy": decision_policy,
+        "primary": {"reconstruction": "crsp_market_proxy", "source_id": "FF_MKT_001"},
+        "robustness": {"reconstruction": "shiller_sp_composite_approximation", "source_id": "SHILLER_001"},
+        "overlap": {
+            "first_annual_year": config.annual_start_year,
+            "last_annual_year": available_end.year,
+            "primary_available_through": config.annual_end_year,
+            "robustness_available_through": available_end.year,
+        },
+        "robustness_source_completeness": {
+            "last_shiller_context_date": max(context_dates),
+            "last_complete_dividend_december": available_end.isoformat(),
+            "excluded_incomplete_dividend_months": missing_dividend_dates,
+        },
+        "summary": _comparison_summary(rows),
+        "by_political_configuration": [
+            {"configuration": key, **_comparison_summary(grouped[key])}
+            for key in sorted(grouped)
+        ],
+        "annual_rows": rows,
+    }
+    return primary, primary_manifest, robustness, robustness_manifest, shiller_returns, comparison
+
+
 def write_dataset(output: Path, dataset: dict[str, object], manifest: dict[str, object]) -> None:
     write_json(output, dataset)
     write_json(output.with_suffix(".manifest.json"), manifest)
+
+
+def write_monthly_returns(path: Path, rows: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["date", "market_return_decimal", "source_id"])
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def write_public_series_comparison(output_directory: Path, comparison: dict[str, object]) -> None:
+    output_directory.mkdir(parents=True, exist_ok=True)
+    write_json(output_directory / "public-series-comparison.json", comparison)
+    fields = [
+        "year", "decisionDate", "crspMarketProxyReturnDecimal", "shillerSpCompositeApproximationReturnDecimal",
+        "differenceDecimal", "presidentParty", "houseControl", "senateControl", "controlSourceId",
+    ]
+    with (output_directory / "public-series-comparison.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(comparison["annual_rows"])  # type: ignore[arg-type]
 
 
 def write_controls_template(path: Path) -> None:

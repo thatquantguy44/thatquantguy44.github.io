@@ -22,6 +22,19 @@ nominal total-return index. It is a CRSP-derived broad US common-stock market
 proxy and can support a transparent alternative analysis. It is not the article's
 index or necessarily its annual return methodology.
 
+`PID-SERIES-001` freezes the public-series comparison before its results are
+reviewed. The Fama–French reconstruction is the primary public baseline. A
+separate Shiller S&P Composite dividend-reinvestment-style approximation is a
+robustness input only: it compounds `(P_t + D_t/12) / P_(t-1) - 1`, where `D` is
+the workbook's trailing annual dividend field. This is not an official S&P 500
+total-return index. The full definitions, labels, command and publication
+guardrails are in `../public-series-methodology.md`.
+
+FRED's public `SP500` series is excluded from this long-run comparison: it is a
+daily, price-only series with limited history. It may be used only as a recent
+price-level cross-check. Exact S&P 500 total-return reproduction requires a
+licensed series with an explicit permitted-use decision.
+
 The original article says its presidential-period exhibit uses Robert Shiller and
 the Board of Governors of the Federal Reserve System. The Shiller source exposes
 monthly S&P Composite price/dividend/earnings and valuation context. The FRED

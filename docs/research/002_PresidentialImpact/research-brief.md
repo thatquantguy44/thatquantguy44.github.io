@@ -159,8 +159,12 @@ The [portable data pipeline](pipeline/README.md) separates public-source downloa
 raw-file archival, parsing, quality checks and QuantMeridian JSON assembly. It
 records a public CRSP-market reconstruction separately from the seed article's
 S&P 500 analysis and blocks output until political-control intervals are reviewed.
-The [source decisions](pipeline/SOURCE_DECISIONS.md) define the proxy boundary and
-commercial-data gap.
+The [public-series methodology](public-series-methodology.md) freezes a
+side-by-side CRSP-proxy baseline and Shiller S&P Composite robustness
+reconstruction before output review; the [source decisions](pipeline/SOURCE_DECISIONS.md)
+define the proxy boundary and commercial-data gap. The [initial comparison
+record](public-series-comparison-run.md) preserves the resulting common-sample
+coverage and non-causal sensitivity findings.
 
 ### Research sequence
 

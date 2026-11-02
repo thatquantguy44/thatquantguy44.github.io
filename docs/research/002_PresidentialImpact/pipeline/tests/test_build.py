@@ -6,7 +6,12 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from presidential_data_pipeline.assemble import BuildError, build_annual_dataset
+from presidential_data_pipeline.assemble import (
+    BuildError,
+    build_annual_dataset,
+    build_public_series_comparison,
+    derive_shiller_monthly_total_return,
+)
 from presidential_data_pipeline.config import ConfigError, load_config
 from presidential_data_pipeline.pipeline import prepare_control_review, validate_controls_file
 from presidential_data_pipeline.quality import check_monthly_returns
@@ -24,13 +29,27 @@ class BuildTests(unittest.TestCase):
         self.root = Path(__file__).resolve().parents[1]
         self.config = load_config(self.root / "config" / "sources.toml")
 
-    def write_market(self, path: Path) -> None:
+    def write_market(self, path: Path, source_id: str = "FF_MKT_001") -> None:
         with path.open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=["date", "market_return_decimal", "source_id"])
             writer.writeheader()
             for year in range(1935, 2024):
                 for month in range(1, 13):
-                    writer.writerow({"date": month_end(year, month).isoformat(), "market_return_decimal": "0.001", "source_id": "FF_MKT_001"})
+                    writer.writerow({"date": month_end(year, month).isoformat(), "market_return_decimal": "0.001", "source_id": source_id})
+
+    def write_shiller_context(self, path: Path) -> None:
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=["date", "price", "dividend", "cape", "source_id"])
+            writer.writeheader()
+            for year in range(1934, 2024):
+                for month in range(1, 13):
+                    writer.writerow({
+                        "date": month_end(year, month).isoformat(),
+                        "price": str(100 + (year - 1934) * 12 + month),
+                        "dividend": "3",
+                        "cape": "20",
+                        "source_id": "SHILLER_001",
+                    })
 
     def write_controls(self, path: Path, overlapping: bool = False, source_id: str = "CTRL_074_A") -> None:
         fields = ["id", "startDate", "endDate", "presidentId", "presidentName", "presidentParty", "houseControl", "senateControl", "sourceId"]
@@ -64,6 +83,66 @@ class BuildTests(unittest.TestCase):
             self.write_controls(controls, overlapping=True)
             with self.assertRaisesRegex(BuildError, "controls.overlap"):
                 build_annual_dataset(self.config, market, controls, "calendar_year_start")
+
+    def test_requires_the_source_declared_by_the_reconstruction(self) -> None:
+        with TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            market, controls = directory / "market.csv", directory / "controls.csv"
+            self.write_market(market, source_id="SHILLER_001")
+            self.write_controls(controls)
+            with self.assertRaisesRegex(BuildError, "requires market source FF_MKT_001"):
+                build_annual_dataset(self.config, market, controls, "window_start")
+
+    def test_derives_shiller_monthly_returns_with_explicit_dividend_convention(self) -> None:
+        derived = derive_shiller_monthly_total_return([
+            {"date": "1935-01-31", "price": "100", "dividend": "12", "source_id": "SHILLER_001"},
+            {"date": "1935-02-28", "price": "102", "dividend": "12", "source_id": "SHILLER_001"},
+        ])
+        self.assertEqual(derived, [{"date": "1935-02-28", "market_return_decimal": "0.03", "source_id": "SHILLER_001"}])
+
+    def test_builds_aligned_public_series_comparison(self) -> None:
+        with TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            market, shiller, controls = directory / "market.csv", directory / "shiller_monthly.csv", directory / "controls.csv"
+            self.write_market(market)
+            self.write_shiller_context(shiller)
+            self.write_controls(controls)
+            primary, primary_manifest, robustness, robustness_manifest, derived, comparison = build_public_series_comparison(
+                self.config, market, shiller, controls, "window_start"
+            )
+        self.assertEqual(primary_manifest["reconstruction"], "crsp_market_proxy")
+        self.assertEqual(robustness_manifest["reconstruction"], "shiller_sp_composite_approximation")
+        self.assertEqual(primary["id"], "annual-crsp-market-proxy-1936-2023")
+        self.assertEqual(robustness["id"], "annual-shiller-sp-composite-approximation-1936-2023")
+        self.assertEqual(len(derived), 1068)
+        self.assertEqual(comparison["summary"]["observations"], 88)
+        self.assertEqual(len(comparison["annual_rows"]), 88)
+
+    def test_comparison_stops_at_last_complete_shiller_december(self) -> None:
+        with TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            market, shiller, controls = directory / "market.csv", directory / "shiller_monthly.csv", directory / "controls.csv"
+            self.write_market(market)
+            self.write_shiller_context(shiller)
+            with shiller.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            for row in rows:
+                if row["date"] >= "2023-07-31":
+                    row["dividend"] = ""
+            with shiller.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=["date", "price", "dividend", "cape", "source_id"])
+                writer.writeheader()
+                writer.writerows(rows)
+            self.write_controls(controls)
+            _, _, robustness, _, _, comparison = build_public_series_comparison(
+                self.config, market, shiller, controls, "window_start"
+            )
+        self.assertEqual(len(robustness["windows"]), 87)
+        self.assertEqual(comparison["overlap"]["last_annual_year"], 2022)
+        self.assertEqual(comparison["robustness_source_completeness"]["last_complete_dividend_december"], "2022-12-31")
+        self.assertEqual(comparison["robustness_source_completeness"]["excluded_incomplete_dividend_months"], [
+            "2023-07-31", "2023-08-31", "2023-09-30", "2023-10-31", "2023-11-30", "2023-12-31",
+        ])
 
     def test_registers_disabled_manual_control_evidence_without_fetching_it(self) -> None:
         source = self.config.source("CTRL_074_A")
