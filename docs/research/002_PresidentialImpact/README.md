@@ -22,6 +22,7 @@ independently checked dataset or an established conclusion.
 - [Exact-replication disposition matrix](exact-replication-disposition.md)
 - [Inherited-conditions protocol](inherited-conditions-protocol.md)
 - [Inherited-conditions descriptive results](inherited-conditions-analysis/README.md)
+- [Director-facing research-note draft](director-research-note.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
 - [Portable data pipeline](pipeline/README.md)

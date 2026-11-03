@@ -26,9 +26,10 @@ returns.
 4. [Exact-replication disposition matrix](exact-replication-disposition.md) — recovered exhibit schema, missing inputs, and stopping rule.
 5. [Inherited-conditions protocol](inherited-conditions-protocol.md) — frozen inputs, timing, sample, and no-look-ahead rules for the active extension.
 6. [Inherited-conditions results](inherited-conditions-analysis/README.md) — paired figures, source-by-source table, ledger contract, and interpretation boundary.
-7. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
-8. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
-9. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
+7. [Director-facing research-note draft](director-research-note.md) — concise narrative, proposed author viewpoint, and evidence boundary.
+8. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
+9. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
+10. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
 
 ## Completed, verified work
 
@@ -44,6 +45,7 @@ returns.
 | Frozen political-configuration package | Complete; paired table, two portable figures, and interpretation boundary | `descriptive-analysis/README.md` |
 | Seed Exhibit 1 schema recovery | Complete; publisher chart image archived locally and visible fields/timing documented without reusing the chart | `exact-replication-disposition.md` and ignored `sources/raw/` |
 | Inherited-conditions descriptive package | Complete; paired 1955–2022 CAPE/rate figures, source-separated results table, and 68-row local ledger | `inherited-conditions-analysis/README.md` and ignored `.local/output/public-series-comparison/` |
+| Director-facing research note | Draft complete; retains the seed/reconstruction/extension boundary and proposed author viewpoint | `director-research-note.md` |
 | Pipeline verification | Offline test suite passes 28 tests; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
 
 ## Current empirical checkpoint
@@ -72,19 +74,17 @@ or compares the CRSP-only 2023 observation with the shorter series.
 
 ## Next division of work — priority order
 
-### 1. Draft the director-facing research note from the completed packages
+### 1. Review and finalize the director-facing note with the author's voice
 
-Use the political-configuration package and the inherited-conditions package as
-separate, clearly labeled public reconstructions. Explain the seed article's
-claim as a research lead, report the completed descriptive evidence without
-overstating it, then add a distinct author-opinion section. The note should make
-the data-access boundary and exact-replication closure prominent rather than
-burying it in a footnote.
+The [director-facing draft](director-research-note.md) now contains the
+evidence-backed narrative and a proposed interpretation. Confirm the tone,
+investment-decision context, and the author's own language before treating it as
+a final memo, blog section, or presentation source.
 
-**Acceptance criterion:** every figure and numerical statement identifies
-whether it comes from the seed article, the local public reconstruction, or the
-newly documented inherited-conditions extension; conclusions follow only from
-the stated evidence.
+**Acceptance criterion:** the author endorses the personal interpretation, and
+every figure and numerical statement still identifies whether it comes from the
+seed article, the local public reconstruction, or the inherited-conditions
+extension.
 
 ### 2. Decide whether a conditional or chronological-prediction exercise is justified
 
