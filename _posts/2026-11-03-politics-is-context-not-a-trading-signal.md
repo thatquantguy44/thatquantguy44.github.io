@@ -42,6 +42,24 @@ That is not a prediction. It is a reminder to start with the opportunity set
 the market has already priced, rather than treating a party label as a factor
 that arrived with magical explanatory powers.
 
+## The short version
+
+The charts and analysis below come from **PRES**, the local Presidential Impact
+workspace I built in QuantMeridian. It loads the project's frozen public inputs,
+keeps the comparison definition alongside the figure, and labels the result
+`USER-SUPPLIED · UNVERIFIED`: an honest statement that the module validated the
+data contract and calculations, not a claim that software independently
+authenticated every historical observation.
+
+- The party-and-control ranking is descriptive, but its leading cell is small
+  and its return windows are not independent experiments.
+- The dated control timeline exposes why an annual label is not the same thing
+  as a full-year political treatment.
+- Starting CAPE has a clearer negative association with the following year's
+  return than the starting policy-rate level in this frozen sample.
+- None of those observations is a forecast, an allocation rule, or proof that
+  a president caused a return.
+
 ## The claim I wanted to test
 
 The starting point was Fiduciary Trust International's October 2024 article,
@@ -99,6 +117,15 @@ Congress—contains **eight** annual observations across **three**
 administrations. Its public CRSP-market-proxy mean is 17.55%; the Shiller
 reconstruction mean is 18.48%.
 
+![QuantMeridian PRES chart of common-sample annual mean public CRSP-market-proxy return by president and congressional control, with descriptive administration-cluster resampling ranges and counts.](/assets/img/posts/presidential-impact/quantmeridian-political-control-comparison.svg){: width="1600" height="985" }
+
+*Figure 1. QuantMeridian PRES export using the locked 1936–2022 CRSP-market-
+proxy common sample. The green bars are arithmetic means; whiskers are 95%
+administration-cluster resampling ranges, not causal confidence intervals.
+Every cell is marked with both its annual-window count and its administration
+count. The orange provenance banner is intentional: these are frozen
+project-supplied inputs, not vendor-verified market history.*
+
 Those numbers may be interesting. They are nowhere near enough to say, “this
 is the political regime investors should own.” A handful of macroeconomic
 episodes, valuation starting points, recessions, wars, technology cycles, and
@@ -111,6 +138,14 @@ exposure: 24 of 87 windows cross at least one later control change.
 
 In other words, the label is a clean filing system. It is not a clean causal
 treatment.
+
+![QuantMeridian PRES timeline of the supplied president, House, and Senate control intervals.](/assets/img/posts/presidential-impact/quantmeridian-control-timeline.svg){: width="1600" height="665" }
+
+*Figure 2. The control timeline behind the annual labels. It uses dated,
+end-exclusive intervals and includes every supplied interval, not merely the
+87 common-sample return observations. This is why a political label at a
+window's origin is a reproducible convention—not evidence that control was
+unchanged for the entire return year.*
 
 ## A presidential cycle has a calendar problem
 
@@ -129,7 +164,7 @@ arithmetic mean. These are observed dispersions, not confidence intervals.
 
 ![Annual return range and arithmetic mean by end-of-year presidential party and four-year cycle year, shown for public CRSP-market proxy and Shiller reconstruction.](/assets/img/posts/presidential-impact/presidential-cycle-all-years.svg){: width="1280" height="570" }
 
-*Figure 1. All four cycle years, using the president in office on each return
+*Figure 3. All four cycle years, using the president in office on each return
 year's December 31. The 1936 return is excluded because it predates the first
 January-20 presidential term in this sample. D/R colors identify the
 end-of-year president's party; they do not identify a causal exposure.*
@@ -142,7 +177,7 @@ person, but a new regular term still begins on January 20.
 
 ![The same annual return range and mean chart, with cycle year one shaded as an inauguration-transition period.](/assets/img/posts/presidential-impact/presidential-cycle-inauguration-flagged.svg){: width="1280" height="570" }
 
-*Figure 2. The inauguration-year treatment changes no return, count, party
+*Figure 4. The inauguration-year treatment changes no return, count, party
 label, range, or mean. It only makes the calendar boundary visible.*
 
 The point is not that an inauguration year should be thrown out, relabeled, or
@@ -174,12 +209,27 @@ tradeable threshold, and does not tell us the next year's return in advance.
 It does say that the relationship survives two separate public return
 constructions and deserves more attention than a simple party label.
 
+![QuantMeridian PRES scatterplot of starting Shiller CAPE against the subsequent annual public CRSP-market-proxy return for the 68 inherited-condition windows.](/assets/img/posts/presidential-impact/quantmeridian-inherited-cape.svg){: width="1600" height="911" }
+
+*Figure 5. QuantMeridian PRES inherited-valuation view. Each dot is one
+eligible 1955–2022 annual window, colored by the president's party at the
+window origin. No fitted line is shown: the intended claim is the descriptive
+pattern in the observed sample, not a predictive model with an implied slope.*
+
 The starting policy-rate level did not produce the same clean story. In the
 CRSP-market-proxy reconstruction, the lowest and highest policy-rate quartiles
 averaged 13.69% and 13.74%, respectively, and the pattern was non-monotonic in
 both constructions. A policy rate can matter immensely for discount rates,
 borrowing costs, and sector outcomes without its level alone providing a stable
 directional annual-equity-return rule.
+
+![QuantMeridian PRES scatterplot of the starting effective policy rate against the subsequent annual public CRSP-market-proxy return for the 68 inherited-condition windows.](/assets/img/posts/presidential-impact/quantmeridian-inherited-policy-rate.svg){: width="1600" height="911" }
+
+*Figure 6. The matching policy-rate view. The wide vertical dispersion at both
+low and high starting rates makes the visual point more directly than a single
+correlation: the frozen sample does not provide a stable directional
+relationship from the level of the policy rate to the next annual equity
+return.*
 
 This is the distinction I would carry into an investment meeting:
 
