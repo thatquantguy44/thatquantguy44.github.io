@@ -1,7 +1,7 @@
 # Inherited-conditions protocol — frozen public inputs
 
-**Status:** protocol frozen and data construction verified on 2026-11-03;
-inherited-conditions results have not yet been reviewed or reported.
+**Status:** protocol frozen, data construction verified, and paired descriptive
+results reported on 2026-11-03. No conditional model has been fit.
 
 **Question:** within the current public-data reconstruction, how do starting
 valuation and the effective federal funds rate relate descriptively to the next
@@ -103,7 +103,7 @@ four-year values, or make a real-time forecast claim. It does not add GDP,
 inflation, or any other macroeconomic variable: the current data-access decision
 limits the extension to the frozen CAPE and policy-rate fields.
 
-## Construction record and next completion criterion
+## Construction record and completion
 
 The two joined datasets and their manifests were generated solely from the frozen
 artifacts. QuantMeridian parser/engine checks confirmed 68 included windows and
@@ -111,6 +111,9 @@ artifacts. QuantMeridian parser/engine checks confirmed 68 included windows and
 records are 1954-10-31 / 1954-11-30 and 2021-10-31 / 2021-11-30,
 respectively.
 
-The next completion criterion is the paired descriptive package: reproducible
-CAPE-return and policy-rate-return figures, ledgers, and a source-by-source
-result table. Only then is the results section ready to be drafted.
+The paired descriptive package is complete in
+[inherited-conditions-analysis](inherited-conditions-analysis/README.md): it
+contains reproducible CAPE-return and policy-rate-return figures, a
+source-by-source result table, and instructions to regenerate the 68-row local
+ledger. It deliberately leaves political adjustment, predictive testing, and
+causal interpretation out of scope.

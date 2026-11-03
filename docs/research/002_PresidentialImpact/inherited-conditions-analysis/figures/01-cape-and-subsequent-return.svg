@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 550" role="img" aria-labelledby="title desc">
+  <title id="title">Starting CAPE and subsequent annual return</title>
+  <desc id="desc">Two matched scatterplots of 68 annual observations from 1955 through 2022. The vertical scale is identical. Each dot is an annual return; no fitted line, causal estimate, or forecast is displayed.</desc>
+  <rect width="1120" height="550" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif">
+    <text x="80" y="30" font-size="17" font-weight="700" fill="#34414D">Starting CAPE and subsequent annual return</text>
+    <text x="80" y="51" font-size="12" fill="#5C6B78">1955–2022 · 68 annual windows · frozen October observations with assumed November availability · matched return scale</text>
+    <text x="70" y="360.0" font-size="10" text-anchor="end" fill="#34414D">-25%</text>
+  <text x="70" y="280.0" font-size="10" text-anchor="end" fill="#34414D">0%</text>
+  <text x="70" y="200.0" font-size="10" text-anchor="end" fill="#34414D">25%</text>
+  <text x="70" y="120.0" font-size="10" text-anchor="end" fill="#34414D">50%</text>
+    <text x="20" y="270" transform="rotate(-90 20 270)" font-size="11" text-anchor="middle" fill="#34414D">Subsequent annual nominal return</text>
+    <text x="80" y="78" font-size="13" font-weight="700" fill="#1769A6">CRSP-market proxy</text>
+  <text x="80" y="94" font-size="10" fill="#5C6B78">CRSP-market-proxy baseline · Pearson r = -0.29</text>
+  <line x1="80" x2="500" y1="356.0" y2="356.0" stroke="#D5DCE3"/>
+  <line x1="80" x2="500" y1="276.0" y2="276.0" stroke="#D5DCE3"/>
+  <line x1="80" x2="500" y1="196.0" y2="196.0" stroke="#D5DCE3"/>
+  <line x1="80" x2="500" y1="116.0" y2="116.0" stroke="#D5DCE3"/>
+  <line x1="80" x2="500" y1="276.0" y2="276.0" stroke="#34414D" stroke-width="1.3"/>
+  <line x1="80" x2="80" y1="100" y2="420" stroke="#34414D"/>
+  <line x1="80" x2="500" y1="420" y2="420" stroke="#34414D"/>
+  <line x1="80.0" x2="80.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="80.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">5</text>
+  <line x1="185.0" x2="185.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="185.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">15</text>
+  <line x1="290.0" x2="290.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="290.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">25</text>
+  <line x1="395.0" x2="395.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="395.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">35</text>
+  <line x1="500.0" x2="500.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="500.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">45</text>
+  <circle cx="181.0" cy="194.9" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1955: Starting Shiller workbook CAPE field 14.62; subsequent return 25.36%</title></circle>
+  <circle cx="214.1" cy="249.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1956: Starting Shiller workbook CAPE field 17.77; subsequent return 8.34%</title></circle>
+  <circle cx="210.4" cy="308.0" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1957: Starting Shiller workbook CAPE field 17.42; subsequent return -10.00%</title></circle>
+  <circle cx="176.1" cy="132.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1958: Starting Shiller workbook CAPE field 14.15; subsequent return 44.98%</title></circle>
+  <circle cx="201.4" cy="235.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1959: Starting Shiller workbook CAPE field 16.56; subsequent return 12.76%</title></circle>
+  <circle cx="216.7" cy="272.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1960: Starting Shiller workbook CAPE field 18.02; subsequent return 1.20%</title></circle>
+  <circle cx="201.9" cy="189.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1961: Starting Shiller workbook CAPE field 16.61; subsequent return 26.94%</title></circle>
+  <circle cx="247.2" cy="308.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1962: Starting Shiller workbook CAPE field 20.92; subsequent return -10.19%</title></circle>
+  <circle cx="203.3" cy="208.9" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1963: Starting Shiller workbook CAPE field 16.74; subsequent return 20.96%</title></circle>
+  <circle cx="246.9" cy="224.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1964: Starting Shiller workbook CAPE field 20.89; subsequent return 16.07%</title></circle>
+  <circle cx="271.2" cy="229.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1965: Starting Shiller workbook CAPE field 23.21; subsequent return 14.44%</title></circle>
+  <circle cx="277.1" cy="304.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1966: Starting Shiller workbook CAPE field 23.78; subsequent return -8.81%</title></circle>
+  <circle cx="225.2" cy="184.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1967: Starting Shiller workbook CAPE field 18.83; subsequent return 28.70%</title></circle>
+  <circle cx="259.2" cy="230.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1968: Starting Shiller workbook CAPE field 22.07; subsequent return 14.14%</title></circle>
+  <circle cx="258.5" cy="311.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1969: Starting Shiller workbook CAPE field 22.00; subsequent return -10.95%</title></circle>
+  <circle cx="221.2" cy="275.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1970: Starting Shiller workbook CAPE field 18.45; subsequent return 0.09%</title></circle>
+  <circle cx="185.7" cy="224.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1971: Starting Shiller workbook CAPE field 15.06; subsequent return 16.16%</title></circle>
+  <circle cx="200.0" cy="221.9" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1972: Starting Shiller workbook CAPE field 16.43; subsequent return 16.92%</title></circle>
+  <circle cx="211.6" cy="337.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1973: Starting Shiller workbook CAPE field 17.53; subsequent return -19.31%</title></circle>
+  <circle cx="194.6" cy="365.0" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1974: Starting Shiller workbook CAPE field 15.91; subsequent return -27.80%</title></circle>
+  <circle cx="119.3" cy="153.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1975: Starting Shiller workbook CAPE field 8.74; subsequent return 38.33%</title></circle>
+  <circle cx="135.9" cy="189.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1976: Starting Shiller workbook CAPE field 10.33; subsequent return 26.98%</title></circle>
+  <circle cx="146.6" cy="286.0" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1977: Starting Shiller workbook CAPE field 11.35; subsequent return -3.12%</title></circle>
+  <circle cx="130.0" cy="249.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1978: Starting Shiller workbook CAPE field 9.77; subsequent return 8.25%</title></circle>
+  <circle cx="127.6" cy="200.9" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1979: Starting Shiller workbook CAPE field 9.53; subsequent return 23.47%</title></circle>
+  <circle cx="118.7" cy="169.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1980: Starting Shiller workbook CAPE field 8.68; subsequent return 33.25%</title></circle>
+  <circle cx="125.8" cy="286.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1981: Starting Shiller workbook CAPE field 9.36; subsequent return -3.26%</title></circle>
+  <circle cx="107.8" cy="207.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1982: Starting Shiller workbook CAPE field 7.65; subsequent return 21.46%</title></circle>
+  <circle cx="111.5" cy="203.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1983: Starting Shiller workbook CAPE field 8.00; subsequent return 22.55%</title></circle>
+  <circle cx="132.5" cy="263.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1984: Starting Shiller workbook CAPE field 10.00; subsequent return 3.85%</title></circle>
+  <circle cx="128.2" cy="171.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1985: Starting Shiller workbook CAPE field 9.60; subsequent return 32.62%</title></circle>
+  <circle cx="138.3" cy="223.5" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1986: Starting Shiller workbook CAPE field 10.55; subsequent return 16.42%</title></circle>
+  <circle cx="168.5" cy="270.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1987: Starting Shiller workbook CAPE field 13.43; subsequent return 1.64%</title></circle>
+  <circle cx="190.6" cy="218.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1988: Starting Shiller workbook CAPE field 15.53; subsequent return 17.99%</title></circle>
+  <circle cx="183.0" cy="183.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1989: Starting Shiller workbook CAPE field 14.81; subsequent return 28.86%</title></circle>
+  <circle cx="212.7" cy="295.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1990: Starting Shiller workbook CAPE field 17.64; subsequent return -6.02%</title></circle>
+  <circle cx="183.1" cy="164.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1991: Starting Shiller workbook CAPE field 14.82; subsequent return 34.82%</title></circle>
+  <circle cx="220.2" cy="244.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1992: Starting Shiller workbook CAPE field 18.35; subsequent return 9.78%</title></circle>
+  <circle cx="230.9" cy="240.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1993: Starting Shiller workbook CAPE field 19.37; subsequent return 11.16%</title></circle>
+  <circle cx="249.1" cy="276.5" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1994: Starting Shiller workbook CAPE field 21.11; subsequent return -0.15%</title></circle>
+  <circle cx="241.7" cy="158.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1995: Starting Shiller workbook CAPE field 20.40; subsequent return 36.85%</title></circle>
+  <circle cx="278.7" cy="208.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1996: Starting Shiller workbook CAPE field 23.93; subsequent return 21.21%</title></circle>
+  <circle cx="305.6" cy="176.0" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1997: Starting Shiller workbook CAPE field 26.48; subsequent return 31.25%</title></circle>
+  <circle cx="373.0" cy="198.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1998: Starting Shiller workbook CAPE field 32.90; subsequent return 24.26%</title></circle>
+  <circle cx="382.1" cy="195.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>1999: Starting Shiller workbook CAPE field 33.77; subsequent return 25.24%</title></circle>
+  <circle cx="453.3" cy="313.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2000: Starting Shiller workbook CAPE field 40.55; subsequent return -11.59%</title></circle>
+  <circle cx="440.9" cy="311.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2001: Starting Shiller workbook CAPE field 39.37; subsequent return -11.20%</title></circle>
+  <circle cx="327.6" cy="343.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2002: Starting Shiller workbook CAPE field 28.58; subsequent return -21.14%</title></circle>
+  <circle cx="258.0" cy="174.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2003: Starting Shiller workbook CAPE field 21.96; subsequent return 31.69%</title></circle>
+  <circle cx="297.2" cy="237.8" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2004: Starting Shiller workbook CAPE field 25.68; subsequent return 11.93%</title></circle>
+  <circle cx="294.3" cy="256.5" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2005: Starting Shiller workbook CAPE field 25.41; subsequent return 6.10%</title></circle>
+  <circle cx="288.7" cy="226.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2006: Starting Shiller workbook CAPE field 24.88; subsequent return 15.40%</title></circle>
+  <circle cx="306.1" cy="257.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2007: Starting Shiller workbook CAPE field 26.54; subsequent return 5.74%</title></circle>
+  <circle cx="314.4" cy="393.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2008: Starting Shiller workbook CAPE field 27.32; subsequent return -36.66%</title></circle>
+  <circle cx="199.6" cy="184.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2009: Starting Shiller workbook CAPE field 16.39; subsequent return 28.63%</title></circle>
+  <circle cx="230.8" cy="220.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2010: Starting Shiller workbook CAPE field 19.36; subsequent return 17.41%</title></circle>
+  <circle cx="250.5" cy="274.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2011: Starting Shiller workbook CAPE field 21.24; subsequent return 0.50%</title></circle>
+  <circle cx="239.1" cy="223.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2012: Starting Shiller workbook CAPE field 20.16; subsequent return 16.35%</title></circle>
+  <circle cx="254.1" cy="163.5" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2013: Starting Shiller workbook CAPE field 21.58; subsequent return 35.15%</title></circle>
+  <circle cx="277.8" cy="238.4" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2014: Starting Shiller workbook CAPE field 23.83; subsequent return 11.74%</title></circle>
+  <circle cx="291.7" cy="275.3" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2015: Starting Shiller workbook CAPE field 25.16; subsequent return 0.21%</title></circle>
+  <circle cx="295.2" cy="232.5" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2016: Starting Shiller workbook CAPE field 25.49; subsequent return 13.58%</title></circle>
+  <circle cx="306.0" cy="204.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2017: Starting Shiller workbook CAPE field 26.53; subsequent return 22.32%</title></circle>
+  <circle cx="352.2" cy="292.1" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2018: Starting Shiller workbook CAPE field 30.92; subsequent return -5.03%</title></circle>
+  <circle cx="353.4" cy="178.2" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2019: Starting Shiller workbook CAPE field 31.04; subsequent return 30.56%</title></circle>
+  <circle cx="330.3" cy="199.0" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2020: Starting Shiller workbook CAPE field 28.84; subsequent return 24.07%</title></circle>
+  <circle cx="356.0" cy="199.6" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2021: Starting Shiller workbook CAPE field 31.28; subsequent return 23.86%</title></circle>
+  <circle cx="418.7" cy="339.7" r="3.4" fill="#1769A6" fill-opacity="0.72"><title>2022: Starting Shiller workbook CAPE field 37.25; subsequent return -19.92%</title></circle>
+  <text x="290" y="470" font-size="11" text-anchor="middle" fill="#34414D">Starting Shiller workbook CAPE field</text>
+    <text x="625" y="78" font-size="13" font-weight="700" fill="#9B5E00">Shiller reconstruction</text>
+  <text x="625" y="94" font-size="10" fill="#5C6B78">Shiller S&amp;P Composite dividend-reinvestment-style reconstruction · Pearson r = -0.27</text>
+  <line x1="625" x2="1045" y1="356.0" y2="356.0" stroke="#D5DCE3"/>
+  <line x1="625" x2="1045" y1="276.0" y2="276.0" stroke="#D5DCE3"/>
+  <line x1="625" x2="1045" y1="196.0" y2="196.0" stroke="#D5DCE3"/>
+  <line x1="625" x2="1045" y1="116.0" y2="116.0" stroke="#D5DCE3"/>
+  <line x1="625" x2="1045" y1="276.0" y2="276.0" stroke="#34414D" stroke-width="1.3"/>
+  <line x1="625" x2="625" y1="100" y2="420" stroke="#34414D"/>
+  <line x1="625" x2="1045" y1="420" y2="420" stroke="#34414D"/>
+  <line x1="625.0" x2="625.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="625.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">5</text>
+  <line x1="730.0" x2="730.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="730.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">15</text>
+  <line x1="835.0" x2="835.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="835.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">25</text>
+  <line x1="940.0" x2="940.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="940.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">35</text>
+  <line x1="1045.0" x2="1045.0" y1="420" y2="425" stroke="#34414D"/>
+  <text x="1045.0" y="442" font-size="10" text-anchor="middle" fill="#34414D">45</text>
+  <circle cx="726.0" cy="164.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1955: Starting Shiller workbook CAPE field 14.62; subsequent return 34.95%</title></circle>
+  <circle cx="759.1" cy="255.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1956: Starting Shiller workbook CAPE field 17.77; subsequent return 6.31%</title></circle>
+  <circle cx="755.4" cy="306.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1957: Starting Shiller workbook CAPE field 17.42; subsequent return -9.66%</title></circle>
+  <circle cx="721.1" cy="155.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1958: Starting Shiller workbook CAPE field 14.15; subsequent return 37.78%</title></circle>
+  <circle cx="746.4" cy="231.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1959: Starting Shiller workbook CAPE field 16.56; subsequent return 13.92%</title></circle>
+  <circle cx="761.7" cy="277.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1960: Starting Shiller workbook CAPE field 18.02; subsequent return -0.43%</title></circle>
+  <circle cx="746.9" cy="179.7" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1961: Starting Shiller workbook CAPE field 16.61; subsequent return 30.10%</title></circle>
+  <circle cx="792.2" cy="307.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1962: Starting Shiller workbook CAPE field 20.92; subsequent return -9.72%</title></circle>
+  <circle cx="748.3" cy="205.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1963: Starting Shiller workbook CAPE field 16.74; subsequent return 22.19%</title></circle>
+  <circle cx="791.9" cy="223.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1964: Starting Shiller workbook CAPE field 20.89; subsequent return 16.58%</title></circle>
+  <circle cx="816.2" cy="235.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1965: Starting Shiller workbook CAPE field 23.21; subsequent return 12.54%</title></circle>
+  <circle cx="822.1" cy="302.7" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1966: Starting Shiller workbook CAPE field 23.78; subsequent return -8.33%</title></circle>
+  <circle cx="770.2" cy="209.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1967: Starting Shiller workbook CAPE field 18.83; subsequent return 20.94%</title></circle>
+  <circle cx="804.2" cy="227.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1968: Starting Shiller workbook CAPE field 22.07; subsequent return 15.20%</title></circle>
+  <circle cx="803.5" cy="313.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1969: Starting Shiller workbook CAPE field 22.00; subsequent return -11.67%</title></circle>
+  <circle cx="766.2" cy="267.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1970: Starting Shiller workbook CAPE field 18.45; subsequent return 2.69%</title></circle>
+  <circle cx="730.7" cy="232.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1971: Starting Shiller workbook CAPE field 15.06; subsequent return 13.65%</title></circle>
+  <circle cx="745.0" cy="206.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1972: Starting Shiller workbook CAPE field 16.43; subsequent return 21.88%</title></circle>
+  <circle cx="756.6" cy="329.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1973: Starting Shiller workbook CAPE field 17.53; subsequent return -16.86%</title></circle>
+  <circle cx="739.6" cy="359.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1974: Starting Shiller workbook CAPE field 15.91; subsequent return -26.10%</title></circle>
+  <circle cx="664.3" cy="154.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1975: Starting Shiller workbook CAPE field 8.74; subsequent return 38.04%</title></circle>
+  <circle cx="680.9" cy="203.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1976: Starting Shiller workbook CAPE field 10.33; subsequent return 22.52%</title></circle>
+  <circle cx="691.6" cy="296.2" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1977: Starting Shiller workbook CAPE field 11.35; subsequent return -6.31%</title></circle>
+  <circle cx="675.0" cy="251.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1978: Starting Shiller workbook CAPE field 9.77; subsequent return 7.82%</title></circle>
+  <circle cx="672.6" cy="217.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1979: Starting Shiller workbook CAPE field 9.53; subsequent return 18.16%</title></circle>
+  <circle cx="663.7" cy="179.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1980: Starting Shiller workbook CAPE field 8.68; subsequent return 30.23%</title></circle>
+  <circle cx="670.8" cy="284.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1981: Starting Shiller workbook CAPE field 9.36; subsequent return -2.50%</title></circle>
+  <circle cx="652.8" cy="214.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1982: Starting Shiller workbook CAPE field 7.65; subsequent return 19.20%</title></circle>
+  <circle cx="656.5" cy="201.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1983: Starting Shiller workbook CAPE field 8.00; subsequent return 23.17%</title></circle>
+  <circle cx="677.5" cy="260.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1984: Starting Shiller workbook CAPE field 10.00; subsequent return 4.72%</title></circle>
+  <circle cx="673.2" cy="175.7" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1985: Starting Shiller workbook CAPE field 9.60; subsequent return 31.36%</title></circle>
+  <circle cx="683.3" cy="198.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1986: Starting Shiller workbook CAPE field 10.55; subsequent return 24.12%</title></circle>
+  <circle cx="713.5" cy="276.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1987: Starting Shiller workbook CAPE field 13.43; subsequent return -0.11%</title></circle>
+  <circle cx="735.6" cy="215.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1988: Starting Shiller workbook CAPE field 15.53; subsequent return 18.80%</title></circle>
+  <circle cx="728.0" cy="179.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1989: Starting Shiller workbook CAPE field 14.81; subsequent return 30.21%</title></circle>
+  <circle cx="757.7" cy="283.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1990: Starting Shiller workbook CAPE field 17.64; subsequent return -2.35%</title></circle>
+  <circle cx="728.1" cy="205.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1991: Starting Shiller workbook CAPE field 14.82; subsequent return 22.07%</title></circle>
+  <circle cx="765.2" cy="226.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1992: Starting Shiller workbook CAPE field 18.35; subsequent return 15.51%</title></circle>
+  <circle cx="775.9" cy="244.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1993: Starting Shiller workbook CAPE field 19.37; subsequent return 9.96%</title></circle>
+  <circle cx="794.1" cy="274.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1994: Starting Shiller workbook CAPE field 21.11; subsequent return 0.46%</title></circle>
+  <circle cx="786.7" cy="153.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1995: Starting Shiller workbook CAPE field 20.40; subsequent return 38.42%</title></circle>
+  <circle cx="823.7" cy="200.6" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1996: Starting Shiller workbook CAPE field 23.93; subsequent return 23.56%</title></circle>
+  <circle cx="850.6" cy="174.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1997: Starting Shiller workbook CAPE field 26.48; subsequent return 31.77%</title></circle>
+  <circle cx="918.0" cy="194.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1998: Starting Shiller workbook CAPE field 32.90; subsequent return 25.49%</title></circle>
+  <circle cx="927.1" cy="207.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>1999: Starting Shiller workbook CAPE field 33.77; subsequent return 21.56%</title></circle>
+  <circle cx="998.3" cy="294.4" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2000: Starting Shiller workbook CAPE field 40.55; subsequent return -5.75%</title></circle>
+  <circle cx="985.9" cy="317.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2001: Starting Shiller workbook CAPE field 39.37; subsequent return -12.82%</title></circle>
+  <circle cx="872.6" cy="340.6" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2002: Starting Shiller workbook CAPE field 28.58; subsequent return -20.19%</title></circle>
+  <circle cx="803.0" cy="204.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2003: Starting Shiller workbook CAPE field 21.96; subsequent return 22.26%</title></circle>
+  <circle cx="842.2" cy="235.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2004: Starting Shiller workbook CAPE field 25.68; subsequent return 12.82%</title></circle>
+  <circle cx="839.3" cy="253.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2005: Starting Shiller workbook CAPE field 25.41; subsequent return 7.09%</title></circle>
+  <circle cx="833.7" cy="230.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2006: Starting Shiller workbook CAPE field 24.88; subsequent return 14.27%</title></circle>
+  <circle cx="851.1" cy="255.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2007: Starting Shiller workbook CAPE field 26.54; subsequent return 6.31%</title></circle>
+  <circle cx="859.4" cy="401.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2008: Starting Shiller workbook CAPE field 27.32; subsequent return -39.23%</title></circle>
+  <circle cx="744.6" cy="179.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2009: Starting Shiller workbook CAPE field 16.39; subsequent return 30.03%</title></circle>
+  <circle cx="775.8" cy="231.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2010: Starting Shiller workbook CAPE field 19.36; subsequent return 14.02%</title></circle>
+  <circle cx="795.5" cy="269.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2011: Starting Shiller workbook CAPE field 21.24; subsequent return 2.10%</title></circle>
+  <circle cx="784.1" cy="222.2" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2012: Starting Shiller workbook CAPE field 20.16; subsequent return 16.80%</title></circle>
+  <circle cx="799.1" cy="180.9" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2013: Starting Shiller workbook CAPE field 21.58; subsequent return 29.71%</title></circle>
+  <circle cx="822.8" cy="225.2" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2014: Starting Shiller workbook CAPE field 23.83; subsequent return 15.86%</title></circle>
+  <circle cx="836.7" cy="269.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2015: Starting Shiller workbook CAPE field 25.16; subsequent return 2.04%</title></circle>
+  <circle cx="840.2" cy="238.5" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2016: Starting Shiller workbook CAPE field 25.49; subsequent return 11.73%</title></circle>
+  <circle cx="851.0" cy="209.1" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2017: Starting Shiller workbook CAPE field 26.53; subsequent return 20.91%</title></circle>
+  <circle cx="897.2" cy="281.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2018: Starting Shiller workbook CAPE field 30.92; subsequent return -1.82%</title></circle>
+  <circle cx="898.4" cy="192.3" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2019: Starting Shiller workbook CAPE field 31.04; subsequent return 26.15%</title></circle>
+  <circle cx="875.3" cy="216.8" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2020: Starting Shiller workbook CAPE field 28.84; subsequent return 18.50%</title></circle>
+  <circle cx="901.0" cy="185.6" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2021: Starting Shiller workbook CAPE field 31.28; subsequent return 28.26%</title></circle>
+  <circle cx="963.7" cy="324.0" r="3.4" fill="#9B5E00" fill-opacity="0.72"><title>2022: Starting Shiller workbook CAPE field 37.25; subsequent return -14.99%</title></circle>
+  <text x="835" y="470" font-size="11" text-anchor="middle" fill="#34414D">Starting Shiller workbook CAPE field</text>
+    <text x="80" y="505" font-size="10" fill="#5C6B78">Each dot is one calendar-year return. No fitted line is shown; annual rows share administrations and are not independent trials.</text>
+    <text x="80" y="524" font-size="10" fill="#5C6B78">Observed/source-vintage timing is not verified point in time. See the paired ledger and inherited-conditions protocol for field-level provenance.</text>
+  </g>
+</svg>

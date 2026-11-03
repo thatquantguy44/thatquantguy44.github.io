@@ -21,6 +21,7 @@ independently checked dataset or an established conclusion.
 - [Frozen descriptive public-series analysis](descriptive-analysis/README.md)
 - [Exact-replication disposition matrix](exact-replication-disposition.md)
 - [Inherited-conditions protocol](inherited-conditions-protocol.md)
+- [Inherited-conditions descriptive results](inherited-conditions-analysis/README.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
 - [Portable data pipeline](pipeline/README.md)
@@ -54,3 +55,8 @@ figures, and a within-window-control audit—is in
 replication track is closed by the project's data-access decision; see the
 [master handoff](MASTER_HANDOFF.md) for the current scope, constraints,
 commands, and acceptance criteria.
+
+The frozen 1955–2022 inherited-conditions extension also has paired CAPE and
+policy-rate descriptives, source-separated return results, portable static
+figures, and a reproducible local ledger in
+[inherited-conditions-analysis](inherited-conditions-analysis/README.md).

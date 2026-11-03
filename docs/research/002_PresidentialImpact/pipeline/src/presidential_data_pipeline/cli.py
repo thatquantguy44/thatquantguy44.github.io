@@ -11,6 +11,7 @@ from .assemble import (
     build_public_series_comparison,
     inherited_fundamentals_source,
     write_dataset,
+    write_inherited_conditions_ledger,
     write_public_series_comparison,
 )
 from .provenance import sha256_file, write_json
@@ -175,6 +176,7 @@ def main(argv: list[str] | None = None) -> int:
                 robustness_inherited_manifest,
             )
             write_public_series_comparison(arguments.output_dir, comparison)
+            write_inherited_conditions_ledger(arguments.output_dir, comparison, fundamental_audit)
             print(
                 "Wrote both public reconstructions, the common-sample CRSP baseline, frozen inherited-condition datasets, "
                 f"the derived Shiller monthly table, and aligned comparison outputs to {arguments.output_dir}."

@@ -13,6 +13,7 @@ from presidential_data_pipeline.assemble import (
     build_inherited_fundamentals,
     build_public_series_comparison,
     derive_shiller_monthly_total_return,
+    write_inherited_conditions_ledger,
 )
 from presidential_data_pipeline.config import ConfigError, load_config
 from presidential_data_pipeline.pipeline import prepare_control_review, validate_controls_file
@@ -187,6 +188,62 @@ class BuildTests(unittest.TestCase):
             "policyRatePct": 2.5,
             "sourceId": "INHERITED_CAPE_FEDFUNDS_001",
         })
+
+    def test_writes_a_reconciling_inherited_conditions_ledger(self) -> None:
+        comparison = {
+            "annual_rows": [
+                {
+                    "year": 1955,
+                    "decisionDate": "1954-12-31",
+                    "presidentParty": "D",
+                    "houseControl": "D",
+                    "senateControl": "D",
+                    "crspMarketProxyReturnDecimal": 0.2,
+                    "shillerSpCompositeApproximationReturnDecimal": 0.19,
+                    "differenceDecimal": -0.01,
+                },
+                {
+                    "year": 1956,
+                    "decisionDate": "1955-12-31",
+                    "presidentParty": "R",
+                    "houseControl": "D",
+                    "senateControl": "R",
+                    "crspMarketProxyReturnDecimal": 0.1,
+                    "shillerSpCompositeApproximationReturnDecimal": 0.11,
+                    "differenceDecimal": 0.01,
+                },
+            ],
+        }
+        audit = {
+            "observations": 2,
+            "rows": [
+                {
+                    "year": 1955,
+                    "fundamental": {"valuation": 10.0, "policyRatePct": 1.0},
+                    "valuation_observation_date": "1954-10-31",
+                    "valuation_assumed_available_date": "1954-11-30",
+                    "policy_observation_date": "1954-10-01",
+                    "policy_assumed_available_date": "1954-11-01",
+                },
+                {
+                    "year": 1956,
+                    "fundamental": {"valuation": 11.0, "policyRatePct": 2.0},
+                    "valuation_observation_date": "1955-10-31",
+                    "valuation_assumed_available_date": "1955-11-30",
+                    "policy_observation_date": "1955-10-01",
+                    "policy_assumed_available_date": "1955-11-01",
+                },
+            ],
+        }
+        with TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            write_inherited_conditions_ledger(output, comparison, audit)
+            with (output / "inherited-conditions-ledger.csv").open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[0]["politicalConfiguration"], "D president · D Congress")
+        self.assertEqual(rows[1]["politicalConfiguration"], "R president · Split Congress")
+        self.assertEqual(rows[1]["policyRatePct"], "2.0")
 
     def test_registers_disabled_manual_control_evidence_without_fetching_it(self) -> None:
         source = self.config.source("CTRL_074_A")

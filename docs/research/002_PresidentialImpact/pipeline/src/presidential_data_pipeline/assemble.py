@@ -566,6 +566,55 @@ def write_public_series_comparison(output_directory: Path, comparison: dict[str,
         writer.writerows(comparison["annual_rows"])  # type: ignore[arg-type]
 
 
+def write_inherited_conditions_ledger(
+    output_directory: Path,
+    comparison: dict[str, object],
+    fundamental_audit: dict[str, object],
+) -> None:
+    """Write the inspectable paired-return ledger for the frozen extension."""
+    audit_rows = {int(row["year"]): row for row in fundamental_audit["rows"]}  # type: ignore[index]
+    rows: list[dict[str, object]] = []
+    for comparison_row in comparison["annual_rows"]:  # type: ignore[index]
+        year = int(comparison_row["year"])
+        audit_row = audit_rows.get(year)
+        if audit_row is None:
+            continue
+        fundamental = audit_row["fundamental"]
+        house = str(comparison_row["houseControl"])
+        senate = str(comparison_row["senateControl"])
+        congress = f"{house} Congress" if house == senate else "Split Congress"
+        rows.append({
+            "year": year,
+            "decisionDate": comparison_row["decisionDate"],
+            "politicalConfiguration": f"{comparison_row['presidentParty']} president · {congress}",
+            "presidentParty": comparison_row["presidentParty"],
+            "houseControl": house,
+            "senateControl": senate,
+            "cape": fundamental["valuation"],
+            "capeObservationDate": audit_row["valuation_observation_date"],
+            "capeAssumedAvailableDate": audit_row["valuation_assumed_available_date"],
+            "policyRatePct": fundamental["policyRatePct"],
+            "policyObservationDate": audit_row["policy_observation_date"],
+            "policyAssumedAvailableDate": audit_row["policy_assumed_available_date"],
+            "crspMarketProxyReturnDecimal": comparison_row["crspMarketProxyReturnDecimal"],
+            "shillerSpCompositeApproximationReturnDecimal": comparison_row["shillerSpCompositeApproximationReturnDecimal"],
+            "seriesDifferenceDecimal": comparison_row["differenceDecimal"],
+        })
+    if len(rows) != int(fundamental_audit["observations"]):
+        raise BuildError("Inherited-condition ledger rows do not reconcile to the joined fundamental sample")
+    output_directory.mkdir(parents=True, exist_ok=True)
+    fields = [
+        "year", "decisionDate", "politicalConfiguration", "presidentParty", "houseControl", "senateControl",
+        "cape", "capeObservationDate", "capeAssumedAvailableDate", "policyRatePct", "policyObservationDate",
+        "policyAssumedAvailableDate", "crspMarketProxyReturnDecimal",
+        "shillerSpCompositeApproximationReturnDecimal", "seriesDifferenceDecimal",
+    ]
+    with (output_directory / "inherited-conditions-ledger.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def write_controls_template(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = ["id", "startDate", "endDate", "presidentId", "presidentName", "presidentParty", "houseControl", "senateControl", "sourceId"]

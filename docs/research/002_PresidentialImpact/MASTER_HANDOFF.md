@@ -25,9 +25,10 @@ returns.
 3. [Frozen descriptive analysis](descriptive-analysis/README.md) — paired political-configuration results, figures, and interpretation boundary.
 4. [Exact-replication disposition matrix](exact-replication-disposition.md) — recovered exhibit schema, missing inputs, and stopping rule.
 5. [Inherited-conditions protocol](inherited-conditions-protocol.md) — frozen inputs, timing, sample, and no-look-ahead rules for the active extension.
-6. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
-7. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
-8. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
+6. [Inherited-conditions results](inherited-conditions-analysis/README.md) — paired figures, source-by-source table, ledger contract, and interpretation boundary.
+7. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
+8. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
+9. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
 
 ## Completed, verified work
 
@@ -39,11 +40,11 @@ returns.
 | Shiller S&P Composite robustness construction | Complete with explicit `P`/`D` formula and no-imputation cutoff | `SHILLER_001`; generated locally |
 | Aligned comparison | Complete for 1936–2022, 87 annual observations | ignored `.local/output/public-series-comparison/` |
 | Common-sample baseline | Complete; CRSP baseline is separately rebuilt through 2022 before group comparison | `crsp-market-proxy-common-sample-annual.json`; generated locally |
-| QuantMeridian compatibility | All three generated datasets passed `parseResearchDataset` validation | `annual-crsp-market-proxy-1936-2023`, `annual-crsp-market-proxy-1936-2022`, and `annual-shiller-sp-composite-approximation-1936-2022` |
+| QuantMeridian compatibility | All five generated datasets passed parser validation; the two inherited-condition datasets also passed engine validation | the three baseline variants plus two 1955–2022 inherited-condition datasets |
 | Frozen political-configuration package | Complete; paired table, two portable figures, and interpretation boundary | `descriptive-analysis/README.md` |
 | Seed Exhibit 1 schema recovery | Complete; publisher chart image archived locally and visible fields/timing documented without reusing the chart | `exact-replication-disposition.md` and ignored `sources/raw/` |
-| Inherited-conditions data construction | Complete; two 1955–2022 joined datasets have 68 eligible CAPE/rate pairs and passed PRES parser/engine checks | ignored `.local/output/public-series-comparison/` and `inherited-conditions-protocol.md` |
-| Pipeline verification | Offline test suite passes; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
+| Inherited-conditions descriptive package | Complete; paired 1955–2022 CAPE/rate figures, source-separated results table, and 68-row local ledger | `inherited-conditions-analysis/README.md` and ignored `.local/output/public-series-comparison/` |
+| Pipeline verification | Offline test suite passes 28 tests; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
 
 ## Current empirical checkpoint
 
@@ -71,30 +72,31 @@ or compares the CRSP-only 2023 observation with the shorter series.
 
 ## Next division of work — priority order
 
-### 1. Produce paired inherited-conditions descriptives from the frozen public inputs
+### 1. Draft the director-facing research note from the completed packages
 
-The exact-replication track is closed by the data-access decision recorded in
-the [exact-replication matrix](exact-replication-disposition.md). The two
-joined 1955–2022 datasets now exist and passed parser/engine checks. Use only
-those frozen artifacts to generate the paired CAPE-return and policy-rate-return
-scatterplots, ledgers, and a compact source-by-source result table. Do not fit a
-model or inspect a political adjustment before this descriptive package is
-complete.
-
-**Acceptance criterion:** every covariate has a source, date, availability date,
-definition, and limitation; the number of administrations, rather than rows, is
-prominent in any uncertainty discussion.
-
-### 2. Draft the director-facing research note after the inherited-conditions scope is frozen
-
-Use the frozen descriptive analysis as one clearly labeled section. Separate
-the seed article's result, the public reconstruction, and the author's opinion;
-do not allow a chart from the public reconstruction to stand in for the
-unrecovered source analysis.
+Use the political-configuration package and the inherited-conditions package as
+separate, clearly labeled public reconstructions. Explain the seed article's
+claim as a research lead, report the completed descriptive evidence without
+overstating it, then add a distinct author-opinion section. The note should make
+the data-access boundary and exact-replication closure prominent rather than
+burying it in a footnote.
 
 **Acceptance criterion:** every figure and numerical statement identifies
-whether it is from the seed article, the local public reconstruction, or a
-newly documented extension.
+whether it comes from the seed article, the local public reconstruction, or the
+newly documented inherited-conditions extension; conclusions follow only from
+the stated evidence.
+
+### 2. Decide whether a conditional or chronological-prediction exercise is justified
+
+Do not begin an adjusted political model by default. First decide whether it
+would add decision-relevant insight beyond the descriptive note, given 13
+administrations, revised historical values, and the frozen CAPE/rate inputs. If
+the answer is yes, create a new pre-specified protocol with outcome, timing,
+comparators, uncertainty treatment, and a no-claim stopping rule.
+
+**Acceptance criterion:** either a narrowly scoped protocol is approved before
+any model output is inspected, or the handoff records the explicit choice to
+stop at descriptive analysis.
 
 ### 3. Keep the exact-replication record closed
 
@@ -119,7 +121,7 @@ vintages. Any future licensed-data work is a new, explicitly authorized phase.
   workbooks out of Git. They belong in ignored `pipeline/.local/` with replay
   manifests.
 
-## Reproduce or refresh the public comparison
+## Reproduce the frozen public comparison
 
 From the website repository:
 
@@ -127,14 +129,6 @@ From the website repository:
 cd docs/research/002_PresidentialImpact/pipeline
 python3 -m venv .local/.venv
 .local/.venv/bin/python -m pip install -e '.[shiller]'
-
-# Network is explicit; fetch only after deciding a new capture is appropriate.
-.local/.venv/bin/python -m presidential_data_pipeline.cli fetch \
-  --config config/sources.toml --workspace .local
-.local/.venv/bin/python -m presidential_data_pipeline.cli parse \
-  --config config/sources.toml --workspace .local
-.local/.venv/bin/python -m presidential_data_pipeline.cli validate \
-  --config config/sources.toml --workspace .local
 
 # The controls file is a reviewed local artifact; do not regenerate it from
 # candidate sources without completing the review process.
@@ -146,9 +140,10 @@ python3 -m venv .local/.venv
   --output-dir .local/output/public-series-comparison
 ```
 
-If the Shiller source changes, preserve the new raw manifest and compare the
-new source hash, latest complete dividend December, output hashes, and common
-sample with the prior run before replacing the research record.
+Do not run `fetch` or substitute a new source in the current phase. The
+data-access decision permits only the already captured local inputs. A future
+refresh or licensed-data phase requires separate authorization and a new
+research record.
 
 ## Environment and repository map
 
