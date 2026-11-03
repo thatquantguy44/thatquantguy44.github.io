@@ -11,6 +11,7 @@ from presidential_data_pipeline.assemble import (
     BuildError,
     build_annual_dataset,
     build_inherited_fundamentals,
+    build_presidential_cycle_analysis,
     build_public_series_comparison,
     derive_shiller_monthly_total_return,
     write_inherited_conditions_ledger,
@@ -244,6 +245,52 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(rows[0]["politicalConfiguration"], "D president · D Congress")
         self.assertEqual(rows[1]["politicalConfiguration"], "R president · Split Congress")
         self.assertEqual(rows[1]["policyRatePct"], "2.0")
+
+    def test_builds_end_of_year_presidential_cycle_rows_and_transition_flags(self) -> None:
+        controls = [
+            {
+                "id": "fdr", "startDate": "1935-01-03", "endDate": "1945-04-12",
+                "presidentId": "franklin-d-roosevelt", "presidentName": "Franklin D. Roosevelt",
+                "presidentParty": "D", "houseControl": "D", "senateControl": "D", "sourceId": "CTRL_074_A",
+            },
+            {
+                "id": "truman", "startDate": "1945-04-12", "endDate": "1947-01-03",
+                "presidentId": "harry-s-truman", "presidentName": "Harry S. Truman",
+                "presidentParty": "D", "houseControl": "D", "senateControl": "D", "sourceId": "CTRL_GOV_001",
+            },
+        ]
+        comparison = {
+            "annual_rows": [
+                {"year": 1936, "decisionDate": "1935-12-31", "crspMarketProxyReturnDecimal": 0.1, "shillerSpCompositeApproximationReturnDecimal": 0.2},
+                {"year": 1937, "decisionDate": "1936-12-31", "crspMarketProxyReturnDecimal": 0.11, "shillerSpCompositeApproximationReturnDecimal": 0.21},
+                {"year": 1945, "decisionDate": "1944-12-31", "crspMarketProxyReturnDecimal": 0.12, "shillerSpCompositeApproximationReturnDecimal": 0.22},
+                {"year": 1946, "decisionDate": "1945-12-31", "crspMarketProxyReturnDecimal": 0.13, "shillerSpCompositeApproximationReturnDecimal": 0.23},
+            ],
+        }
+        ledger, summary = build_presidential_cycle_analysis(comparison, controls)
+        self.assertEqual([row["year"] for row in ledger], [1937, 1945, 1946])
+        self.assertEqual(ledger[0], {
+            "year": 1937,
+            "termStartYear": 1937,
+            "termCycleYear": 1,
+            "inaugurationTransition": True,
+            "presidentChangedWithinWindow": False,
+            "endOfYearPresidentId": "franklin-d-roosevelt",
+            "endOfYearPresidentName": "Franklin D. Roosevelt",
+            "endOfYearPresidentParty": "D",
+            "crspMarketProxyReturnDecimal": 0.11,
+            "shillerSpCompositeApproximationReturnDecimal": 0.21,
+        })
+        self.assertTrue(ledger[1]["inaugurationTransition"])
+        self.assertTrue(ledger[1]["presidentChangedWithinWindow"])
+        self.assertEqual(ledger[1]["endOfYearPresidentId"], "harry-s-truman")
+        self.assertEqual(ledger[2]["termCycleYear"], 2)
+        self.assertFalse(ledger[2]["inaugurationTransition"])
+        self.assertEqual(summary["observations"], 3)
+        self.assertEqual(summary["excludedPre1937Years"], [1936])
+        crsp_cycle_one = next(item for item in summary["series"][0]["byPartyAndCycle"] if item["termCycleYear"] == 1)
+        self.assertEqual(crsp_cycle_one["best"]["year"], 1945)
+        self.assertEqual(crsp_cycle_one["worst"]["year"], 1937)
 
     def test_registers_disabled_manual_control_evidence_without_fetching_it(self) -> None:
         source = self.config.source("CTRL_074_A")

@@ -22,6 +22,8 @@ independently checked dataset or an established conclusion.
 - [Exact-replication disposition matrix](exact-replication-disposition.md)
 - [Inherited-conditions protocol](inherited-conditions-protocol.md)
 - [Inherited-conditions descriptive results](inherited-conditions-analysis/README.md)
+- [Four-year cycle protocol](presidential-cycle-protocol.md)
+- [Four-year cycle descriptive views](presidential-cycle-analysis/README.md)
 - [Director-facing research-note draft](director-research-note.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
@@ -61,3 +63,10 @@ The frozen 1955–2022 inherited-conditions extension also has paired CAPE and
 policy-rate descriptives, source-separated return results, portable static
 figures, and a reproducible local ledger in
 [inherited-conditions-analysis](inherited-conditions-analysis/README.md).
+
+A supplementary 1937–2022 presidential-cycle package shows the same annual
+outcomes two ways: all four cycle years under an end-of-calendar-year
+assignment, then the identical view with cycle year 1 explicitly flagged as an
+inauguration-transition period. It does not replace the primary `window_start`
+political-control analysis. See the [cycle protocol](presidential-cycle-protocol.md)
+and [descriptive views](presidential-cycle-analysis/README.md).

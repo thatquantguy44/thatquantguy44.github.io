@@ -615,6 +615,153 @@ def write_inherited_conditions_ledger(
         writer.writerows(rows)
 
 
+def _presidential_term_start_year(year: int) -> int | None:
+    """Return the regular post-Twentieth-Amendment four-year term start.
+
+    The cycle view is intentionally separate from the primary ``window_start``
+    convention. It associates a calendar-year return with the president in
+    office on that return year's December 31, then labels the year within the
+    constitutional four-year cycle. The 1936 return predates the first
+    January-20 term in the analysis sample and is excluded rather than forced
+    into this convention.
+    """
+    if year < 1937:
+        return None
+    return year - ((year - 1) % 4)
+
+
+def _cycle_summary(records: list[dict[str, object]], return_field: str) -> list[dict[str, object]]:
+    grouped: dict[tuple[str, int], list[dict[str, object]]] = {}
+    for record in records:
+        key = (str(record["endOfYearPresidentParty"]), int(record["termCycleYear"]))
+        grouped.setdefault(key, []).append(record)
+    output: list[dict[str, object]] = []
+    for (party, cycle_year), rows in sorted(grouped.items()):
+        ordered = sorted(rows, key=lambda row: int(row["year"]))
+        values = [float(row[return_field]) for row in ordered]
+        average = sum(values) / len(values)
+        dispersion = (
+            math.sqrt(sum((value - average) ** 2 for value in values) / (len(values) - 1))
+            if len(values) > 1
+            else None
+        )
+        best = max(ordered, key=lambda row: (float(row[return_field]), -int(row["year"])))
+        worst = min(ordered, key=lambda row: (float(row[return_field]), int(row["year"])))
+        output.append({
+            "presidentParty": party,
+            "termCycleYear": cycle_year,
+            "observations": len(ordered),
+            "administrations": len({str(row["endOfYearPresidentId"]) for row in ordered}),
+            "meanReturnDecimal": average,
+            "medianReturnDecimal": median(values),
+            "sampleStandardDeviationDecimal": dispersion,
+            "minimumReturnDecimal": min(values),
+            "maximumReturnDecimal": max(values),
+            "best": {
+                "year": best["year"],
+                "president": best["endOfYearPresidentName"],
+                "returnDecimal": best[return_field],
+            },
+            "worst": {
+                "year": worst["year"],
+                "president": worst["endOfYearPresidentName"],
+                "returnDecimal": worst[return_field],
+            },
+            "inaugurationTransitionWindows": sum(bool(row["inaugurationTransition"]) for row in ordered),
+            "presidentChangedWithinWindow": sum(bool(row["presidentChangedWithinWindow"]) for row in ordered),
+        })
+    return output
+
+
+def build_presidential_cycle_analysis(
+    comparison: dict[str, object],
+    controls: list[dict[str, str]],
+) -> tuple[list[dict[str, object]], dict[str, object]]:
+    """Derive two display treatments for the same four-year cycle observations.
+
+    Both views use the president in office at the calendar-year return's
+    December 31 and a regular four-year cycle that begins in years ending in 1,
+    5, and 9. ``inaugurationTransition`` provides the second display treatment:
+    it flags every first-cycle-year return because the new regular term begins
+    on January 20. A separate flag preserves midyear successions.
+    Neither treatment replaces the primary start-of-window political grouping.
+    """
+    ledger: list[dict[str, object]] = []
+    excluded_pre_1937: list[int] = []
+    for comparison_row in comparison["annual_rows"]:  # type: ignore[index]
+        year = int(comparison_row["year"])
+        term_start_year = _presidential_term_start_year(year)
+        if term_start_year is None:
+            excluded_pre_1937.append(year)
+            continue
+        start_control = _control_at(controls, str(comparison_row["decisionDate"]))
+        end_control = _control_at(controls, f"{year:04d}-12-31")
+        if start_control is None or end_control is None:
+            raise BuildError(f"No reviewed control interval covers the cycle-analysis endpoints for {year}")
+        ledger.append({
+            "year": year,
+            "termStartYear": term_start_year,
+            "termCycleYear": year - term_start_year + 1,
+            "inaugurationTransition": year == term_start_year,
+            "presidentChangedWithinWindow": start_control["presidentId"] != end_control["presidentId"],
+            "endOfYearPresidentId": end_control["presidentId"],
+            "endOfYearPresidentName": end_control["presidentName"],
+            "endOfYearPresidentParty": end_control["presidentParty"],
+            "crspMarketProxyReturnDecimal": comparison_row["crspMarketProxyReturnDecimal"],
+            "shillerSpCompositeApproximationReturnDecimal": comparison_row["shillerSpCompositeApproximationReturnDecimal"],
+        })
+    if not ledger:
+        raise BuildError("No annual returns are eligible for the presidential-cycle analysis")
+    summary = {
+        "schema_version": 1,
+        "kind": "PRESIDENTIAL_TERM_CYCLE_DESCRIPTIVE",
+        "assignment": {
+            "primary_view": "All four calendar return years are assigned to the president in office on that return year's December 31.",
+            "transition_flag_view": "The same observations are shown with every first-cycle-year return flagged as an inauguration transition, because the new regular term begins on January 20.",
+            "succession_note": "A separate flag identifies windows in which the president changed between the annual window start and end, including midterm successions.",
+            "not_primary_political_assignment": "This end-of-year cycle convention is a supplementary descriptive view and does not replace the frozen window_start political configuration analysis.",
+        },
+        "first_annual_year": int(ledger[0]["year"]),
+        "last_annual_year": int(ledger[-1]["year"]),
+        "observations": len(ledger),
+        "excludedPre1937Years": excluded_pre_1937,
+        "inaugurationTransitionWindows": sum(bool(row["inaugurationTransition"]) for row in ledger),
+        "presidentChangedWithinWindow": sum(bool(row["presidentChangedWithinWindow"]) for row in ledger),
+        "series": [
+            {
+                "id": "crsp_market_proxy",
+                "returnField": "crspMarketProxyReturnDecimal",
+                "byPartyAndCycle": _cycle_summary(ledger, "crspMarketProxyReturnDecimal"),
+            },
+            {
+                "id": "shiller_sp_composite_approximation",
+                "returnField": "shillerSpCompositeApproximationReturnDecimal",
+                "byPartyAndCycle": _cycle_summary(ledger, "shillerSpCompositeApproximationReturnDecimal"),
+            },
+        ],
+    }
+    return ledger, summary
+
+
+def write_presidential_cycle_analysis(
+    output_directory: Path,
+    ledger: list[dict[str, object]],
+    summary: dict[str, object],
+) -> None:
+    """Write the paired return ledger and source-independent descriptive summary."""
+    output_directory.mkdir(parents=True, exist_ok=True)
+    fields = [
+        "year", "termStartYear", "termCycleYear", "inaugurationTransition", "presidentChangedWithinWindow",
+        "endOfYearPresidentId", "endOfYearPresidentName", "endOfYearPresidentParty",
+        "crspMarketProxyReturnDecimal", "shillerSpCompositeApproximationReturnDecimal",
+    ]
+    with (output_directory / "presidential-cycle-ledger.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(ledger)
+    write_json(output_directory / "presidential-cycle-summary.json", summary)
+
+
 def write_controls_template(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = ["id", "startDate", "endDate", "presidentId", "presidentName", "presidentParty", "houseControl", "senateControl", "sourceId"]

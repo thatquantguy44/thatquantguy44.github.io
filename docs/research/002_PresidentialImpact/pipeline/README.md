@@ -160,5 +160,14 @@ not replacements for the 1936–2022 political-comparison datasets. Their timing
 one-month assumed-availability lag, and source-vintage limitation are frozen in
 the [inherited-conditions protocol](../inherited-conditions-protocol.md).
 
+The same command also writes `presidential-cycle-ledger.csv` and
+`presidential-cycle-summary.json`. These provide a supplementary 1937–2022
+four-year term-cycle view: every return is assigned to the president in office
+on its calendar year's December 31, and every first-cycle-year observation is
+flagged as an inauguration-transition window. The output preserves a separate
+`presidentChangedWithinWindow` flag for successions. It is a display sensitivity
+only: it does not replace the frozen `window_start` political-configuration
+assignment. See the [cycle protocol](../presidential-cycle-protocol.md).
+
 See [source decisions](SOURCE_DECISIONS.md), [quality rules](QUALITY.md), and
 [the transfer guide](TRANSFER.md).

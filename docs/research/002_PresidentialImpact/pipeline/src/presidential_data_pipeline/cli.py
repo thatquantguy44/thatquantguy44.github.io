@@ -8,13 +8,16 @@ from .assemble import (
     BuildError,
     build_annual_dataset,
     build_inherited_fundamentals,
+    build_presidential_cycle_analysis,
     build_public_series_comparison,
     inherited_fundamentals_source,
     write_dataset,
     write_inherited_conditions_ledger,
+    write_presidential_cycle_analysis,
     write_public_series_comparison,
 )
 from .provenance import sha256_file, write_json
+from .quality import read_csv
 from .config import ConfigError, load_config
 from .fetch import FetchError
 from .pipeline import (
@@ -177,9 +180,15 @@ def main(argv: list[str] | None = None) -> int:
             )
             write_public_series_comparison(arguments.output_dir, comparison)
             write_inherited_conditions_ledger(arguments.output_dir, comparison, fundamental_audit)
+            cycle_ledger, cycle_summary = build_presidential_cycle_analysis(
+                comparison,
+                read_csv(arguments.controls),
+            )
+            write_presidential_cycle_analysis(arguments.output_dir, cycle_ledger, cycle_summary)
             print(
                 "Wrote both public reconstructions, the common-sample CRSP baseline, frozen inherited-condition datasets, "
-                f"the derived Shiller monthly table, and aligned comparison outputs to {arguments.output_dir}."
+                "the derived Shiller monthly table, aligned comparison outputs, and the supplemental presidential-cycle "
+                f"ledger and summary to {arguments.output_dir}."
             )
             return 0
         if arguments.command == "prepare-control-review":

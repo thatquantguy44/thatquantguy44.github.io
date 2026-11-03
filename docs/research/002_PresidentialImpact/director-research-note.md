@@ -10,19 +10,20 @@
 - The seed article is a useful prompt, but it is not reproducible with the
   evidence available to this project. Its annual S&P 500 analysis relies on
   unrecovered definitions and licensed-source inputs. This note therefore
-  reports an **independent public-data reconstruction**, not a confirmation or
-  refutation of the article.
+  reports an **independent public-data reconstruction** based on separately
+  constructed public return series, not a confirmation or refutation of the
+  article.
 - In that reconstruction, political-configuration return rankings are similar
   under two separate public market constructions. But the apparent leader— a
   Republican president and Republican Congress—contains only eight annual
   windows across three administrations. It is descriptive history, not a
   reliable political premium or a portfolio rule.
-- Starting valuation is the more informative descriptive lens. Across 68
-  annual windows, the Shiller workbook CAPE field has correlations of -0.29 and
-  -0.27 with the following annual return in the two constructions; the
-  low-versus-high CAPE-quartile gap is 14.30 and 12.92 percentage points. A
-  single starting effective-federal-funds-rate level shows no comparable,
-  monotonic pattern.
+- This result is descriptive rather than predictive: low starting CAPE
+  coincided with higher subsequent returns in this frozen sample, whereas the
+  starting policy-rate level showed no stable directional relationship. Across
+  68 annual windows, the Shiller workbook CAPE field has correlations of -0.29
+  and -0.27 with the following annual return in the two constructions; the
+  low-versus-high CAPE-quartile gap is 14.30 and 12.92 percentage points.
 - My investment takeaway: political outcomes should shape scenario work and
   questions about policy transmission—not mechanically drive equity exposure.
   The investable question is what the market, valuation, and starting
@@ -79,7 +80,7 @@ the six political-configuration averages does not change when the construction
 changes. That is a modest robustness check on the *descriptive ranking*, not on
 the causal political story.
 
-The table below is intentionally not a scorecard for choosing a party. The
+The chart below is intentionally not a scorecard for choosing a party. The
 largest observed mean belongs to Republican president / Republican Congress,
 but it has just eight annual windows across three administrations. Twenty-four
 of the 87 annual windows also contain a political-configuration change after
@@ -103,6 +104,49 @@ observed windows contain a later supplied control change. This is why the
 political chart is an attribution view, not a clean policy-exposure experiment.
 
 ![QuantMeridian PRES timeline of annual windows that cross a supplied political-control change.](descriptive-analysis/figures/02-mixed-control-annual-windows.svg)
+
+## A four-year cycle view that does not hide the transition
+
+The primary analysis above deliberately uses the control state known at the
+start of each return window. A supplementary cycle view answers a different
+descriptive question: it assigns each 1937–2022 calendar-year return to the
+president in office on that year's December 31, then places the return in the
+regular four-year constitutional cycle. This produces 86 annual observations;
+1936 is excluded rather than forced into a January-20 convention that did not
+yet apply.
+
+The first chart shows all four cycle years, including each cell's observed
+range and arithmetic mean; the row-level ledger retains every return and its
+best/worst year. It is **not** an exposure attribution: the first 20 days of
+every first-cycle year precede the new regular term's January 20 start (even
+when a president was re-elected). The second chart therefore repeats the
+*identical observations and assignment* while visually flagging each
+first-cycle year as an inauguration-transition window.
+Twelve of the 22 flagged windows also have a change in the supplied president
+record between the annual window's start and end; that separate fact is retained
+in the underlying ledger.
+
+Accessible chart summary:
+
+- The all-years view contains 22/22/21/21 annual returns in cycle years
+  1/2/3/4, respectively; cells contain 10–12 observations and broad observed
+  ranges.
+- The transition view does not add, remove, or relabel an outcome. It shades
+  cycle year 1 to show that its 22 returns include an inauguration transition
+  by construction.
+- Both public return constructions are displayed side by side, so no single
+  series is selected as the preferred political narrative.
+
+![All four cycle years, assigned to the president in office on each return year's December 31.](presidential-cycle-analysis/figures/01-all-four-cycle-years.svg)
+
+![The same cycle-year observations with inauguration year explicitly flagged as a mixed transition period.](presidential-cycle-analysis/figures/02-inauguration-transition-flag.svg)
+
+The cycle charts are a transparency device, not evidence of a four-year trading
+pattern. They retain the same small, dependent historical record and do not
+replace the frozen `window_start` political-configuration analysis. The
+[cycle-view protocol and data dictionary](presidential-cycle-protocol.md) and
+[reproducibility package](presidential-cycle-analysis/README.md) make both
+treatments inspectable.
 
 ## What the inherited-conditions extension adds
 
@@ -185,6 +229,9 @@ files may contain later revisions, and their historical release vintages are
 not verified; no result should be presented as a real-time trading rule. The
 complete source hashes, timing rules, figures, result table, and local ledger
 instructions are in the [inherited-conditions analysis](inherited-conditions-analysis/README.md).
+The supplementary cycle package uses the same frozen local inputs and has its
+own [assignment record](presidential-cycle-protocol.md); it is not a new source
+or a replacement for the primary political assignment.
 
 ## Bottom line
 
