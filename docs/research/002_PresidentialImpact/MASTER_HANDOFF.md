@@ -23,9 +23,10 @@ returns.
 1. [Research brief](research-brief.md) — scope, article structure, and research sequence.
 2. [Public-series methodology](public-series-methodology.md) — frozen source, return, window, and language rules.
 3. [Frozen descriptive analysis](descriptive-analysis/README.md) — paired political-configuration results, figures, and interpretation boundary.
-4. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
-5. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
-6. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
+4. [Exact-replication disposition matrix](exact-replication-disposition.md) — recovered exhibit schema, missing inputs, and stopping rule.
+5. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
+6. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
+7. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
 
 ## Completed, verified work
 
@@ -39,6 +40,7 @@ returns.
 | Common-sample baseline | Complete; CRSP baseline is separately rebuilt through 2022 before group comparison | `crsp-market-proxy-common-sample-annual.json`; generated locally |
 | QuantMeridian compatibility | All three generated datasets passed `parseResearchDataset` validation | `annual-crsp-market-proxy-1936-2023`, `annual-crsp-market-proxy-1936-2022`, and `annual-shiller-sp-composite-approximation-1936-2022` |
 | Frozen political-configuration package | Complete; paired table, two portable figures, and interpretation boundary | `descriptive-analysis/README.md` |
+| Seed Exhibit 1 schema recovery | Complete; publisher chart image archived locally and visible fields/timing documented without reusing the chart | `exact-replication-disposition.md` and ignored `sources/raw/` |
 | Pipeline verification | Offline test suite passes; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
 
 ## Current empirical checkpoint
@@ -69,10 +71,13 @@ or compares the CRSP-only 2023 observation with the shorter series.
 
 ### 1. Resolve the exact-replication track separately
 
-Recover the seed article's exhibit definitions, political-assignment rules, and
-licensed annual S&P 500 return source. BofA Global Research, Bloomberg, FactSet,
-or appropriately licensed S&P index data may be required. Record a disposition
-for each missing input rather than silently substituting the public series.
+The recovered Exhibit 1 image establishes its visible schema but does not close
+the calculation gap. Obtain the seed article's annual configuration table,
+Exhibit 1 source data/PDF, political-assignment rule, and licensed annual S&P
+500 return source. BofA Global Research, Bloomberg, FactSet, or appropriately
+licensed S&amp;P index data may be required. Record a disposition for each missing
+input rather than silently substituting the public series. See the
+[exact-replication matrix](exact-replication-disposition.md).
 
 **Acceptance criterion:** an independent researcher can tell whether each seed
 article number was reproduced, reconstructed with a named substitution, or not

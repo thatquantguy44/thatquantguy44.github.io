@@ -18,6 +18,7 @@ independently checked dataset or an established conclusion.
 - [Replication, extension and personal-interpretation plan](research-brief.md)
 - [Master handoff and next-work plan](MASTER_HANDOFF.md)
 - [Frozen descriptive public-series analysis](descriptive-analysis/README.md)
+- [Exact-replication disposition matrix](exact-replication-disposition.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
 - [Portable data pipeline](pipeline/README.md)
