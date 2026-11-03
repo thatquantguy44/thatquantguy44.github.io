@@ -140,11 +140,14 @@ Its `sources` records use the strict PRES shape (`id`, `title`, `locator`,
 `note`); manual-bundle locators and content hashes remain inspectable inside the
 source note and the replay manifest rather than adding incompatible JSON fields.
 
-`build-public-series-comparison` writes two separate datasets and replay
-manifests: `crsp-market-proxy-annual.json` and
-`shiller-sp-composite-annual.json`. It also writes an aligned annual CSV/JSON
-comparison and the intermediate `normalized/shiller_total_return_monthly.csv`.
-The Shiller construction is documented in the project-level
+`build-public-series-comparison` writes the full baseline,
+`crsp-market-proxy-annual.json`; an explicitly aligned baseline,
+`crsp-market-proxy-common-sample-annual.json`; and the
+`shiller-sp-composite-annual.json` robustness dataset, each with a replay
+manifest. It also writes an aligned annual CSV/JSON comparison and the
+intermediate `normalized/shiller_total_return_monthly.csv`. Use the
+common-sample baseline—not the longer full baseline—for any side-by-side figure
+or political group table. The Shiller construction is documented in the project-level
 [public-series methodology](../public-series-methodology.md); it is prevented
 from silently becoming the primary CRSP proxy by a source-ID gate.
 

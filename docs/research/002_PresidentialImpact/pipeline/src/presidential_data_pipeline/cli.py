@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 from pathlib import Path
 
 from .assemble import (
@@ -97,11 +98,24 @@ def main(argv: list[str] | None = None) -> int:
                 arguments.controls,
                 arguments.decision_policy,
             )
+            overlap_end_year = int(comparison["overlap"]["last_annual_year"])
+            common_primary, common_primary_manifest = build_annual_dataset(
+                replace(config, annual_end_year=overlap_end_year),
+                normalized / "market_returns_monthly.csv",
+                arguments.controls,
+                arguments.decision_policy,
+                reconstruction="crsp_market_proxy",
+            )
             write_dataset(arguments.output_dir / "crsp-market-proxy-annual.json", primary, primary_manifest)
+            write_dataset(
+                arguments.output_dir / "crsp-market-proxy-common-sample-annual.json",
+                common_primary,
+                common_primary_manifest,
+            )
             write_dataset(arguments.output_dir / "shiller-sp-composite-annual.json", robustness, robustness_manifest)
             write_public_series_comparison(arguments.output_dir, comparison)
             print(
-                "Wrote both public reconstructions, the derived Shiller monthly table, "
+                "Wrote both public reconstructions, the common-sample CRSP baseline, the derived Shiller monthly table, "
                 f"and aligned comparison outputs to {arguments.output_dir}."
             )
             return 0

@@ -22,9 +22,10 @@ returns.
 
 1. [Research brief](research-brief.md) — scope, article structure, and research sequence.
 2. [Public-series methodology](public-series-methodology.md) — frozen source, return, window, and language rules.
-3. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
-4. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
-5. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
+3. [Frozen descriptive analysis](descriptive-analysis/README.md) — paired political-configuration results, figures, and interpretation boundary.
+4. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
+5. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
+6. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
 
 ## Completed, verified work
 
@@ -35,8 +36,10 @@ returns.
 | Public CRSP-market-proxy baseline | Complete for 1936–2023 | `FF_MKT_001`; generated locally |
 | Shiller S&P Composite robustness construction | Complete with explicit `P`/`D` formula and no-imputation cutoff | `SHILLER_001`; generated locally |
 | Aligned comparison | Complete for 1936–2022, 87 annual observations | ignored `.local/output/public-series-comparison/` |
-| QuantMeridian compatibility | Both generated datasets passed `parseResearchDataset` validation | `annual-crsp-market-proxy-1936-2023` and `annual-shiller-sp-composite-approximation-1936-2022` |
-| Pipeline verification | 26 offline tests pass; workspace validation has 0 errors and 3 documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
+| Common-sample baseline | Complete; CRSP baseline is separately rebuilt through 2022 before group comparison | `crsp-market-proxy-common-sample-annual.json`; generated locally |
+| QuantMeridian compatibility | All three generated datasets passed `parseResearchDataset` validation | `annual-crsp-market-proxy-1936-2023`, `annual-crsp-market-proxy-1936-2022`, and `annual-shiller-sp-composite-approximation-1936-2022` |
+| Frozen political-configuration package | Complete; paired table, two portable figures, and interpretation boundary | `descriptive-analysis/README.md` |
+| Pipeline verification | Offline test suite passes; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
 
 ## Current empirical checkpoint
 
@@ -51,8 +54,10 @@ On the common 1936–2022 sample:
 | Correlation | 0.980 |
 
 Interpretation: the two constructions are close enough that series choice must
-be reported as a sensitivity, not selected opportunistically. This is not yet a
-political-control result.
+be reported as a sensitivity, not selected opportunistically. The completed
+political configuration table preserves the same ordering across both series,
+but it remains descriptive: its small, dependent administration groups and
+mixed-control windows cannot identify a political effect.
 
 The configured official Shiller workbook returns price context through
 2023-09-30 but no published trailing dividend from 2023-07-31 onward. The
@@ -62,22 +67,7 @@ or compares the CRSP-only 2023 observation with the shorter series.
 
 ## Next division of work — priority order
 
-### 1. Produce the frozen descriptive analysis package
-
-This is the immediate next task. Use both generated datasets and the same
-1936–2022 overlap to produce:
-
-- a political-configuration table with group counts, mean returns, and both
-  series side by side;
-- a time-series / political-control timeline showing the annual assignment
-  convention; and
-- a short methods-and-findings section that uses descriptive language only.
-
-**Acceptance criterion:** figures and tables are reproducible from the local
-JSON outputs, retain the `USER_SUPPLIED` label, disclose the 87-year common
-sample, and do not report a causal, statistically powered, or investable claim.
-
-### 2. Resolve the exact-replication track separately
+### 1. Resolve the exact-replication track separately
 
 Recover the seed article's exhibit definitions, political-assignment rules, and
 licensed annual S&P 500 return source. BofA Global Research, Bloomberg, FactSet,
@@ -88,7 +78,7 @@ for each missing input rather than silently substituting the public series.
 article number was reproduced, reconstructed with a named substitution, or not
 reproducible because of access/definition limits.
 
-### 3. Add inherited-conditions analysis only after priority 1
+### 2. Add inherited-conditions analysis only after priority 1
 
 Define available-at-decision-date valuation and policy variables; freeze their
 vintages and timing before inspecting a model. Start with tables/figures, then
@@ -98,6 +88,17 @@ support it.
 **Acceptance criterion:** every covariate has a source, date, availability date,
 definition, and limitation; the number of administrations, rather than rows, is
 prominent in any uncertainty discussion.
+
+### 3. Draft the director-facing research note only after the two tracks are distinguished
+
+Use the frozen descriptive analysis as one clearly labeled section. Separate
+the seed article's result, the public reconstruction, and the author's opinion;
+do not allow a chart from the public reconstruction to stand in for the
+unrecovered source analysis.
+
+**Acceptance criterion:** every figure and numerical statement identifies
+whether it is from the seed article, the local public reconstruction, or a
+newly documented extension.
 
 ## Non-negotiable research controls
 

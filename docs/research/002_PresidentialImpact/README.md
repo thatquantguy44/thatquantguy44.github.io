@@ -17,6 +17,7 @@ independently checked dataset or an established conclusion.
 
 - [Replication, extension and personal-interpretation plan](research-brief.md)
 - [Master handoff and next-work plan](MASTER_HANDOFF.md)
+- [Frozen descriptive public-series analysis](descriptive-analysis/README.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
 - [Portable data pipeline](pipeline/README.md)
@@ -43,8 +44,10 @@ format. Its public market series is explicitly a CRSP-market proxy; a licensed
 S&P 500 source remains necessary for an exact reconstruction of the article.
 
 A public-source reconstruction now has a frozen CRSP-market-proxy baseline and a
-separately labeled Shiller S&P Composite robustness reconstruction. The immediate
-next deliverable is a reproducible, descriptive 1936–2022 comparison package
-with group counts and figures; exact seed-article replication remains a separate
-licensed-data and definition-recovery track. See the [master handoff](MASTER_HANDOFF.md)
-for the current result, constraints, commands, and acceptance criteria.
+separately labeled Shiller S&P Composite robustness reconstruction. The
+reproducible, descriptive 1936–2022 comparison package—with group counts,
+figures, and a within-window-control audit—is in
+[descriptive-analysis](descriptive-analysis/README.md). Exact seed-article
+replication remains a separate licensed-data and definition-recovery track. See
+the [master handoff](MASTER_HANDOFF.md) for the current result, constraints,
+commands, and acceptance criteria.

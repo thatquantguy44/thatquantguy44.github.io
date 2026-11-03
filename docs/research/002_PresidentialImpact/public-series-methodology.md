@@ -62,11 +62,13 @@ PYTHONPATH=src python3 -m presidential_data_pipeline.cli build-public-series-com
 The command writes:
 
 - `.local/normalized/shiller_total_return_monthly.csv` — the labeled, derived monthly robustness input;
-- `crsp-market-proxy-annual.json` and `shiller-sp-composite-annual.json` — separate QuantMeridian-compatible datasets and manifests; and
+- `crsp-market-proxy-annual.json`, `crsp-market-proxy-common-sample-annual.json`, and `shiller-sp-composite-annual.json` — separate QuantMeridian-compatible datasets and manifests; and
 - `public-series-comparison.csv` and `.json` — aligned annual observations plus summary statistics.
 
 The baseline can extend beyond the robustness series when the official Shiller
-workbook has a partially populated trailing year. Read `overlap` and
+workbook has a partially populated trailing year. The command writes a separate
+CRSP common-sample dataset ending at the same December as the Shiller output.
+Use that file alongside the Shiller dataset in QuantMeridian. Read `overlap` and
 `robustness_source_completeness` in the JSON before comparing any group summary.
 
 ## Publication language guardrail

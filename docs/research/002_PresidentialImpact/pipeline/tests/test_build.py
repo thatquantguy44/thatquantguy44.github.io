@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+from dataclasses import replace
 from datetime import date
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -137,8 +138,17 @@ class BuildTests(unittest.TestCase):
             _, _, robustness, _, _, comparison = build_public_series_comparison(
                 self.config, market, shiller, controls, "window_start"
             )
+            common_primary, common_manifest = build_annual_dataset(
+                replace(self.config, annual_end_year=int(comparison["overlap"]["last_annual_year"])),
+                market,
+                controls,
+                "window_start",
+            )
         self.assertEqual(len(robustness["windows"]), 87)
         self.assertEqual(comparison["overlap"]["last_annual_year"], 2022)
+        self.assertEqual(common_primary["id"], "annual-crsp-market-proxy-1936-2022")
+        self.assertEqual(len(common_primary["windows"]), len(robustness["windows"]))
+        self.assertEqual(common_manifest["reconstruction"], "crsp_market_proxy")
         self.assertEqual(comparison["robustness_source_completeness"]["last_complete_dividend_december"], "2022-12-31")
         self.assertEqual(comparison["robustness_source_completeness"]["excluded_incomplete_dividend_months"], [
             "2023-07-31", "2023-08-31", "2023-09-30", "2023-10-31", "2023-11-30", "2023-12-31",
