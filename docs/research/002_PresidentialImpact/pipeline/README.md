@@ -24,7 +24,7 @@ portable and versioned.
 | --- | --- | --- | --- |
 | `FF_MKT_001` | Long-run nominal total-return **market proxy** | [Kenneth R. French Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/Ken.french/data_library.html) | Implemented adapter; not an S&P 500 substitute |
 | `FEDFUNDS_001` | Federal-funds-rate input | [Federal Reserve H.15](https://www.federalreserve.gov/datadownload/choose.aspx?rel=h15) via [FRED](https://fred.stlouisfed.org/series/FEDFUNDS) | Implemented adapter |
-| `SHILLER_001` | Monthly valuation and S&P Composite context | [Robert J. Shiller online data](https://www.econ.yale.edu/~shiller/data.htm) | Download/archive adapter; parser is an optional `xlrd` extra |
+| `SHILLER_001` | Monthly valuation and S&P Composite context | [Robert J. Shiller online data](https://www.econ.yale.edu/~shiller/data.htm) | Download/archive adapter; feeds a separately labeled dividend-reinvestment-style robustness reconstruction |
 | `HOUSE_GOV_001` | Congressional-party baseline | [U.S. House Party Government Since 1857](https://history.house.gov/Institution/Presidents-Coinciding/Party-Government/) | Candidate table only; reviewed controls required |
 | `WIKI_CONGRESS_001` | Congress-level party-count cross-check | [Party divisions of United States Congresses](https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses) | SHA-256-pinned secondary snapshot; review-only |
 | `CTRL_074_A` | Manual political-control evidence | Authoritative official-source bundle for the 74th Congress | Disabled from fetch/parse; available only when an approved control cites it |
@@ -79,6 +79,15 @@ presidential-data build-annual --workspace .local \
   --controls .local/inputs/controls.csv \
   --decision-policy window_start \
   --output .local/output/presidential-annual.json
+
+# Writes the CRSP-market-proxy baseline and Shiller S&P Composite
+# dividend-reinvestment-style robustness reconstruction side by side. This is
+# a sensitivity analysis, not an exact S&P 500 replication.
+presidential-data build-public-series-comparison --config config/sources.toml \
+  --workspace .local \
+  --controls .local/inputs/controls.csv \
+  --decision-policy window_start \
+  --output-dir .local/output/public-series-comparison
 ```
 
 Run `python -m unittest discover -s tests -v` without a network connection. The
@@ -130,6 +139,35 @@ is always marked `USER_SUPPLIED` until an analyst independently verifies it.
 Its `sources` records use the strict PRES shape (`id`, `title`, `locator`,
 `note`); manual-bundle locators and content hashes remain inspectable inside the
 source note and the replay manifest rather than adding incompatible JSON fields.
+
+`build-public-series-comparison` writes the full baseline,
+`crsp-market-proxy-annual.json`; an explicitly aligned baseline,
+`crsp-market-proxy-common-sample-annual.json`; and the
+`shiller-sp-composite-annual.json` robustness dataset, each with a replay
+manifest. It also writes an aligned annual CSV/JSON comparison and the
+intermediate `normalized/shiller_total_return_monthly.csv`. Use the
+common-sample baseline—not the longer full baseline—for any side-by-side figure
+or political group table. The Shiller construction is documented in the project-level
+[public-series methodology](../public-series-methodology.md); it is prevented
+from silently becoming the primary CRSP proxy by a source-ID gate.
+
+Using the frozen local Shiller CAPE and FRED `FEDFUNDS` files, the same command
+also writes `crsp-market-proxy-inherited-conditions-annual.json` and
+`shiller-sp-composite-inherited-conditions-annual.json`, with separate replay
+manifests, plus `inherited-conditions-join-audit.json` and a 68-row paired
+`inherited-conditions-ledger.csv`. These are the 1955–2022 extension datasets,
+not replacements for the 1936–2022 political-comparison datasets. Their timing,
+one-month assumed-availability lag, and source-vintage limitation are frozen in
+the [inherited-conditions protocol](../inherited-conditions-protocol.md).
+
+The same command also writes `presidential-cycle-ledger.csv` and
+`presidential-cycle-summary.json`. These provide a supplementary 1937–2022
+four-year term-cycle view: every return is assigned to the president in office
+on its calendar year's December 31, and every first-cycle-year observation is
+flagged as an inauguration-transition window. The output preserves a separate
+`presidentChangedWithinWindow` flag for successions. It is a display sensitivity
+only: it does not replace the frozen `window_start` political-configuration
+assignment. See the [cycle protocol](../presidential-cycle-protocol.md).
 
 See [source decisions](SOURCE_DECISIONS.md), [quality rules](QUALITY.md), and
 [the transfer guide](TRANSFER.md).

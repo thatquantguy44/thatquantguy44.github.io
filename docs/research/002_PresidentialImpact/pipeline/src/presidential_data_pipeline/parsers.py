@@ -260,7 +260,7 @@ def parse_shiller_xls(payload: bytes, source_id: str) -> list[dict[str, str]]:
     if header_row is None:
         raise ParseError("Shiller workbook Date header was not found")
     headers = [str(sheet.cell_value(header_row, column)).strip() for column in range(sheet.ncols)]
-    required = {"Date", "P", "CAPE"}
+    required = {"Date", "P", "D", "CAPE"}
     missing = required - set(headers)
     if missing:
         raise ParseError(f"Shiller workbook missing expected column(s): {', '.join(sorted(missing))}")
@@ -285,16 +285,24 @@ def parse_shiller_xls(payload: bytes, source_id: str) -> list[dict[str, str]]:
             price = Decimal(str(sheet.cell_value(index, locations["P"])))
         except (InvalidOperation, TypeError, ValueError) as exc:
             raise ParseError(f"Invalid Shiller row at {raw_date}") from exc
+        raw_dividend = str(sheet.cell_value(index, locations["D"])).strip()
+        try:
+            dividend = "" if raw_dividend in {"", "NA"} else Decimal(raw_dividend)
+        except InvalidOperation as exc:
+            raise ParseError(f"Invalid Shiller dividend at {raw_date}") from exc
         raw_cape = str(sheet.cell_value(index, locations["CAPE"])).strip()
         try:
             cape = "" if raw_cape in {"", "NA"} else Decimal(raw_cape)
         except InvalidOperation as exc:
             raise ParseError(f"Invalid Shiller CAPE at {raw_date}") from exc
-        if not price.is_finite() or (cape != "" and not cape.is_finite()):
+        if not price.is_finite() or (dividend != "" and not dividend.is_finite()) or (cape != "" and not cape.is_finite()):
             raise ParseError(f"Non-finite Shiller value at {raw_date}")
         rows.append({
             "date": _month_end(year, month).isoformat(),
             "price": format(price.normalize(), "f"),
+            # Keep the published trailing dividend field.  Any conversion to a
+            # monthly return is a separately documented reconstruction step.
+            "dividend": "" if dividend == "" else format(dividend.normalize(), "f"),
             # The source's early observations explicitly report CAPE as NA.
             # Preserve missingness rather than converting it to zero or
             # discarding a usable price observation.

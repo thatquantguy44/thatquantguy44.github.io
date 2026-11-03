@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 570" role="img" aria-labelledby="title desc">
+  <title id="title">Presidential-cycle return distributions: all four years</title>
+  <desc id="desc">Two aligned range-and-mean charts show annual return distributions by the president's party at calendar-year end and regular four-year term cycle. The left panel is the public CRSP-market-proxy baseline; the right is the Shiller reconstruction. Every cell shows the observed minimum-to-maximum range and arithmetic mean.</desc>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #34414D; }
+    .grid { stroke: #D5DCE3; stroke-width: 1; }
+    .axis { stroke: #34414D; stroke-width: 1.2; }
+    .d { stroke: #1769A6; fill: #1769A6; }
+    .r { stroke: #9B5E00; fill: #9B5E00; }
+    .range { stroke-width: 3; stroke-opacity: .55; }
+    .mean { fill: #FFFFFF; stroke: #34414D; stroke-width: 1.7; }
+  </style>
+  <rect width="1280" height="570" fill="#FFFFFF"/>
+  <text x="70" y="32" font-size="19" font-weight="700">Presidential-cycle return distributions: all four years</text>
+  <text x="70" y="53" font-size="12" fill="#5C6B78">End-of-calendar-year president-party assignment · 1937–2022 · 86 annual returns · range = observed minimum–maximum; diamond = arithmetic mean</text>
+  <rect x="978" y="28" width="12" height="12" fill="#1769A6"/><text x="997" y="38" font-size="10">D president</text>
+  <rect x="1070" y="28" width="12" height="12" fill="#9B5E00"/><text x="1089" y="38" font-size="10">R president</text>
+  <polygon points="1170,28 1176,34 1170,40 1164,34" class="mean"/><text x="1183" y="38" font-size="10">mean</text>
+  <g>
+    <text x="80" y="86" font-size="14" font-weight="700">CRSP-market-proxy baseline</text>
+    <line x1="80" x2="570" y1="419" y2="419" class="grid"/><text x="69" y="423" text-anchor="end" font-size="10">−40%</text>
+    <line x1="80" x2="570" y1="353" y2="353" class="grid"/><text x="69" y="357" text-anchor="end" font-size="10">−20%</text>
+    <line x1="80" x2="570" y1="287" y2="287" class="axis"/><text x="69" y="291" text-anchor="end" font-size="10">0%</text>
+    <line x1="80" x2="570" y1="221" y2="221" class="grid"/><text x="69" y="225" text-anchor="end" font-size="10">20%</text>
+    <line x1="80" x2="570" y1="155" y2="155" class="grid"/><text x="69" y="159" text-anchor="end" font-size="10">40%</text>
+    <line x1="80" x2="80" y1="105" y2="452" class="axis"/><line x1="80" x2="570" y1="452" y2="452" class="axis"/>
+    <g class="d range"><line x1="121" x2="121" y1="416" y2="174"/><line x1="231" x2="231" y1="368" y2="202"/><line x1="341" x2="341" y1="286" y2="181"/><line x1="451" x2="451" y1="325" y2="192"/></g>
+    <g class="r range"><line x1="149" x2="149" y1="351" y2="195"/><line x1="259" x2="259" y1="379" y2="136"/><line x1="369" x2="369" y1="282" y2="175"/><line x1="479" x2="479" y1="408" y2="212"/></g>
+    <g class="mean"><polygon points="121,245 127,251 121,257 115,251"/><polygon points="231,271 237,277 231,283 225,277"/><polygon points="341,239 347,245 341,251 335,245"/><polygon points="451,256 457,262 451,268 445,262"/><polygon points="149,284 155,290 149,296 143,290"/><polygon points="259,267 265,273 259,279 253,273"/><polygon points="369,222 375,228 369,234 363,228"/><polygon points="479,268 485,274 479,280 473,274"/></g>
+    <g font-size="11" font-weight="700"><text x="135" y="478" text-anchor="middle">Year 1</text><text x="245" y="478" text-anchor="middle">Year 2</text><text x="355" y="478" text-anchor="middle">Year 3</text><text x="465" y="478" text-anchor="middle">Year 4</text></g>
+    <g font-size="9"><text x="135" y="495" text-anchor="middle">D/R n=12/10</text><text x="245" y="495" text-anchor="middle">D/R n=12/10</text><text x="355" y="495" text-anchor="middle">D/R n=11/10</text><text x="465" y="495" text-anchor="middle">D/R n=11/10</text></g>
+  </g>
+  <g transform="translate(620 0)">
+    <text x="80" y="86" font-size="14" font-weight="700">Shiller reconstruction</text>
+    <line x1="80" x2="570" y1="419" y2="419" class="grid"/><line x1="80" x2="570" y1="353" y2="353" class="grid"/><line x1="80" x2="570" y1="287" y2="287" class="axis"/><line x1="80" x2="570" y1="221" y2="221" class="grid"/><line x1="80" x2="570" y1="155" y2="155" class="grid"/>
+    <line x1="80" x2="80" y1="105" y2="452" class="axis"/><line x1="80" x2="570" y1="452" y2="452" class="axis"/>
+    <g class="d range"><line x1="121" x2="121" y1="393" y2="175"/><line x1="231" x2="231" y1="336" y2="195"/><line x1="341" x2="341" y1="280" y2="174"/><line x1="451" x2="451" y1="319" y2="187"/></g>
+    <g class="r range"><line x1="149" x2="149" y1="343" y2="194"/><line x1="259" x2="259" y1="373" y2="143"/><line x1="369" x2="369" y1="287" y2="175"/><line x1="479" x2="479" y1="416" y2="213"/></g>
+    <g class="mean"><polygon points="121,246 127,252 121,258 115,252"/><polygon points="231,272 237,278 231,284 225,278"/><polygon points="341,241 347,247 341,253 335,247"/><polygon points="451,253 457,259 451,265 445,259"/><polygon points="149,283 155,289 149,295 143,289"/><polygon points="259,265 265,271 259,277 253,271"/><polygon points="369,229 375,235 369,241 363,235"/><polygon points="479,269 485,275 479,281 473,275"/></g>
+    <g font-size="11" font-weight="700"><text x="135" y="478" text-anchor="middle">Year 1</text><text x="245" y="478" text-anchor="middle">Year 2</text><text x="355" y="478" text-anchor="middle">Year 3</text><text x="465" y="478" text-anchor="middle">Year 4</text></g>
+    <g font-size="9"><text x="135" y="495" text-anchor="middle">D/R n=12/10</text><text x="245" y="495" text-anchor="middle">D/R n=12/10</text><text x="355" y="495" text-anchor="middle">D/R n=11/10</text><text x="465" y="495" text-anchor="middle">D/R n=11/10</text></g>
+  </g>
+  <text x="80" y="534" font-size="10" fill="#5C6B78">Ranges are historical dispersion, not confidence intervals. Both panels use the same annual sample but different frozen public return constructions.</text>
+  <text x="80" y="550" font-size="10" fill="#5C6B78">Cycle years use the president in office on the return year's December 31. The 1936 return is excluded because it predates the first January-20 term in this sample.</text>
+</svg>

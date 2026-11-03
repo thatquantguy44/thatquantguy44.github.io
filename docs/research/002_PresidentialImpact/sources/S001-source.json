@@ -11,6 +11,14 @@
   "raw_sha256": "2dbaa59f054182c81b5230dd82a3ff03a94029e02d9eeff67e72fade6e2d7b0f",
   "raw_bytes": 8567,
   "original_chart_supplied": false,
+  "official_chart_retrieved": true,
+  "official_chart_capture": {
+    "retrieved_at": "2026-11-03",
+    "locator": "https://franklintempletonprod.widen.net/content/2azo2rsa61/jpeg/Balance_of_power_Ex_1.jpg",
+    "local_raw_path": "raw/fti-balance-of-power-exhibit-1.jpg",
+    "sha256": "b63850e57e8555ae9ff5b1a4bfcc3435fa49c8e5204abe6a39d8e9848affcfe5",
+    "status": "publisher chart image recovered; underlying data and calculation definitions remain unavailable"
+  },
   "underlying_data_supplied": false,
   "retrieval_status": "official page located on 2026-10-31; local raw archive remains the user-supplied paste",
   "verification_status": "unverified_seed",

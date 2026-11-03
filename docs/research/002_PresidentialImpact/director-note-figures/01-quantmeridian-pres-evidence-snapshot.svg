@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+  <title id="title">QuantMeridian Presidential Impact evidence snapshot</title>
+  <desc id="desc">Three analytical findings from the independent public-data reconstruction: the two market constructions closely agree, 24 of 87 annual windows cross a political-control change, and starting CAPE has a modest negative descriptive association with following returns while the starting policy rate does not.</desc>
+  <rect width="1200" height="510" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif" fill="#34414D">
+    <text x="64" y="52" font-size="22" font-weight="700">QuantMeridian PRES — evidence snapshot</text>
+    <text x="64" y="79" font-size="13" fill="#5C6B78">Independent public-data reconstruction · descriptive analytics only · no causal or trading claim</text>
+
+    <g>
+      <rect x="64" y="116" width="340" height="254" rx="4" fill="#F6F9FC" stroke="#D5DCE3"/>
+      <rect x="64" y="116" width="9" height="254" fill="#1769A6"/>
+      <text x="96" y="153" font-size="13" font-weight="700">Two market constructions agree</text>
+      <text x="96" y="220" font-size="46" font-weight="700" fill="#1769A6">0.980</text>
+      <text x="96" y="246" font-size="13">correlation of 87 matched annual returns</text>
+      <line x1="96" x2="371" y1="270" y2="270" stroke="#D5DCE3"/>
+      <text x="96" y="301" font-size="13" font-weight="700">−0.12 pp</text>
+      <text x="96" y="324" font-size="12" fill="#5C6B78">mean difference: Shiller minus CRSP proxy</text>
+      <text x="96" y="350" font-size="11" fill="#5C6B78">The configuration ranking did not change by</text>
+      <text x="96" y="366" font-size="11" fill="#5C6B78">return construction on the shared sample.</text>
+    </g>
+
+    <g>
+      <rect x="430" y="116" width="340" height="254" rx="4" fill="#FCF8F2" stroke="#D5DCE3"/>
+      <rect x="430" y="116" width="9" height="254" fill="#9B5E00"/>
+      <text x="462" y="153" font-size="13" font-weight="700">Political exposure is not fixed</text>
+      <text x="462" y="220" font-size="46" font-weight="700" fill="#9B5E00">24 / 87</text>
+      <text x="462" y="246" font-size="13">annual windows cross a control change</text>
+      <line x1="462" x2="737" y1="270" y2="270" stroke="#D5DCE3"/>
+      <text x="462" y="301" font-size="13" font-weight="700">27.6%</text>
+      <text x="462" y="324" font-size="12" fill="#5C6B78">of the 1936–2022 common sample</text>
+      <text x="462" y="350" font-size="11" fill="#5C6B78">A start-date label prevents hindsight relabeling;</text>
+      <text x="462" y="366" font-size="11" fill="#5C6B78">it is not a stable full-year policy exposure.</text>
+    </g>
+
+    <g>
+      <rect x="796" y="116" width="340" height="254" rx="4" fill="#F4F8F4" stroke="#D5DCE3"/>
+      <rect x="796" y="116" width="9" height="254" fill="#168350"/>
+      <text x="828" y="153" font-size="13" font-weight="700">Starting valuation shows a clearer pattern</text>
+      <text x="828" y="210" font-size="28" font-weight="700" fill="#168350">−0.29 / −0.27</text>
+      <text x="828" y="234" font-size="12">CAPE-return Pearson r, two constructions</text>
+      <line x1="828" x2="1103" y1="254" y2="254" stroke="#D5DCE3"/>
+      <text x="828" y="289" font-size="23" font-weight="700" fill="#5C6B78">+0.05 / +0.03</text>
+      <text x="828" y="311" font-size="12">policy-rate-return Pearson r</text>
+      <text x="828" y="340" font-size="11" fill="#5C6B78">68 annual windows, 1955–2022; associations</text>
+      <text x="828" y="356" font-size="11" fill="#5C6B78">are descriptive and not point-in-time forecasts.</text>
+    </g>
+
+    <line x1="64" x2="1136" y1="405" y2="405" stroke="#D5DCE3"/>
+    <text x="64" y="435" font-size="13" font-weight="700">Director implication</text>
+    <text x="221" y="435" font-size="13">Use political labels to structure scenarios; start investment judgment with valuation, expectations, and policy transmission.</text>
+    <text x="64" y="479" font-size="10" fill="#5C6B78">QuantMeridian PRES engine outputs from frozen USER_SUPPLIED inputs. CRSP-market proxy and Shiller reconstruction are independent public series, not the seed article’s unrecovered S&amp;P 500 analysis.</text>
+  </g>
+</svg>
