@@ -112,7 +112,8 @@ pre-declared public reconstructions. It does not support a political causal
 claim, a performance forecast, “durable alpha,” or a statement about the seed
 article’s proprietary/possibly licensed S&amp;P data.
 
-The next analytical stage is not a regression by default. First resolve the
-separate exact-replication track, then—if source vintages can be frozen before
-inspection—add inherited valuation and policy-rate variables with an explicit
-administration-dependence and chronological-prediction design.
+The next analytical stage is not a regression by default. The exact-replication
+track is closed by the data-access decision; follow the
+[inherited-conditions protocol](../inherited-conditions-protocol.md) to add the
+frozen valuation and policy-rate variables with an explicit
+administration-dependence and chronological-alignment design.

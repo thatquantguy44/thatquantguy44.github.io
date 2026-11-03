@@ -62,6 +62,9 @@ RECONSTRUCTIONS = {
     ),
 }
 
+INHERITED_FUNDAMENTALS_SOURCE_ID = "INHERITED_CAPE_FEDFUNDS_001"
+INHERITED_VALUATION_DEFINITION = "Shiller workbook CAPE field"
+
 
 def _month_end(year: int, month: int) -> date:
     return date(year, month, calendar.monthrange(year, month)[1])
@@ -196,12 +199,115 @@ def derive_shiller_monthly_total_return(
     return output
 
 
+def build_inherited_fundamentals(
+    config: PipelineConfig,
+    shiller_path: Path,
+    policy_path: Path,
+    annual_end_year: int,
+) -> tuple[list[dict[str, object]], dict[str, object]]:
+    """Join only the pre-declared, frozen CAPE and policy-rate observations.
+
+    The PRES contract permits one source ID and one observation/availability date
+    per fundamental record. The emitted composite record therefore uses the later
+    CAPE observation date and preserves the individual field dates in the audit.
+    """
+    shiller = {row["date"]: row for row in read_csv(shiller_path)}
+    policy = {row["date"]: row for row in read_csv(policy_path)}
+    rows: list[dict[str, object]] = []
+    unavailable_after_start: list[int] = []
+    started = False
+    for year in range(config.annual_start_year, annual_end_year + 1):
+        source_year = year - 1
+        cape_date = _month_end(source_year, 10).isoformat()
+        cape_available = _month_end(source_year, 11).isoformat()
+        policy_date = date(source_year, 10, 1).isoformat()
+        policy_available = date(source_year, 11, 1).isoformat()
+        cape_text = shiller.get(cape_date, {}).get("cape", "").strip()
+        policy_text = policy.get(policy_date, {}).get("policy_rate_percent", "").strip()
+        if not cape_text or not policy_text:
+            if started:
+                unavailable_after_start.append(year)
+            continue
+        try:
+            cape, policy_rate = float(cape_text), float(policy_text)
+        except ValueError as exc:
+            raise BuildError(f"Inherited-condition input is not numeric for annual return {year}") from exc
+        if not math.isfinite(cape) or not math.isfinite(policy_rate):
+            raise BuildError(f"Inherited-condition input is not finite for annual return {year}")
+        started = True
+        rows.append({
+            "year": year,
+            "fundamental": {
+                "date": cape_date,
+                "availableDate": cape_available,
+                "valuation": cape,
+                "valuationDefinition": INHERITED_VALUATION_DEFINITION,
+                "policyRatePct": policy_rate,
+                "sourceId": INHERITED_FUNDAMENTALS_SOURCE_ID,
+            },
+            "valuation_observation_date": cape_date,
+            "valuation_assumed_available_date": cape_available,
+            "policy_observation_date": policy_date,
+            "policy_assumed_available_date": policy_available,
+        })
+    if not rows:
+        raise BuildError("No joined inherited-condition observations are available")
+    if unavailable_after_start:
+        raise BuildError(
+            "Inherited-condition coverage becomes incomplete after the first eligible annual return: "
+            + ", ".join(map(str, unavailable_after_start[:10]))
+        )
+    first_year = int(rows[0]["year"])
+    expected = list(range(first_year, annual_end_year + 1))
+    observed = [int(row["year"]) for row in rows]
+    if observed != expected:
+        raise BuildError("Inherited-condition join is not a contiguous annual sample")
+    fundamentals = [dict(row["fundamental"]) for row in rows]
+    audit = {
+        "schema_version": 1,
+        "kind": "FROZEN_INHERITED_CONDITIONS_JOIN",
+        "first_annual_year": first_year,
+        "last_annual_year": annual_end_year,
+        "observations": len(fundamentals),
+        "valuation_definition": INHERITED_VALUATION_DEFINITION,
+        "source_ids": ["SHILLER_001", "FEDFUNDS_001"],
+        "timing": {
+            "decision_date": "December 31 of the preceding year",
+            "valuation_observation": "October month-end of the preceding year",
+            "valuation_assumed_available": "November month-end of the preceding year",
+            "policy_observation": "October 1 of the preceding year",
+            "policy_assumed_available": "November 1 of the preceding year",
+            "availability_note": "Operational anti-look-ahead convention; not verified real-time vintage history.",
+        },
+        "rows": rows,
+    }
+    return fundamentals, audit
+
+
+def inherited_fundamentals_source(shiller_path: Path, policy_path: Path) -> dict[str, object]:
+    return {
+        "id": INHERITED_FUNDAMENTALS_SOURCE_ID,
+        "title": "Frozen Shiller CAPE and FRED effective-funds-rate join",
+        "locator": None,
+        "note": (
+            f"Composite at-origin record: Shiller CAPE normalized SHA-256 {sha256_file(shiller_path)}; "
+            f"FRED FEDFUNDS normalized SHA-256 {sha256_file(policy_path)}. "
+            "See inherited-conditions protocol for observation and assumed-availability dates."
+        ),
+    }
+
+
 def build_annual_dataset(
     config: PipelineConfig,
     market_path: Path,
     controls_path: Path,
     decision_policy: Literal["window_start", "calendar_year_start"],
     reconstruction: str = "crsp_market_proxy",
+    fundamentals: list[dict[str, object]] | None = None,
+    additional_sources: list[dict[str, object]] | None = None,
+    additional_inputs: dict[str, object] | None = None,
+    dataset_id_suffix: str = "",
+    title_suffix: str = "",
 ) -> tuple[dict[str, object], dict[str, object]]:
     try:
         definition = RECONSTRUCTIONS[reconstruction]
@@ -266,19 +372,27 @@ def build_annual_dataset(
             for key in ("review_workbook", "review_workbook_sha256"):
                 if controls_manifest.get(key):
                     inputs[key] = controls_manifest[key]
+    if additional_inputs:
+        inputs.update(additional_inputs)
+    sources = _source_catalog(config, market_source_id, controls)
+    for source in additional_sources or []:
+        source_id = str(source.get("id", ""))
+        if not source_id or any(record["id"] == source_id for record in sources):
+            raise BuildError(f"Additional source has a missing or duplicate ID: {source_id or 'blank'}")
+        sources.append(source)
     dataset = {
         "schemaVersion": 1,
-        "id": f"{definition.dataset_id_prefix}-{config.annual_start_year}-{config.annual_end_year}",
-        "title": f"{definition.title_prefix}, {config.annual_start_year}–{config.annual_end_year}",
+        "id": f"{definition.dataset_id_prefix}-{config.annual_start_year}-{config.annual_end_year}{dataset_id_suffix}",
+        "title": f"{definition.title_prefix}, {config.annual_start_year}–{config.annual_end_year}{title_suffix}",
         "kind": "USER_SUPPLIED",
         "currency": config.currency,
         "nominalReal": "NOMINAL",
         "returnBasis": definition.return_basis,
-        "sources": _source_catalog(config, market_source_id, controls),
+        "sources": sources,
         "levels": levels,
         "controls": controls,
         "windows": windows,
-        "fundamentals": [],
+        "fundamentals": fundamentals or [],
     }
     manifest = {
         "schema_version": 1,

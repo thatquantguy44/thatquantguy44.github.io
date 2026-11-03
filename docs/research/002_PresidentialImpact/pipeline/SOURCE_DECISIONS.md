@@ -116,6 +116,8 @@ and is only emitted when a reviewed control record cites it.
 Raw downloads remain outside version control. Each is retained with a checksum,
 retrieval timestamp, request URL and response headers. A changed checksum is a
 new observation of the source, not an overwrite. Parsing code is versioned; each
-output carries input file hashes and the config hash. Before adding a commercial
-source, record the licensing/permitted-use decision in the source config and
-keep its adapter separate from the public-reconstruction path.
+output carries input file hashes and the config hash. The 2026-11-03
+data-access decision closes the commercial-source and additional-acquisition
+path for this project: do not add a vendor source or refresh a public capture to
+a newer vintage. Reprocess the existing archived inputs only; any later source
+expansion is a separately authorized research phase.

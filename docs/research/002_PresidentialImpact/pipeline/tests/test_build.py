@@ -10,6 +10,7 @@ import unittest
 from presidential_data_pipeline.assemble import (
     BuildError,
     build_annual_dataset,
+    build_inherited_fundamentals,
     build_public_series_comparison,
     derive_shiller_monthly_total_return,
 )
@@ -50,6 +51,18 @@ class BuildTests(unittest.TestCase):
                         "dividend": "3",
                         "cape": "20",
                         "source_id": "SHILLER_001",
+                    })
+
+    def write_policy_rates(self, path: Path) -> None:
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=["date", "policy_rate_percent", "source_id"])
+            writer.writeheader()
+            for year in range(1954, 2024):
+                for month in range(1, 13):
+                    writer.writerow({
+                        "date": f"{year:04d}-{month:02d}-01",
+                        "policy_rate_percent": "2.5",
+                        "source_id": "FEDFUNDS_001",
                     })
 
     def write_controls(self, path: Path, overlapping: bool = False, source_id: str = "CTRL_074_A") -> None:
@@ -153,6 +166,27 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(comparison["robustness_source_completeness"]["excluded_incomplete_dividend_months"], [
             "2023-07-31", "2023-08-31", "2023-09-30", "2023-10-31", "2023-11-30", "2023-12-31",
         ])
+
+    def test_builds_contiguous_frozen_inherited_conditions(self) -> None:
+        with TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            shiller, policy = directory / "shiller_monthly.csv", directory / "policy_rates_monthly.csv"
+            self.write_shiller_context(shiller)
+            self.write_policy_rates(policy)
+            fundamentals, audit = build_inherited_fundamentals(
+                replace(self.config, annual_end_year=2022), shiller, policy, 2022
+            )
+        self.assertEqual(len(fundamentals), 68)
+        self.assertEqual(audit["first_annual_year"], 1955)
+        self.assertEqual(audit["last_annual_year"], 2022)
+        self.assertEqual(fundamentals[0], {
+            "date": "1954-10-31",
+            "availableDate": "1954-11-30",
+            "valuation": 20.0,
+            "valuationDefinition": "Shiller workbook CAPE field",
+            "policyRatePct": 2.5,
+            "sourceId": "INHERITED_CAPE_FEDFUNDS_001",
+        })
 
     def test_registers_disabled_manual_control_evidence_without_fetching_it(self) -> None:
         source = self.config.source("CTRL_074_A")

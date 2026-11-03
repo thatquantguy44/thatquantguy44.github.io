@@ -4,12 +4,12 @@
 
 **Working title: What did the president inherit—and what changed?**
 
-First reconstruct the seed article's core descriptive comparisons as closely as
-the available definitions and data permit. Then test whether presidential-party
-and congressional-control classifications add useful information about US equity
-returns beyond starting valuations, policy rates and macroeconomic conditions.
-Keep the reproduced analysis, original extensions and personal interpretation
-distinct, with visible uncertainty.
+First document the seed article's core descriptive comparisons and produce a
+separately labeled public-data reconstruction. Then test whether presidential
+party and congressional-control classifications add useful information about US
+equity returns beyond starting valuations, policy rates and macroeconomic
+conditions. Keep source claims, the independent reconstruction, original
+extensions and personal interpretation distinct, with visible uncertainty.
 
 The user's intended audience is a new investment director. A useful personal
 signature would combine clear visual storytelling, disciplined data-science
@@ -28,26 +28,26 @@ This brief proposes research. It contains no new performance estimate, causal
 finding, investment recommendation or verified claim about which party is better
 for markets. The existing offline-preparation constraint remains in effect.
 
-## Research format: replication, extension and interpretation
+## Research format: source comparison, reconstruction and interpretation
 
-The user has selected a replication-led project with their own presentation,
-opinion and additional inherited-conditions angle. Most of the source's analytical
-structure is a reasonable reconstruction target; exact numerical agreement is
-conditional on recovering its inputs and conventions.
+The user has selected a source-led project with their own presentation, opinion
+and additional inherited-conditions angle. The source's analytical structure is
+a useful reconstruction target, but the project will use only its currently
+captured public inputs and will not pursue exact numerical agreement.
 
 | Layer | Deliverable | Authorship and evidence boundary |
 | --- | --- | --- |
-| Replication | Reconstruct the article's political-category returns and presidential-period comparison | Attribute the starting analysis to Carin Pai/Fiduciary Trust International and distinguish their reported results from our calculations |
+| Source comparison and independent reconstruction | Document the article's political-category and presidential-period claims, then calculate a public-data reconstruction | Attribute the starting analysis to Carin Pai/Fiduciary Trust International and distinguish their reported results from our calculations |
 | Original extension | Test inherited conditions, incremental political information and robustness | Identify additional questions, data, methods and results as our work; separate explanation from prediction |
 | Personal interpretation | Explain what the evidence changes about the investment question and why it matters | Label opinion and uncertainty; do not attribute a position to the user before they choose it or manufacture a conclusion before results exist |
 
-Use **exact replication** only when the source series, windows, definitions and
-calculations can be matched. Otherwise call the work an **independent
-reconstruction** or **conceptual replication**, disclose substitutes and explain
-why results may differ. Reproduce the analysis with our own calculations and
-figures; a rewritten version of the original prose is not the research contribution.
+The exact-replication path is closed by the data-access decision. Call the work
+an **independent public-data reconstruction**, disclose every substitute and
+explain why results may differ. Reproduce the analysis with our own calculations
+and figures; a rewritten version of the original prose is not the research
+contribution.
 
-### Replication targets
+### Source-comparison targets
 
 | Target | What to reconstruct | Inputs that must be recovered |
 | --- | --- | --- |
@@ -56,11 +56,11 @@ figures; a rewritten version of the original prose is not the research contribut
 | Original crisis sensitivity | The article's reported exclusion of 2008, clearly labeled as its sensitivity variant | A matching full-sample baseline and the exact recomputation; keep the full sample primary in our extension |
 | Strength of association | The proposition that fundamentals have stronger associations with returns than political control | A defined comparison on matched samples and windows; a visual ordering alone does not establish the proposition |
 
-For every attempted reproduction, retain the source claim, our result, data and
-definition differences, and a disposition: matched, matched within stated
-rounding, differed, or not reproducible from available inputs. Do not force a match
-by tuning definitions after seeing results. The market-leading-horizon statement
-is a separate verification question, outside the first core replication pass.
+For every source comparison, retain the source claim, our result, data and
+definition differences, and a disposition of `source reported`, `independent
+reconstruction`, or `outside current-data scope`. Do not tune definitions after
+seeing results to resemble the source. The market-leading-horizon statement is a
+separate verification question, outside the current-data scope.
 
 ### Where the personal voice belongs
 
@@ -150,15 +150,15 @@ inherited-condition inspection and a labeled administration-cluster resampling
 range for grouped means. That range is descriptive—not a causal confidence
 interval or a predictive result. Source admission, exact replication, conditional
 models, formal uncertainty estimation and chronological prediction remain
-explicit research tasks. Tool delivery does not complete any empirical comparison
-below.
+explicit research tasks. Exact replication is outside the project's data-access
+scope. Tool delivery does not complete any empirical comparison below.
 
 ### Source pipeline
 
-The [portable data pipeline](pipeline/README.md) separates public-source download,
+The [portable data pipeline](pipeline/README.md) separates captured public-source
 raw-file archival, parsing, quality checks and QuantMeridian JSON assembly. It
 records a public CRSP-market reconstruction separately from the seed article's
-S&P 500 analysis and blocks output until political-control intervals are reviewed.
+S&amp;P 500 analysis and blocks output until political-control intervals are reviewed.
 The [public-series methodology](public-series-methodology.md) freezes a
 side-by-side CRSP-proxy baseline and Shiller S&P Composite robustness
 reconstruction before output review; the [source decisions](pipeline/SOURCE_DECISIONS.md)
@@ -168,19 +168,19 @@ coverage and non-causal sensitivity findings.
 
 ### Research sequence
 
-1. Recover the original article/exhibit and calculation definitions; record
-   exact locators, underlying sources and access limits.
-2. Choose and document the replication's return, time unit and political
+1. Preserve the recovered source schema and its access limits; do not seek new
+   source or licensed-data inputs for this project.
+2. Choose and document the reconstruction's return, time unit and political
    classifications. Freeze the original-extension comparisons and sensitivity
    plan before inspecting their estimated results.
-3. Build a source-backed dataset, reconstruct the seed's core descriptive
-   comparisons, and retain the reproduction dispositions and any substitutions.
+3. Maintain the source-backed public reconstruction and retain the source-
+   comparison dispositions and substitutions.
 4. Add inherited-conditions analysis, incremental explanation and chronological
    predictive evaluation, retaining uncertainty, negative results and changes.
 5. Prepare a proposed two-page director memo and reproducibility appendix. Keep
    source findings, reproduced calculations, new analysis and personal opinion
    visibly separate. A longer article can follow source and calculation review.
 
-Open inputs include the director's preferred decision context and format, the
-available licensed market-data access, and the original missing exhibit. None
-needs to be guessed to complete the folder organization and initial scope.
+Open inputs include the director's preferred decision context and format. The
+current public data and recovered source schema define the available scope; no
+licensed market-data access or additional source acquisition is assumed.

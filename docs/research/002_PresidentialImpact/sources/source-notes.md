@@ -70,9 +70,10 @@ secondary cross-check for published Senate/House counts, vacancies, trifecta
 labels and within-Congress variation hints. It is not an approved control source
 and cannot generate the combined-control file.
 
-## Next source work
+## Data-access disposition
 
-Recover the annual source table and assignment rules, the Exhibit 1 data table
-or PDF, and licensed S&amp;P 500 access if exact replication is the goal. Any
-reproduced number, substitute dataset, derived calculation or interpretive
-judgment should have a separate, inspectable record.
+No additional source acquisition or licensed-data access will be pursued for
+this project. The recovered article text and Exhibit 1 image remain provenance
+records only; analysis uses the currently captured public datasets and reviewed
+controls. See the [exact-replication matrix](../exact-replication-disposition.md)
+for the project-wide boundary.

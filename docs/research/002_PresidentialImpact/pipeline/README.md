@@ -151,5 +151,13 @@ or political group table. The Shiller construction is documented in the project-
 [public-series methodology](../public-series-methodology.md); it is prevented
 from silently becoming the primary CRSP proxy by a source-ID gate.
 
+Using the frozen local Shiller CAPE and FRED `FEDFUNDS` files, the same command
+also writes `crsp-market-proxy-inherited-conditions-annual.json` and
+`shiller-sp-composite-inherited-conditions-annual.json`, with separate replay
+manifests, plus `inherited-conditions-join-audit.json`. These are the 1955–2022
+extension datasets, not replacements for the 1936–2022 political-comparison
+datasets. Their timing, one-month assumed-availability lag, and source-vintage
+limitation are frozen in the [inherited-conditions protocol](../inherited-conditions-protocol.md).
+
 See [source decisions](SOURCE_DECISIONS.md), [quality rules](QUALITY.md), and
 [the transfer guide](TRANSFER.md).

@@ -24,9 +24,10 @@ returns.
 2. [Public-series methodology](public-series-methodology.md) — frozen source, return, window, and language rules.
 3. [Frozen descriptive analysis](descriptive-analysis/README.md) — paired political-configuration results, figures, and interpretation boundary.
 4. [Exact-replication disposition matrix](exact-replication-disposition.md) — recovered exhibit schema, missing inputs, and stopping rule.
-5. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
-6. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
-7. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
+5. [Inherited-conditions protocol](inherited-conditions-protocol.md) — frozen inputs, timing, sample, and no-look-ahead rules for the active extension.
+6. [Initial public-series run](public-series-comparison-run.md) — actual shared-sample result and coverage disposition.
+7. [Pipeline source decisions](pipeline/SOURCE_DECISIONS.md) — source authority, political-control review, and exact-replication gap.
+8. [QuantMeridian PRES handoff](quantmeridian-module/HANDOFF.md) — application workflow and local import contract.
 
 ## Completed, verified work
 
@@ -41,6 +42,7 @@ returns.
 | QuantMeridian compatibility | All three generated datasets passed `parseResearchDataset` validation | `annual-crsp-market-proxy-1936-2023`, `annual-crsp-market-proxy-1936-2022`, and `annual-shiller-sp-composite-approximation-1936-2022` |
 | Frozen political-configuration package | Complete; paired table, two portable figures, and interpretation boundary | `descriptive-analysis/README.md` |
 | Seed Exhibit 1 schema recovery | Complete; publisher chart image archived locally and visible fields/timing documented without reusing the chart | `exact-replication-disposition.md` and ignored `sources/raw/` |
+| Inherited-conditions data construction | Complete; two 1955–2022 joined datasets have 68 eligible CAPE/rate pairs and passed PRES parser/engine checks | ignored `.local/output/public-series-comparison/` and `inherited-conditions-protocol.md` |
 | Pipeline verification | Offline test suite passes; workspace validation has 0 errors and documented Shiller trailing-dividend warnings | `pipeline/tests/` and `.local/quality/report.json` |
 
 ## Current empirical checkpoint
@@ -69,32 +71,21 @@ or compares the CRSP-only 2023 observation with the shorter series.
 
 ## Next division of work — priority order
 
-### 1. Resolve the exact-replication track separately
+### 1. Produce paired inherited-conditions descriptives from the frozen public inputs
 
-The recovered Exhibit 1 image establishes its visible schema but does not close
-the calculation gap. Obtain the seed article's annual configuration table,
-Exhibit 1 source data/PDF, political-assignment rule, and licensed annual S&P
-500 return source. BofA Global Research, Bloomberg, FactSet, or appropriately
-licensed S&amp;P index data may be required. Record a disposition for each missing
-input rather than silently substituting the public series. See the
-[exact-replication matrix](exact-replication-disposition.md).
-
-**Acceptance criterion:** an independent researcher can tell whether each seed
-article number was reproduced, reconstructed with a named substitution, or not
-reproducible because of access/definition limits.
-
-### 2. Add inherited-conditions analysis only after priority 1
-
-Define available-at-decision-date valuation and policy variables; freeze their
-vintages and timing before inspecting a model. Start with tables/figures, then
-consider explanatory or chronological predictive evaluation only if the data
-support it.
+The exact-replication track is closed by the data-access decision recorded in
+the [exact-replication matrix](exact-replication-disposition.md). The two
+joined 1955–2022 datasets now exist and passed parser/engine checks. Use only
+those frozen artifacts to generate the paired CAPE-return and policy-rate-return
+scatterplots, ledgers, and a compact source-by-source result table. Do not fit a
+model or inspect a political adjustment before this descriptive package is
+complete.
 
 **Acceptance criterion:** every covariate has a source, date, availability date,
 definition, and limitation; the number of administrations, rather than rows, is
 prominent in any uncertainty discussion.
 
-### 3. Draft the director-facing research note only after the two tracks are distinguished
+### 2. Draft the director-facing research note after the inherited-conditions scope is frozen
 
 Use the frozen descriptive analysis as one clearly labeled section. Separate
 the seed article's result, the public reconstruction, and the author's opinion;
@@ -104,6 +95,12 @@ unrecovered source analysis.
 **Acceptance criterion:** every figure and numerical statement identifies
 whether it is from the seed article, the local public reconstruction, or a
 newly documented extension.
+
+### 3. Keep the exact-replication record closed
+
+Do not request, buy, or add new sources for this project. Reprocess only the
+existing captured data when verification requires it; retain its hashes and
+vintages. Any future licensed-data work is a new, explicitly authorized phase.
 
 ## Non-negotiable research controls
 

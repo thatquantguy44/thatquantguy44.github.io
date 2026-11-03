@@ -4,8 +4,9 @@
 project can reproduce. This record governs publication language; it is not a
 new return calculation.
 
-**Current disposition:** exact replication is **not reproducible from the
-available inputs**. The public 1936–2022 package is an independent
+**Current disposition:** exact replication is **closed by the 2026-11-03
+data-access decision**. The project will use only its currently captured public
+data and reviewed controls. The public 1936–2022 package is an independent
 reconstruction, not a substitute for the seed article’s 1936–2023 S&amp;P 500
 analysis.
 
@@ -57,35 +58,26 @@ The public research artifacts must continue to make these distinctions:
 No amount of tuning the public reconstruction after seeing its results can close
 these gaps. The two tracks should remain separate in the paper.
 
-## Required recovery path
+## Data-access decision and closed track
 
-The next exact-replication action is to obtain one of the following from an
-authorized source, in descending order of usefulness:
+The research owner has decided that no licensed vendor data, article workbook,
+or additional source acquisition will be pursued for this project. All future
+analysis must use the already captured public inputs, reviewed political-control
+file, and generated local outputs. Source files may be reprocessed for
+reproducibility, but the project must not silently refresh to a later vintage or
+substitute a newly acquired source.
 
-1. the original annual configuration table/workbook and Exhibit 1 data table;
-2. the article PDF with readable charts, detailed footnotes, and definitions;
-3. written clarification from the publisher/author of the annual return and
-   political-assignment conventions; or
-4. licensed data plus sufficient definitions to reproduce the article’s stated
-   series and timing.
-
-Before calculating anything from a newly obtained source, record the capture
-location, access date, rights constraint, source hash, data dictionary,
-as-of/vintage convention, and expected reconciliation tolerance. Then run a
-pre-specified reconciliation against the source’s published figures; report the
-result as `matched`, `matched within stated rounding`, `differed`, or `not
-reproducible`.
-
-If none of those materials can be obtained, stop the exact-replication track
-and write the paper around the public reconstruction and its limitations. Do not
-call it a replication, imply access to BofA/Bloomberg/FactSet data, or present a
-visually similar chart as the original exhibit.
+Accordingly, the exact-replication track is closed rather than merely blocked.
+Do not call any result `matched`, imply access to BofA/Bloomberg/FactSet data,
+or present a visually similar chart as the original exhibit. If new access is
+ever granted, treat it as a separately authorized research phase with a new
+decision record; do not revise this project's historical status retroactively.
 
 ## Paper-ready use today
 
 The article can now accurately say: the original article’s four-year exhibit
 uses January-month-end alignment, P/E based on price divided by real earnings,
-and the effective federal funds rate; however, its full calculation record and
-licensed market inputs were not available, so this project provides a separately
-labeled public reconstruction. That is a useful evidence boundary—not a
-shortcoming to conceal.
+and the effective federal funds rate; however, this project intentionally uses
+its separately labeled public reconstruction because the original calculation
+record and licensed market inputs are outside its data-access scope. That is a
+useful evidence boundary—not a shortcoming to conceal.
