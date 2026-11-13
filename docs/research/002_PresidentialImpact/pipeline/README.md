@@ -1,9 +1,9 @@
 # Presidential Impact data pipeline
 
-**Ownership transition:** New pipeline work is being transferred to
-MarketMedallion spec 016. This standalone package remains the archived
-reproducibility and rollback reference until the coordinated branches merge.
-See the [transfer guide](TRANSFER.md) for the verified local frozen import.
+**Ownership transition:** New pipeline work belongs to MarketMedallion spec 016.
+This standalone package remains the archived reproducibility and rollback
+reference. See the [transfer guide](TRANSFER.md) for the verified local frozen
+import and coordinated releases.
 
 This is a small, standalone Python package for acquiring, preserving, checking
 and assembling research inputs for the Presidential Impact project. It is not

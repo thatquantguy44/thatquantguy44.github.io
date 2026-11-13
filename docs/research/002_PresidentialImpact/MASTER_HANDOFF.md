@@ -183,12 +183,12 @@ than assuming it.
 
 ## 2026-11-13: receiving pipeline transition
 
-MarketMedallion spec 016 now has local feature-branch implementations for the
-pinned archive, reviewed controls, atomic five-dataset publication, evidence,
-replay and health. QuantMeridian's feature branch loads that publication
-explicitly and supports matched comparisons, inherited conditions and cycles.
+MarketMedallion spec 016 now owns the pinned archive, reviewed controls, atomic
+five-dataset publication, evidence, replay and health. QuantMeridian loads that
+publication explicitly and supports matched comparisons, inherited conditions
+and cycles.
 A fresh donor rebuild and the receiving outputs agree across all five datasets
 and seven supporting artifacts. The original study, protocols and executable
-standalone package remain available here for rollback. The coordinated branches
-are not yet a merged release; see [transfer](pipeline/TRANSFER.md) for the
-receiving workflow and remaining live-access and source-authenticity limits.
+standalone package remain available here for rollback. See
+[transfer](pipeline/TRANSFER.md) for the receiving workflow, merged producer and
+consumer releases, and remaining live-access and source-authenticity limits.

@@ -1,15 +1,14 @@
 # Presidential research pipeline handoff
 
-MarketMedallion is the receiving owner for new presidential research pipeline
-work. The cross-repository `feat/pres-data-integration` branches implement the
-local handoff under MarketMedallion `specs/spec016`; this handoff is not a claim
-that those branches have already merged or been released. The existing standalone
-pipeline remains here as the reproducibility and rollback reference until the
-coordinated release is accepted. Removing the duplicate executable code requires a
+MarketMedallion owns new presidential research pipeline work under spec 016.
+[MarketMedallion PR #21](https://github.com/thatquantguy44/market-medallion/pull/21)
+and [QuantMeridian PR #220](https://github.com/thatquantguy44/QuantMeridian/pull/220)
+have merged. The existing standalone pipeline remains here as the reproducibility
+and rollback reference. Removing the duplicate executable code requires a
 separate reviewed change; preserve published research, protocols and old exports.
 
 The 2026-11-03 study can be rebuilt offline from the selected retained archive,
-review workbook and official control evidence. On the receiving branch, install
+review workbook and official control evidence. Install
 MarketMedallion and its declared dependencies, then invoke:
 
 ```sh

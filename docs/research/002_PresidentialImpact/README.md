@@ -73,8 +73,7 @@ and [descriptive views](presidential-cycle-analysis/README.md).
 
 ## Pipeline ownership transition
 
-The local spec 016 branches transfer new pipeline ownership to MarketMedallion
-and provide explicit snapshot selection in QuantMeridian PRES. The frozen
-historical reconstruction has been reproduced from the retained archive. The
-[transfer guide](pipeline/TRANSFER.md) records the local workflow and limits;
-the branches must still be reviewed and merged before the release handoff.
+MarketMedallion spec 016 owns the receiving pipeline, and QuantMeridian PRES
+provides explicit snapshot selection. The frozen historical reconstruction has
+been reproduced from the retained archive. The [transfer guide](pipeline/TRANSFER.md)
+records the local workflow, coordinated releases and limits.
