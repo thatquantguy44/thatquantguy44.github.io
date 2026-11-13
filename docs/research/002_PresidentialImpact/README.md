@@ -27,7 +27,7 @@ independently checked dataset or an established conclusion.
 - [Director-facing research-note draft](director-research-note.md)
 - [Seed-source provenance and verification gaps](sources/source-notes.md)
 - [Source metadata](sources/S001-source.json)
-- [Portable data pipeline](pipeline/README.md)
+- [Archived standalone pipeline and MarketMedallion handoff](pipeline/README.md)
 - [QuantMeridian module specification](quantmeridian-module/SPEC.md)
 - [Run the Presidential Impact module](quantmeridian-module/HANDOFF.md)
 - [Implementation checks and limitations](quantmeridian-module/VALIDATION.md)
@@ -70,3 +70,10 @@ assignment, then the identical view with cycle year 1 explicitly flagged as an
 inauguration-transition period. It does not replace the primary `window_start`
 political-control analysis. See the [cycle protocol](presidential-cycle-protocol.md)
 and [descriptive views](presidential-cycle-analysis/README.md).
+
+## Pipeline ownership transition
+
+MarketMedallion spec 016 owns the receiving pipeline, and QuantMeridian PRES
+provides explicit snapshot selection. The frozen historical reconstruction has
+been reproduced from the retained archive. The [transfer guide](pipeline/TRANSFER.md)
+records the local workflow, coordinated releases and limits.
