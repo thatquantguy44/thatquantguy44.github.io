@@ -1,23 +1,37 @@
-# Transfer guide
+# Presidential research pipeline handoff
 
-The `pipeline/` directory is intentionally self-contained. To move it:
+MarketMedallion is the receiving owner for new presidential research pipeline
+work. The cross-repository `feat/pres-data-integration` branches implement the
+local handoff under MarketMedallion `specs/spec016`; this handoff is not a claim
+that those branches have already merged or been released. The existing standalone
+pipeline remains here as the reproducibility and rollback reference until the
+coordinated release is accepted. Removing the duplicate executable code requires a
+separate reviewed change; preserve published research, protocols and old exports.
 
-1. Copy the entire directory, including `pyproject.toml`, `config/`, `src/`,
-   `tests/`, and these Markdown source decisions.
-2. Install with `python -m pip install -e .`. The core package only uses the
-   Python standard library. Add `.[shiller]` only when parsing the legacy Excel
-   download.
-3. Keep runtime output outside the package or in the ignored `.local/` directory.
-   Move raw archives only when their source terms permit it; preserve their
-   manifest beside them.
-4. Change `config/sources.toml` or provide another config file to substitute a
-   licensed market vendor. Keep the role and return-basis fields truthful.
-5. Run `prepare-control-review` after parsing political candidates. Its output
-   is a review handoff only; create independently reviewed dated intervals in
-   `controls.csv` before any build.
-6. Point the final `build-annual --output` path at the receiving application's
-   import location. The produced JSON uses the documented PRES data contract and
-   does not import QuantMeridian Python or TypeScript code.
+The 2026-11-03 study can be rebuilt offline from the selected retained archive,
+review workbook and official control evidence. On the receiving branch, install
+MarketMedallion and its declared dependencies, then invoke:
 
-There are no hard-coded absolute paths, credentials, database dependencies or
-application imports. Network access occurs only in the explicit `fetch` command.
+```sh
+python -m market_data_pipeline presidential import-frozen \
+  --donor-pipeline /path/to/this/research/pipeline \
+  --workbook /path/to/political_control_review_workbook.xlsx \
+  --workspace /absolute/new/private/workspace
+```
+
+The destination must not exist. The importer selects only the pinned study
+inputs, preserves the original capture manifests and timestamps, checks the
+workbook/controls/evidence hashes, and makes no provider request. It does not
+copy the donor `.local` directory, credentials, virtual environment or database.
+Check the resulting selection with `presidential check --workspace ...`. The
+separately enabled QuantMeridian local reader selects a published snapshot;
+PRES does not execute the donor pipeline.
+
+The frozen donor and receiving pipeline have been compared locally: the five
+datasets agree, and all seven supporting outputs match, including 86 cycle
+rows. These checks do not authenticate the original HTTP Shiller transport,
+independently certify political-control evidence, recover release vintages, or
+make the proxy an exact S&P 500 replication. Live retrieval, new vintages,
+redistribution and hosted access need separate source and operational decisions.
+Use the original archived standalone release to reproduce legacy outputs if the
+receiving branch is unavailable; do not overwrite or delete the retained study.

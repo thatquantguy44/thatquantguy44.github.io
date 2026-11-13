@@ -1,5 +1,10 @@
 # Presidential Impact data pipeline
 
+**Ownership transition:** New pipeline work is being transferred to
+MarketMedallion spec 016. This standalone package remains the archived
+reproducibility and rollback reference until the coordinated branches merge.
+See the [transfer guide](TRANSFER.md) for the verified local frozen import.
+
 This is a small, standalone Python package for acquiring, preserving, checking
 and assembling research inputs for the Presidential Impact project. It is not
 coupled to QuantMeridian: copy this directory into another repository, install it
