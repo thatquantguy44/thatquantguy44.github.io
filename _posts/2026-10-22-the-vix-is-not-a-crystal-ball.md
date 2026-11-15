@@ -211,7 +211,7 @@ The VIX is not a crystal ball. It is an expensive weather forecast: biased towar
 - QuantMeridian-Core, [VIXR white paper and business guide](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/docs/guides/markets/vixr-whitepaper.md). Methodology, reference results, assumptions, validation, and limitations.
 - QuantMeridian-Core, [VIXR calculation engine](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/src/lib/vixImpliedForward.ts) and [expanding-window test](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/src/lib/vixWalkForward.ts).
 - QuantMeridian-Core, [independent Python reference implementation](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/scripts/fixtures/vixr_reference.py).
-- Public reproducibility: [fixture tests, reference calculation, and full-history data requirements](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/docs/guides/markets/vixr-whitepaper.md#reproducing-the-analysis). The public fixtures cover the 2007–09 crisis and 2017; the full-history Gold database used for this post is not bundled.
+- Public reproducibility: [run VIXR from your own VIX and SPY CSVs](https://github.com/thatquantguy44/QuantMeridian-Core/blob/main/docs/guides/markets/vixr-reproduce.md). The public fixtures check the method; the full-history Gold database used for this post is not bundled.
 - Cboe, [VIX methodology](https://cdn.cboe.com/api/global/us_indices/governance/Volatility_Index_Methodology_Cboe_Volatility_Index.pdf).
 - Federal Reserve Bank of St. Louis, [CBOE Volatility Index: VIX](https://fred.stlouisfed.org/series/VIXCLS).
 
